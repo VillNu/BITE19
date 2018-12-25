@@ -1,0 +1,300 @@
+<style>
+{% if section.settings.product_details_display_method == 'hover' %}
+  @media screen and (min-width: 769px) {
+    .product__cover,
+    .product__details {
+      height: 100%;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 1;
+    }
+  }
+{% endif %}
+
+@media screen and (min-width: 769px) {
+  .product__details {
+    {% if section.settings.product_details_display_method == 'always' %}
+      margin-top: 15px;
+    {% endif %}
+
+    z-index: 2;
+  }
+}
+
+{% if section.settings.product_details_display_method == 'always' %}
+  .product__price {
+    margin-bottom: 0;
+  }
+  @include at-query($min, $large) {
+    .product:hover .product__price {
+      color: {{ settings.color_accent }};
+    }
+  }
+{% endif %}
+</style>
+
+{% assign product_rows = section.settings.collection_rows_per_page %}
+{% assign products_per_row = section.settings.collection_products_per_row %}
+{% assign products_per_page = product_rows | times: products_per_row %}
+
+<div data-section-id="{{ section.id }}" data-section-type="collection-template">
+  {% paginate collection.products by products_per_page %}
+
+  <header class="section-header text-center">
+    <h1 class="section-header__title">{{ collection.title }}</h1>
+    {% if collection.description != blank or section.settings.collection_tags_enable or section.settings.collection_sort_enable %}
+      <hr class="hr--small">
+    {% endif %}
+    {% if collection.description != blank %}
+      <div class="rte rte--header">
+        {{ collection.description }}
+      </div>
+    {% endif %}
+    {% if section.settings.collection_tags_enable or section.settings.collection_sort_enable %}
+      <div class="grid--full collection-sorting{% if section.settings.collection_tags_enable %} collection-tags--enabled{% endif %}{% if section.settings.collection_sort_enable %} collection-sorting--enabled{% endif %}">
+        {% if section.settings.collection_tags_enable %}
+          {% include 'collection-tags' %}
+        {% endif %}
+        {% if section.settings.collection_sort_enable %}
+          {% include 'collection-sorting' %}
+        {% endif %}
+      </div>
+    {% endif %}
+  </header>
+
+  {% comment %}
+    Use class grid-uniform to have evenly sized columns clear
+    each other properly at each breakpoint.
+  {% endcomment %}
+  <div class="grid-uniform product-grid">
+
+    {% comment %}
+      Loop through our products in the current collection.
+      See the snippet 'product-grid-item' for the layout.
+    {% endcomment %}
+
+    {% case products_per_row %}
+      {% when '3' %}
+        {% assign grid_item_width = 'medium--one-third large--one-third' %}
+        {% assign product_size = 335 %}
+      {% when '4' %}
+        {% assign grid_item_width = 'medium-down--one-half large--one-quarter' %}
+        {% assign product_size = 460 %}
+    {% endcase %}
+
+    {% for product in collection.products %}
+      {% assign featured = product %}
+      <div class="grid-item {{ grid_item_width }}">
+        {% include 'product-grid-item' with product_size: product_size %}
+      </div>
+
+    {% else %}
+      {% if collection.handle == 'all' %}
+        {% include 'onboarding-empty-collection' %}
+      {% else %}
+        {% comment %}
+          If collection exists but is empty, display message
+        {% endcomment %}
+        <div class="grid-item">
+          <p>{{ 'collections.general.no_matches' | t }}</p>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+
+  {% if paginate.pages > 1 %}
+    <div class="text-center">
+      {% include 'pagination-custom' %}
+    </div>
+  {% endif %}
+  {% endpaginate %}
+</div>
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Kategorieseite",
+    "en": "Collection page",
+    "es": "Página de colecciones",
+    "fr": "Page de collection",
+    "it": "Pagina di collezione",
+    "ja": "コレクションページ",
+    "pt-BR": "Página Coleção"
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "collection_products_per_row",
+      "label": {
+        "de": "Produkte per Reihe",
+        "en": "Products per row",
+        "es": "Productos por fila",
+        "fr": "Produits par rangée",
+        "it": "Prodotti per riga",
+        "ja": "行あたりの商品数",
+        "pt-BR": "Produtos por linha"
+      },
+      "options": [
+        {
+          "value": "3",
+          "label": {
+            "de": "3",
+            "en": "3",
+            "es": "3",
+            "fr": "3",
+            "it": "3",
+            "ja": "3",
+            "pt-BR": "3"
+          }
+        },
+        {
+          "value": "4",
+          "label": {
+            "de": "4",
+            "en": "4",
+            "es": "4",
+            "fr": "4",
+            "it": "4",
+            "ja": "4",
+            "pt-BR": "4"
+          }
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "collection_rows_per_page",
+      "label": {
+        "de": "Zeilen pro Seite",
+        "en": "Rows per page",
+        "es": "Filas por página",
+        "fr": "Rangées par page",
+        "it": "Righe per pagina",
+        "ja": "ページあたりの行数",
+        "pt-BR": "Linhas por página"
+      },
+      "options": [
+        {
+          "value": "3",
+          "label": {
+            "de": "3",
+            "en": "3",
+            "es": "3",
+            "fr": "3",
+            "it": "3",
+            "ja": "3",
+            "pt-BR": "3"
+          }
+        },
+        {
+          "value": "4",
+          "label": {
+            "de": "4",
+            "en": "4",
+            "es": "4",
+            "fr": "4",
+            "it": "4",
+            "ja": "4",
+            "pt-BR": "4"
+          }
+        },
+        {
+          "value": "5",
+          "label": {
+            "de": "5",
+            "en": "5",
+            "es": "5",
+            "fr": "5",
+            "it": "5",
+            "ja": "5",
+            "pt-BR": "5"
+          }
+        },
+        {
+          "value": "6",
+          "label": {
+            "de": "6",
+            "en": "6",
+            "es": "6",
+            "fr": "6",
+            "it": "6",
+            "ja": "6",
+            "pt-BR": "6"
+          }
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_tags_enable",
+      "label": {
+        "de": "Tag-Filtern erlauben",
+        "en": "Enable tag filtering",
+        "es": "Habilitar filtro de etiquetas",
+        "fr": "Activer le filtrage par balises",
+        "it": "Attiva filtro tag",
+        "ja": "タグでの絞り込みを有効にする",
+        "pt-BR": "Ativar filtragem de tag"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_sort_enable",
+      "label": {
+        "de": "Kategoriesortierung aktivieren",
+        "en": "Enable collection sorting",
+        "es": "Habilitar la función ordenar colecciones",
+        "fr": "Activer le tri de la collection",
+        "it": "Abilita ordinamento collezione",
+        "ja": "コレクションの並べ替えを有効にする",
+        "pt-BR": "Ativar a ordenação de coleções"
+      }
+    },
+    {
+      "type": "select",
+      "id": "product_details_display_method",
+      "label": {
+        "de": "Produkttitel und Preis anzeigen",
+        "en": "Show product title and price",
+        "es": "Mostrar título y precio del producto",
+        "fr": "Afficher le titre et le prix du produit",
+        "it": "Mostra titolo e prezzo del prodotto",
+        "ja": "商品のタイトルと価格を表示する",
+        "pt-BR": "Exibir título e preço do produto"
+      },
+      "options": [
+        {
+          "value": "always",
+          "label": {
+            "de": "Immer",
+            "en": "Always",
+            "es": "Siempre",
+            "fr": "Toujours",
+            "it": "Sempre",
+            "ja": "常に",
+            "pt-BR": "Sempre"
+          }
+        },
+        {
+          "value": "hover",
+          "label": {
+            "de": "Beim Herüberfahren",
+            "en": "On hover",
+            "es": "En hover",
+            "fr": "Au passage de la souris",
+            "it": "Al passaggio del mouse",
+            "ja": "マウスオーバー時に",
+            "pt-BR": "Ao passar"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
