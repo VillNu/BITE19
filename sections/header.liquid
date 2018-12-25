@@ -28,7 +28,12 @@
 
 @media screen and (min-width: 1025px) {
   .main-content {
-    margin: 90px 0 0 0;
+    margin: 0 0 0 0;
+  }
+
+  #shopify-section-header {
+    position: relative;
+    z-index: 3;
   }
 
   .site-header {
@@ -37,6 +42,8 @@
     overflow-y: auto;
     left: 0;
     position: fixed;
+    background: transparent;
+    pointer-events: none;
   }
 }
 
@@ -50,8 +57,9 @@
 
 @media screen and (min-width: 1025px) {
   .page-wrapper {
-    left: {{ navSize }};
-    width: calc(100% - {{ navSize }});
+/*    left: {{ navSize }};
+    width: calc(100% - {{ navSize }}); */
+    width: 98vw;
   }
 }
 
@@ -69,8 +77,8 @@
     left: -{{ navSize }};
   }
   .supports-csstransforms .page-move--cart .page-wrapper {
-    left: calc({{ navSize }} / 2);
-    transform: translateX(calc(-50% + ({{ navSize }} / 2)));
+/*    left: calc({{ navSize }} / 2);
+    transform: translateX(calc(-50% + ({{ navSize }} / 2))); */
   }
 }
 
@@ -107,6 +115,10 @@
 
 .nav-bar {
   height: {{ navHeaderSize }};
+}
+
+.site-nav li, a {
+  pointer-events: auto;
 }
 
 @media screen and (max-width: 1024px) {
