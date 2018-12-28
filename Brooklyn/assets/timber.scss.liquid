@@ -1790,6 +1790,12 @@ $socialIconFontStack: 'icons';
 .js-drawer-open {
   overflow: hidden;
 }
+/* bespoke-bite: scrollable when always opened on large screens */
+@include at-query($min, $large) {
+  .bespoke-bite.js-drawer-open-left {
+    overflow: auto;
+  }
+}
 
 .drawer {
   display: none;
