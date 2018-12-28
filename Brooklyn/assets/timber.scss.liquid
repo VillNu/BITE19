@@ -1841,6 +1841,19 @@ $socialIconFontStack: 'icons';
   }
 }
 
+/* bespoke-bite: version for bigger screens with always opened menu */
+@include at-query($min, $large) {
+  .bespoke-bite .drawer--left {
+    width: $drawerNavWidth;
+    left: 0;
+    display: block;
+    .js-drawer-open-left & {
+      display: block;
+      @include transform(translateX(0));
+    }
+  }
+}
+
 .drawer--right {
   width: $drawerCartWidth;
   right: -$drawerCartWidth;
@@ -1876,6 +1889,18 @@ $socialIconFontStack: 'icons';
     }
   }
 }
+
+/* bespoke-bite: version for bigger screens with always opened menu */
+@include at-query($min, $postSmall) {
+  .bespoke-bite .page-container,
+  .bespoke-bite .drawer__header-container {
+    .js-drawer-open-left & {
+      @include transform(translateX(0));
+    }
+  }
+}
+
+
 
 .drawer__header {
   display: table;
@@ -3263,4 +3288,3 @@ $socialIconFontStack: 'icons';
     }
   }
 }
-
