@@ -1853,8 +1853,9 @@ $socialIconFontStack: 'icons';
     width: $drawerNavWidth;
     left: 0;
     display: block;
+    background-color: transparent;
     .js-drawer-open-left & {
-      display: block;
+/*      display: block; */
       @include transform(translateX(0));
     }
   }
@@ -2659,8 +2660,14 @@ $socialIconFontStack: 'icons';
   // element overlap on subnav's CSS toggle animation
   .mobile-nav > & {
     background-color: $colorDrawers;
+
+    /* bespoke-bite: transparent menu on large screens */
+    @include at-query ($min, $large) {
+      background-color: transparent;
+    }
   }
 
+/* bespoke-bite: remove horisontal lines
   &:after {
     content: "";
     position: absolute;
@@ -2668,7 +2675,7 @@ $socialIconFontStack: 'icons';
     left: $gutter / 2;
     right: $gutter / 2;
     border-bottom: 1px solid $colorDrawerBorder;
-  }
+  } */
 
   .mobile-nav > &:last-child:after {
     display: none;
