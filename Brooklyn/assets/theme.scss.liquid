@@ -2790,6 +2790,12 @@ $slick-opacity-not-active: 0.25;
   &::after {
     border-color: #000;
   }
+
+  /* bespoke-bite: hide menu-icon on large screens */
+  @include at-query($min, $large) {
+    display: none !important;
+  }
+
 }
 
 .site-nav__item {
