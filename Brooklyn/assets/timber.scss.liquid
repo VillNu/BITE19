@@ -2704,10 +2704,14 @@ $socialIconFontStack: 'icons';
   }
 }
 
-/* bespoke-bite: contrasting color when text i in front of hero image */
+/* bespoke-bite */
 @include at-query ($min, $large) {
-  .mobile-nav__item a.contrasting-color {
-    color: white;
+  .mobile-nav__item a {
+    padding: 0; /* compact menu-links */
+    /* better visibility when menu-link in front of hero image */
+    &.contrasting-color {
+      color: white;
+    }
   }
 }
 
