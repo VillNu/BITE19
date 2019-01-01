@@ -2697,6 +2697,11 @@ $socialIconFontStack: 'icons';
   padding: $gutter / 2;
   text-decoration: none;
 
+  /* bespoke-bite: */
+  @include at-query ($min, $large) { /* when large screen */
+    padding: 0; /* compact menu */
+  }
+
   &:active,
   &:focus {
     color: darken($colorDrawerText, 15%);
@@ -2704,14 +2709,12 @@ $socialIconFontStack: 'icons';
   }
 }
 
-/* bespoke-bite */
-@include at-query ($min, $large) {
-  .mobile-nav__item a {
-    padding: 0; /* compact menu-links */
-    /* better visibility when menu-link in front of hero image */
-    &.contrasting-color {
-      color: white;
-    }
+/* bespoke-bite: */
+@include at-query ($min, $large) { /* when large screen */
+  /* and when menu-items are in front of the hero slider */
+  .mobile-nav__item.over-hero a,
+  .over-hero .mobile-nav__toggle button {
+    color: white; /* white color for better contrast  */
   }
 }
 

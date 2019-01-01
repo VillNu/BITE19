@@ -3449,12 +3449,12 @@ $(document).ready(function() {
 
 /* bespoke-bite: left menu better visability, switch between black and white */
 $(window).on("scroll touchmove", function() {
-  $(".mobile-nav__item a").each(function(){
+  $(".mobile-nav__item").each(function(){
       if ($(this).offset().top < $(".main-content").offset().top) {
-        $(this).addClass("contrasting-color");
+        $(this).addClass("over-hero");
       }
       else {
-        $(this).removeClass("contrasting-color");
+        $(this).removeClass("over-hero");
       }
   });
 });

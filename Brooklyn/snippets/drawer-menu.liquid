@@ -7,11 +7,11 @@
     <ul class="mobile-nav">
       {% for link in linklists[section.settings.main_menu_link_list].links %}
         {% if link.links != blank %}
-          <li class="mobile-nav__item">
+          <li class="mobile-nav__item over-hero">
             <div class="mobile-nav__has-sublist">
               <a
                 href="{{ link.url }}"
-                class="mobile-nav__link contrasting-color"
+                class="mobile-nav__link"
                 id="Label-{{ forloop.index }}"
                 {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>{{ link.title | escape }}</a>
               <div class="mobile-nav__toggle">
@@ -31,11 +31,11 @@
               {% assign parent_index = forloop.index %}
               {% for childlink in link.links %}
                 {% if childlink.links != blank %}
-                <li class="mobile-nav__item">
+                <li class="mobile-nav__item over-hero">
                   <div class="mobile-nav__has-sublist">
                     <a
                       href="{{ childlink.url }}"
-                      class="mobile-nav__link contrasting-color"
+                      class="mobile-nav__link"
                       id="Label-{{ parent_index }}-{{ forloop.index }}"
                       {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
                         {{ childlink.title }}
@@ -55,10 +55,10 @@
                   </div>
                   <ul class="mobile-nav__sublist mobile-nav__subsublist" id="Linklist-{{ parent_index }}-{{ forloop.index }}" aria-labelledby="Label-{{ parent_index }}-{{ forloop.index }}" role="navigation">
                     {% for grandchildlink in childlink.links %}
-                      <li class="mobile-nav__item">
+                      <li class="mobile-nav__item over-hero">
                         <a
                           href="{{ grandchildlink.url }}"
-                          class="mobile-nav__link contrasting-color"
+                          class="mobile-nav__link"
                           {% unless template.name == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless%}>
                             {{ grandchildlink.title | escape }}
                         </a>
@@ -67,10 +67,10 @@
                   </ul>
                 </li>
                 {% else %}
-                <li class="mobile-nav__item">
+                <li class="mobile-nav__item over-hero">
                   <a
                     href="{{ childlink.url }}"
-                    class="mobile-nav__link contrasting-color"
+                    class="mobile-nav__link"
                     {% unless template.name == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless%}>
                       {{ childlink.title | escape }}
                   </a>
@@ -82,10 +82,10 @@
 
           {% else %}
 
-          <li class="mobile-nav__item">
+          <li class="mobile-nav__item over-hero">
             <a
               href="{{ link.url }}"
-              class="mobile-nav__link contrasting-color"
+              class="mobile-nav__link"
               {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
                 {{ link.title | escape }}
             </a>
