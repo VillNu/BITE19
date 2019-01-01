@@ -7,7 +7,7 @@
     <ul class="mobile-nav">
       {% for link in linklists[section.settings.main_menu_link_list].links %}
         {% if link.links != blank %}
-          <li class="mobile-nav__item over-hero">
+          <li class="mobile-nav__item">
             <div class="mobile-nav__has-sublist">
               <a
                 href="{{ link.url }}"
@@ -31,7 +31,7 @@
               {% assign parent_index = forloop.index %}
               {% for childlink in link.links %}
                 {% if childlink.links != blank %}
-                <li class="mobile-nav__item over-hero">
+                <li class="mobile-nav__item">
                   <div class="mobile-nav__has-sublist">
                     <a
                       href="{{ childlink.url }}"
@@ -55,7 +55,7 @@
                   </div>
                   <ul class="mobile-nav__sublist mobile-nav__subsublist" id="Linklist-{{ parent_index }}-{{ forloop.index }}" aria-labelledby="Label-{{ parent_index }}-{{ forloop.index }}" role="navigation">
                     {% for grandchildlink in childlink.links %}
-                      <li class="mobile-nav__item over-hero">
+                      <li class="mobile-nav__item">
                         <a
                           href="{{ grandchildlink.url }}"
                           class="mobile-nav__link"
@@ -67,7 +67,7 @@
                   </ul>
                 </li>
                 {% else %}
-                <li class="mobile-nav__item over-hero">
+                <li class="mobile-nav__item">
                   <a
                     href="{{ childlink.url }}"
                     class="mobile-nav__link"
@@ -82,7 +82,7 @@
 
           {% else %}
 
-          <li class="mobile-nav__item over-hero">
+          <li class="mobile-nav__item">
             <a
               href="{{ link.url }}"
               class="mobile-nav__link"

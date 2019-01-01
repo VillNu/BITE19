@@ -2706,15 +2706,16 @@ $socialIconFontStack: 'icons';
   &:active,
   &:focus {
     color: darken($colorDrawerText, 15%);
-    background-color: darken($colorDrawers, 5%);
+    /* background-color: darken($colorDrawers, 5%);  bespoke-bite */
   }
 }
 
 /* bespoke-bite: */
 @include at-query ($min, $large) { /* when large screen */
   /* and when menu-items are in front of the hero slider */
-  .mobile-nav__item.over-hero a,
-  .over-hero .mobile-nav__toggle button {
+  .mobile-nav__item.over-hero > a,
+  .mobile-nav__item.over-hero > .mobile-nav__has-sublist > a,
+  .mobile-nav__item.over-hero > .mobile-nav__has-sublist > .mobile-nav__toggle > button {
     color: white; /* white color for better contrast  */
   }
 }
