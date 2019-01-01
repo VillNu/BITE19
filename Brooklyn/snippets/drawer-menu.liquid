@@ -11,7 +11,7 @@
             <div class="mobile-nav__has-sublist">
               <a
                 href="{{ link.url }}"
-                class="mobile-nav__link"
+                class="mobile-nav__link contrasting-color"
                 id="Label-{{ forloop.index }}"
                 {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>{{ link.title | escape }}</a>
               <div class="mobile-nav__toggle">
@@ -35,7 +35,7 @@
                   <div class="mobile-nav__has-sublist">
                     <a
                       href="{{ childlink.url }}"
-                      class="mobile-nav__link"
+                      class="mobile-nav__link contrasting-color"
                       id="Label-{{ parent_index }}-{{ forloop.index }}"
                       {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
                         {{ childlink.title }}
@@ -58,7 +58,7 @@
                       <li class="mobile-nav__item">
                         <a
                           href="{{ grandchildlink.url }}"
-                          class="mobile-nav__link"
+                          class="mobile-nav__link contrasting-color"
                           {% unless template.name == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless%}>
                             {{ grandchildlink.title | escape }}
                         </a>
@@ -70,7 +70,7 @@
                 <li class="mobile-nav__item">
                   <a
                     href="{{ childlink.url }}"
-                    class="mobile-nav__link"
+                    class="mobile-nav__link contrasting-color"
                     {% unless template.name == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless%}>
                       {{ childlink.title | escape }}
                   </a>
@@ -85,7 +85,7 @@
           <li class="mobile-nav__item">
             <a
               href="{{ link.url }}"
-              class="mobile-nav__link"
+              class="mobile-nav__link contrasting-color"
               {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
                 {{ link.title | escape }}
             </a>
@@ -124,4 +124,3 @@
     </ul>
     <!-- //mobile-nav -->
   </div>
-

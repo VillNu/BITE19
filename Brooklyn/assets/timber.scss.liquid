@@ -2704,6 +2704,13 @@ $socialIconFontStack: 'icons';
   }
 }
 
+/* bespoke-bite: contrasting color when text i in front of hero image */
+@include at-query ($min, $large) {
+  .mobile-nav__item a.contrasting-color {
+    color: white;
+  }
+}
+
 .mobile-nav__item--secondary {
   a {
     font-size: 16px;

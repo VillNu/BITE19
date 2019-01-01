@@ -3445,3 +3445,16 @@ $(document).ready(function() {
   sections.register('map', theme.Maps);
   sections.register('search', theme.Search);
 });
+
+
+/* bespoke-bite: left menu better visability, switch between black and white */
+$(window).on("scroll touchmove", function() {
+  $(".mobile-nav__item a").each(function(){
+      if ($(this).offset().top < $(".main-content").offset().top) {
+        $(this).addClass("contrasting-color");
+      }
+      else {
+        $(this).removeClass("contrasting-color");
+      }
+  });
+});
