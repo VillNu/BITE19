@@ -1893,8 +1893,8 @@ $socialIconFontStack: 'icons';
   }
 }
 
-/* bespoke-bite: version for bigger screens with always opened menu */
-@include at-query($min, $postSmall) {
+/* bespoke-bite: always opened menu on large screens */
+@include at-query($min, $large) {
   .bespoke-bite .page-container,
   .bespoke-bite .drawer__header-container {
     .js-drawer-open-left & {
