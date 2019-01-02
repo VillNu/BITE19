@@ -5,6 +5,14 @@
     {% endif %}
 
     <ul class="mobile-nav">
+      <li class="mobile-nav__item">
+        <a href="/" itemprop="url" class="site-header__logo-link">
+                    <img src="{{ section.settings.logo | img_url: image_size }}"
+                    srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                    alt="{{ section.settings.logo.alt | default: shop.name }}"
+                    itemprop="logo">
+        </a>
+      </li>
       {% for link in linklists[section.settings.main_menu_link_list].links %}
         {% if link.links != blank %}
           <li class="mobile-nav__item">
