@@ -294,7 +294,7 @@ $max: max-width;
 }
 
 $viewportIncrement: 1px;
-$siteWidth: 1050px;
+$siteWidth: initial; /* bespoke-bite: full instead of 1050px; */
 $small: 590px;
 $medium: 768px;
 $large: 769px;
@@ -385,7 +385,7 @@ $colorDrawerButtonText: {{ settings.color_drawer_button_text }};
 $drawerTransition: 'all 0.35s cubic-bezier(0.46, 0.01 , 0.32, 1)';
 
 // Sizing variables
-$gutter: 20px;
+$gutter: 20px; /* bespoke-bite: default 30px */
 $gridGutterMobile: 22px;
 $section-spacing-small: 35px;
 $gridGutter: 30px; // can be a %, but nested grids will have smaller margins because of it
@@ -1789,11 +1789,7 @@ $socialIconFontStack: 'icons';
 
 /*================ Partials | Drawers ================*/
 .js-drawer-open {
-<<<<<<< HEAD
 /*  overflow: hidden; /* bespoke-bite: reactivated scroll also when left menu is open */
-=======
-/*  overflow: hidden; /* bespoke-bite: scroll also when left menu is open */
->>>>>>> c4079a2177ad7a0f8cf79bac4c1b912c05b31f90
 }
 
 .drawer {
@@ -1839,7 +1835,7 @@ $socialIconFontStack: 'icons';
 .drawer--left {
   width: $drawerNavWidth;
   left: -$drawerNavWidth;
-  height: 100vh; /* bespoke-bite */
+  height: 100vh;
 
   .js-drawer-open-left & {
     display: block;
