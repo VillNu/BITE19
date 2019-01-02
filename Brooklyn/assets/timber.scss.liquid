@@ -1789,13 +1789,7 @@ $socialIconFontStack: 'icons';
 
 /*================ Partials | Drawers ================*/
 .js-drawer-open {
-/*  overflow: hidden; bespoke-bite */
-}
-/* bespoke-bite: scrollable when always opened on large screens */
-@include at-query($min, $large) {
-  .bespoke-bite.js-drawer-open-left {
-    overflow: auto;
-  }
+/*  overflow: hidden; /* bespoke-bite: reactivated scroll also when left menu is open */
 }
 
 .drawer {
