@@ -6,7 +6,7 @@
 
     <ul class="mobile-nav">
       <li class="mobile-nav__item{% if template.name == 'index' %} over-hero{% endif %}">
-        <a href="/" itemprop="url" class="site-header__logo-link">
+        <a href="/" itemprop="url" class="mobile-nav__logo-link">
                     <img src="{{ section.settings.logo | img_url: image_size }}"
                     srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
                     alt="{{ section.settings.logo.alt | default: shop.name }}"
