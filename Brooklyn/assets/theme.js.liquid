@@ -3448,9 +3448,9 @@ $(document).ready(function() {
 
 
 /* bespoke-bite: left menu better visability, switch between black and white */
-$(window).on("scroll touchmove click", function() {
+$(window).on("scroll touchmove", function() {
   $(".mobile-nav__item, mobile-nav__toggle-btn").each(function(){
-      if ($(this).offset().top+6 <= $(".main-content").offset().top) {
+      if ($(this).offset().top+16 <= $(".main-content").offset().top) {
         $(this).addClass("over-hero");
       }
       else {
