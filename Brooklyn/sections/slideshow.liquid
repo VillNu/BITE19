@@ -118,19 +118,25 @@
             <div class="hero__text-wrap slideshow__overlay">
               <div class="hero__text-align">
                 <div class="hero__text-content">
-                  {% unless block.settings.slide_subheading == blank %}
-                    <p class="hero__subtitle">
-                      {{ block.settings.slide_subheading | escape }}
-                    </p>
-                  {% endunless %}
                   {% unless block.settings.slide_heading == blank %}
                     <h2 class="h1 hero__title">
                       {{ block.settings.slide_heading | escape }}
                     </h2>
                   {% endunless %}
+                  {% unless block.settings.slide_logo == blank %}
+                    <img class="slide__logo lazyload fade-in"
+                      src="{{ block.settings.slide_logo | img_url: '300x' }}">
+                  {% endunless %}
+                  {% unless block.settings.slide_subheading == blank %}
+                    <p class="hero__subtitle">
+                      <a href="{{ block.settings.slide_link }}" style="color: {{ section.settings.slide_button_label_color }}; background-color: {{ section.settings.slide_button_background_color }}">
+                        {{ block.settings.slide_subheading | escape }}
+                      </a>
+                    </p>
+                  {% endunless %}
                   {% unless block.settings.slide_cta == blank %}
-                    <a href="{{ block.settings.slide_link }}" style="color: {{ section.settings.slide_button_label_color }}; background-color: {{ section.settings.slide_button_background_color }}" class="btn hero__cta">
-                      {{ block.settings.slide_cta | escape }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                    <a class="hero__cta" href="{{ block.settings.slide_link }}" style="color: {{ section.settings.slide_button_label_color }}; background-color: {{ section.settings.slide_button_background_color }}">
+                      {{ block.settings.slide_cta | escape }}
                     </a>
                   {% endunless %}
                 </div>
@@ -358,28 +364,6 @@
         },
         {
           "type": "text",
-          "id": "slide_subheading",
-          "label": {
-            "de": "Untertiteltext",
-            "en": "Subheading text",
-            "es": "Texto del subtítulo",
-            "fr": "Texte du sous-titre",
-            "it": "Testo del sottotitolo",
-            "ja": "小見出しテキスト",
-            "pt-BR": "Texto do subtítulo"
-          },
-          "default": {
-            "de": "Für den Einstieg:",
-            "en": "An introductory",
-            "es": "Frase introductoria",
-            "fr": "Introduction",
-            "it": "Come introduzione",
-            "ja": "紹介",
-            "pt-BR": "Uma introdução"
-          }
-        },
-        {
-          "type": "text",
           "id": "slide_heading",
           "label": {
             "de": "Überschriftentext",
@@ -398,6 +382,41 @@
             "it": "Banner hero",
             "ja": "ヒーローバナー",
             "pt-BR": "Banner do Hero"
+          }
+        },
+        {
+          "type": "image_picker",
+          "id": "slide_logo",
+          "label": {
+            "de": "Slide logo",
+            "en": "Slide logo",
+            "es": "Slide logo",
+            "fr": "Slide logo",
+            "it": "Slide logo",
+            "ja": "Slide logo",
+            "pt-BR": "Slide logo"
+          }
+        },
+        {
+          "type": "text",
+          "id": "slide_subheading",
+          "label": {
+            "de": "Untertiteltext",
+            "en": "Subheading text",
+            "es": "Texto del subtítulo",
+            "fr": "Texte du sous-titre",
+            "it": "Testo del sottotitolo",
+            "ja": "小見出しテキスト",
+            "pt-BR": "Texto do subtítulo"
+          },
+          "default": {
+            "de": "Für den Einstieg:",
+            "en": "An introductory",
+            "es": "Frase introductoria",
+            "fr": "Introduction",
+            "it": "Come introduzione",
+            "ja": "紹介",
+            "pt-BR": "Uma introdução"
           }
         },
         {

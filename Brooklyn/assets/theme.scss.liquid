@@ -2219,6 +2219,7 @@ $shareCountBg: $colorBody;
   vertical-align: middle;
   padding: 15px 30px 0;
   @include transition('color 0.2s ease');
+  width: 100%;
 
   .slick-initialized & {
     opacity: 1;
@@ -2240,6 +2241,9 @@ $shareCountBg: $colorBody;
     margin-bottom: 20px;
     line-height: 1.25;
     letter-spacing: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
   }
 
   .hero__subtitle {
@@ -2248,11 +2252,22 @@ $shareCountBg: $colorBody;
     {% else %}
       @include headerFontStack;
     {% endif %}
-    margin-bottom: 15px;
+    position: absolute;
+    position: absolute;
+    left: calc(40% - 14vh);
+    top: 66%;
   }
 
   a.hero__cta {
-    margin-bottom: 0;
+    {% if settings.type_accent_subheadings %}
+      @include accentFontStack;
+    {% else %}
+      @include headerFontStack;
+    {% endif %}
+    position: absolute;
+    position: absolute;
+    right: 20%;
+    top: 80%;
   }
 }
 
@@ -2266,6 +2281,11 @@ $shareCountBg: $colorBody;
     font-size: em(15px);
   }
 
+  a.hero__cta {
+    font-size: em(16px);
+  }
+
+
   @include at-query($min, $postSmall) {
     .hero__title {
       font-size: em(60px);
@@ -2274,11 +2294,23 @@ $shareCountBg: $colorBody;
     .hero__subtitle {
       font-size: em(18px);
     }
+
+    a.hero__cta {
+      font-size: em(18px);
+    }
   }
 
   @include at-query($min, $large) {
     .hero__title {
       font-size: em(64px);
+    }
+
+    .hero__subtitle {
+      font-size: em(25px);
+    }
+
+    a.hero__cta {
+      font-size: em(20px);
     }
   }
 }
@@ -2429,10 +2461,14 @@ $slick-opacity-not-active: 0.25;
     pointer-events: none;
   }
 
+.slide__logo {
+  display: inline-block;
+}
+
   .slick-initialized & {
     display: block;
     visibility: visible;
-    left: -100px
+    left: -1.777%;
   }
 
   .slick-loading & {
