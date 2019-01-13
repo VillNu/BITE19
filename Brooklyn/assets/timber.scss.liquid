@@ -1851,6 +1851,7 @@ $socialIconFontStack: 'icons';
     display: block;
     background-color: transparent;
     overflow: visible;
+    pointer-events: none;
     .js-drawer-open-left & {
 /*      display: block; */
       @include transform(translateX(0));
@@ -2680,12 +2681,18 @@ $socialIconFontStack: 'icons';
 }
 
 .mobile-nav__item a {
-  display: block;
+  display: inline-block;
   font-size: 20px;
+
   .mobile-nav__subsublist & {
     padding-left: 45px;
     font-size: 16px;
   }
+
+  &[aria-current="page"] { /* bespoke-bite */
+    font-weight: 600;
+  }
+  
 }
 
 .mobile-nav__item a,
@@ -2693,6 +2700,7 @@ $socialIconFontStack: 'icons';
   color: $colorDrawerText;
   padding: $gutter / 2;
   text-decoration: none;
+  pointer-events: auto; /* bespoke-bite */
 
   /* bespoke-bite: */
   @include at-query ($min, $large) { /* when large screen */
@@ -2741,18 +2749,17 @@ $socialIconFontStack: 'icons';
 }
 
 .mobile-nav__has-sublist {
-  display: table;
+  display: inline-block;
   width: 100%;
 
   .mobile-nav__link {
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
-    width: 100%;
   }
 }
 
 .mobile-nav__toggle {
-  display: table-cell;
+  display: inline-block;
   vertical-align: middle;
   width: 1%;
 }
