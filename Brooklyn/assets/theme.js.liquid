@@ -3471,6 +3471,14 @@ $(window).on("scroll touchmove", function() {
       }
   });
 
+  /* bespoke-bite: menu-logo toggles when scrolling hero */
+    if ($(".slide__logo").offset().top + $(".slide__logo").height() - $(window).scrollTop() > 0) {
+      //$(".mobile-nav__item:has(#menu-logo)").addClass("dont_overshine_the_hero");
+      $(".mobile-nav__item:has(#menu-logo)").fadeOut();
+    }
+    else {
+      $(".mobile-nav__item:has(#menu-logo)").fadeIn();
+    }
   /* bespoke-bite: place menu-logo initially over hero center
   $("#menu-logo").css("left", heroSlideWidth/2 - (logoInitX + logoWidth/2));
   $("#menu-logo").css("top", heroSlideHeight/2 - (logoInitY + logoHeight/2 + $(window).scrollTop()));
