@@ -1517,6 +1517,65 @@ input[type="image"] {
     }
   }
 }
+/*================ Modules | Bite grid ================*/
+.bite-grid {
+  display: grid;
+  grid-auto-rows: (100px, auto);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-areas:
+    '   .     .    second  second  third     .'
+    '   .   first  second  second  fifth   fifth'
+    'fourth fourth fourth  fourth  fifth   fifth'
+    'sixth  sixth  seventh seventh seventh seventh'
+    'sixth  sixth  seventh seventh seventh seventh'
+    'eigth  eigth  ninth   ninth   tenth     .';
+  margin-left: -20px;
+  margin-right: -20px;
+
+  & [class^="bite-grid--"], & [class*=" bite-grid--"] {
+    padding: 0;
+  }
+	& .bite-grid--first {
+		grid-area: first;
+	}
+	& .bite-grid--second {
+		grid-area: second;
+	}
+	& .bite-grid--third {
+		grid-area: third;
+	}
+	& .bite-grid--fourth {
+		grid-area: fourth;
+	}
+	& .bite-grid--fifth {
+		grid-area: fifth;
+	}
+	& .bite-grid--sixth {
+		grid-area: sixth;
+	}
+	& .bite-grid--seventh {
+		grid-area: seventh;
+	}
+	& .bite-grid--eigth {
+		grid-area: eigth;
+	}
+	& .bite-grid--ninth {
+		grid-area: ninth;
+	}
+	& .bite-grid--tenth {
+		grid-area: tenth;
+	}
+
+  & .grid-product__wrapper {
+    margin-bottom: 0;
+  }
+  & .grid-product__meta {
+    display: none;
+  }
+  & .grid-product__image {
+
+  }
+}
 
 /*================ Partials | Theme button overrides ================*/
 a {

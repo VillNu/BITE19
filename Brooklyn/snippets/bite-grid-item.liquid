@@ -40,12 +40,15 @@
 {% capture img_wrapper_id %}ProductImageWrapper-{{ product.featured_image.id }}{% endcapture %}
 {%- assign img_url = product.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
 
-<div class="grid__item grid-product {% if sold_out %} is-sold-out{% endif %}" {{block.shopify_attributes }}>
+<div class="grid__item grid-product {% if sold_out %}is-sold-out{% endif %}bite-grid--{%cycle 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eigth', 'ninth', 'tenth'%}" {{block.shopify_attributes }}>
   <div class="grid-product__wrapper">
     <div class="grid-product__image-wrapper">
       <a class="grid-product__image-link" href="{{ product.url | within: collection }}">
+
         {% if product.featured_image.src == blank %}
+{% endif %}
           <img class="grid-product__image" src="{{ product.featured_image.src | img_url: '1024x' }}" alt="{{ product.featured_image.alt | escape }}">
+{% comment %}
         {% else %}
           {% include 'image-style' with image: product.featured_image, small_style: true, width: width, height: height, wrapper_id: img_wrapper_id, img_id_class: img_id_class %}
           <div id="{{ img_wrapper_id }}" class="product--wrapper">
@@ -63,6 +66,7 @@
             <img class="grid-product__image" src="{{ product.featured_image.src | img_url: '1024x' }}" alt="{{ product.featured_image.alt | escape }}">
           </noscript>
         {% endif %}
+{% endcomment %}
       </a>
       {% if sold_out %}
         <div class="grid-product__sold-out">
