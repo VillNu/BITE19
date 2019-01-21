@@ -1524,47 +1524,65 @@ input[type="image"] {
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 10px;
   grid-template-areas:
-    '   .     .    second  second  third     .'
-    '   .   first  second  second  fifth   fifth'
-    'fourth fourth fourth  fourth  fifth   fifth'
-    'sixth  sixth  seventh seventh seventh seventh'
-    'sixth  sixth  seventh seventh seventh seventh'
-    'eigth  eigth  ninth   ninth   tenth     .';
+    '.    .    ii   ii  iii .'
+    '.    i    ii   ii  v   v'
+    'iv   iv   iv   iv  v   v'
+    'vi   vi   vii  vii vii vii'
+    'vi   vi   vii  vii vii vii'
+    'viii viii ix   ix   x  .'
+    '.    .    ix   ix   xi xi'
+    'xii  xii  xiii xiii xiv xiv'
+    '.    .    xiii xiii xiv xiv';
   margin-left: -20px;
   margin-right: -20px;
 
   & [class^="bite-grid--"], & [class*=" bite-grid--"] {
     padding: 0;
   }
-	& .bite-grid--first {
-		grid-area: first;
+	& .bite-grid--i {
+		grid-area: i;
 	}
-	& .bite-grid--second {
-		grid-area: second;
+	& .bite-grid--ii {
+		grid-area: ii;
 	}
-	& .bite-grid--third {
-		grid-area: third;
+	& .bite-grid--iii {
+		grid-area: iii;
 	}
-	& .bite-grid--fourth {
-		grid-area: fourth;
+	& .bite-grid--iv {
+		grid-area: iv;
 	}
-	& .bite-grid--fifth {
-		grid-area: fifth;
+	& .bite-grid--v {
+		grid-area: v;
 	}
-	& .bite-grid--sixth {
-		grid-area: sixth;
+	& .bite-grid--vi {
+		grid-area: vi;
 	}
-	& .bite-grid--seventh {
-		grid-area: seventh;
+	& .bite-grid--vii {
+		grid-area: vii;
 	}
-	& .bite-grid--eigth {
-		grid-area: eigth;
+	& .bite-grid--viii {
+		grid-area: viii;
 	}
-	& .bite-grid--ninth {
-		grid-area: ninth;
+	& .bite-grid--ix {
+		grid-area: ix;
 	}
-	& .bite-grid--tenth {
-		grid-area: tenth;
+	& .bite-grid--x {
+		grid-area: x;
+	}
+  & .bite-grid--xi {
+		grid-area: xi;
+	}
+  & .bite-grid--xii {
+		grid-area: xii;
+	}
+  & .bite-grid--xiii {
+		grid-area: xiii;
+	}
+  & .bite-grid--xiv {
+		grid-area: xiv;
+	}
+  & .bite-grid--xv {
+		grid-area: xv;
 	}
 
   & .grid-product__wrapper {

@@ -528,14 +528,14 @@ body {
 
 .main-content {
   display: block;
-  padding-top: $gutter;
+  padding-top: 0; /* $gutter; */
 
   @include at-query($min, $postSmall) {
     padding-bottom: 40px;
   }
 
   @include at-query($min, $large) {
-    padding-top: $contentTopMargin;
+    padding-top: 0; /* $contentTopMargin; */
   }
 }
 
@@ -2692,7 +2692,7 @@ $socialIconFontStack: 'icons';
   &[aria-current="page"] { /* bespoke-bite */
     font-weight: 600;
   }
-  
+
 }
 
 .mobile-nav__item a,

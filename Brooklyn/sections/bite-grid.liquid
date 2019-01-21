@@ -7,9 +7,9 @@
   {% endif %}
 
   <div class="grid bite-grid">
-		
+
     {% comment %}
-      Show up to 99 products.
+      Show up to 14 products.
       Frontpage will be excluded if products defined automatically.
     {% endcomment %}
     {% assign isEmpty = true %}
@@ -22,15 +22,15 @@
     {% comment %}
       Loop through the products to display
     {% endcomment %}
-    
+
     {% for block in section.blocks %}
    		{% assign product = all_products[block.settings.product] %}
         {% assign product_index = product_index | plus: 1 %}
         {% assign product_count = product_count | plus: 1 %}
         {% assign product_handle = product.handle %}
-    
+
     	{% include 'bite-grid-item' %}
-        
+
 
 		{% comment %}
 			<div class="grid-item" {{ block.shopify_attributes }}>
@@ -46,11 +46,11 @@
 
     {% endfor %}
 
-    
+
     {% if product_count > 0 %}
       {% assign isEmpty = false %}
     {% endif %}
-    
+
     {% if isEmpty %}
       <div class="wrapper">
         <div class="grid">
@@ -79,7 +79,7 @@
     "ja": "Bite Grid",
     "pt-BR": "Bite Grid"
   },
-  "max_blocks": 99,
+  "max_blocks": 14,
   "settings": [
     {
       "type": "text",

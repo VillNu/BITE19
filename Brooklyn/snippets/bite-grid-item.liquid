@@ -40,7 +40,7 @@
 {% capture img_wrapper_id %}ProductImageWrapper-{{ product.featured_image.id }}{% endcapture %}
 {%- assign img_url = product.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
 
-<div class="grid__item grid-product {% if sold_out %}is-sold-out{% endif %}bite-grid--{%cycle 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eigth', 'ninth', 'tenth'%}" {{block.shopify_attributes }}>
+<div class="grid__item grid-product {% if sold_out %}is-sold-out{% endif %}bite-grid--{%cycle 'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x', 'xi', 'xii', 'xiii', 'xiv', 'xv'%}" {{block.shopify_attributes }}>
   <div class="grid-product__wrapper">
     <div class="grid-product__image-wrapper">
       <a class="grid-product__image-link" href="{{ product.url | within: collection }}">
