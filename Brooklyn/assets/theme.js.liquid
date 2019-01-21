@@ -3461,33 +3461,25 @@ $(document).ready(function() {
 }); */
 
 $(window).on("scroll touchmove", function() {
-  /* bespoke-bite: left menu better visability, switch between black and white */
-  $(".mobile-nav__item, mobile-nav__toggle-btn").each(function(){
-      if ($(this).offset().top+16 <= $(".main-content").offset().top) {
-        $(this).addClass("over-hero");
+
+  if ($(body).hasClass("template-index")) {
+    /* bespoke-bite: left menu better visability, switch between black and white */
+    $(".mobile-nav__item, mobile-nav__toggle-btn").each(function(){
+        if ($(this).offset().top+16 <= $(".main-content").offset().top) {
+          $(this).addClass("over-hero");
+        }
+        else {
+          $(this).removeClass("over-hero");
+        }
+    });
+
+    /* bespoke-bite: menu-logo toggles when scrolling hero */
+      if ($(".slide__logo").offset().top + $(".slide__logo").height() - $(window).scrollTop() > 0) {
+        //$(".mobile-nav__item:has(#menu-logo)").addClass("dont_overshine_the_hero");
+        $(".mobile-nav__item:has(#menu-logo)").fadeOut();
       }
       else {
-        $(this).removeClass("over-hero");
+        $(".mobile-nav__item:has(#menu-logo)").fadeIn();
       }
-  });
-
-  /* bespoke-bite: menu-logo toggles when scrolling hero */
-    if ($(".slide__logo").offset().top + $(".slide__logo").height() - $(window).scrollTop() > 0) {
-      //$(".mobile-nav__item:has(#menu-logo)").addClass("dont_overshine_the_hero");
-      $(".mobile-nav__item:has(#menu-logo)").fadeOut();
     }
-    else {
-      $(".mobile-nav__item:has(#menu-logo)").fadeIn();
-    }
-  /* bespoke-bite: place menu-logo initially over hero center
-  $("#menu-logo").css("left", heroSlideWidth/2 - (logoInitX + logoWidth/2));
-  $("#menu-logo").css("top", heroSlideHeight/2 - (logoInitY + logoHeight/2 + $(window).scrollTop()));
-  console.log("heroSlideWidth = " + heroSlideWidth + ", heroSlideHeight = " + heroSlideHeight);
-  console.log("logoInitX = " + logoInitX + ", logoInitY = " + logoInitY);
-  console.log("logo x = " + logoX + ", y = " + logoY);
-  console.log("logo scrollTop = " + $("#menu-logo").scrollTop());
-  console.log("window scrollTop = " + $(window).scrollTop());
-  console.log("logoWidth = " + logoWidth + ", logoHeight = " + logoHeight);
-*/
-
 });
