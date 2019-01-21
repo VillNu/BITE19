@@ -2405,7 +2405,17 @@ body.template-index .header-container{
 }
 .header-wrapper.hero__header {
   position: fixed;
+
+  &.not-over-hero {
+    .site-nav__link {
+      color: #000000;
+    }
+    .burger-icon {
+      background: #000000;
+    }
+  }
 }
+
 .header-wrapper--over-hero {
   position: relative;
 }
