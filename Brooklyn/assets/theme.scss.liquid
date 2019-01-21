@@ -1522,6 +1522,7 @@ input[type="image"] {
   display: grid;
   grid-auto-rows: (100px, auto);
   grid-template-columns: repeat(6, 1fr);
+  grid-gap: 10px;
   grid-template-areas:
     '   .     .    second  second  third     .'
     '   .   first  second  second  fifth   fifth'
@@ -2396,10 +2397,15 @@ $shareCountBg: $colorBody;
 }
 
 .header-container {
-  position: relative;
+  position: fixed;
   z-index: $zindexHeroHeader;
 }
-
+body.template-index .header-container{
+  position: relative;
+}
+.header-wrapper.hero__header {
+  position: fixed;
+}
 .header-wrapper--over-hero {
   position: relative;
 }
