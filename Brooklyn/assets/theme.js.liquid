@@ -3462,7 +3462,7 @@ $(document).ready(function() {
 
 $(window).on("scroll touchmove", function() {
 
-  if ($(body).hasClass("template-index")) {
+  if ($('body').hasClass("template-index")) {
     /* bespoke-bite: left menu better visability, switch between black and white */
     $(".mobile-nav__item, mobile-nav__toggle-btn").each(function(){
         if ($(this).offset().top+16 <= $(".main-content").offset().top) {
