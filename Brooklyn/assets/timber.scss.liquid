@@ -2148,6 +2148,11 @@ $socialIconFontStack: 'icons';
 .site-footer {
   padding-bottom: $gutter;
 
+  .bite-footer {
+    display: grid;
+    grid-auto-flow: column;
+  }
+
   @include at-query ($max, $small) {
     .grid__item {
       padding-bottom: 5px;
@@ -2167,6 +2172,11 @@ $socialIconFontStack: 'icons';
   @include at-query($min, $postSmall) {
     margin-bottom: $gutter / 2;
   }
+}
+
+.footer-header {
+  /* font-weight: bold; */
+  text-shadow: 1px 0 0 currentColor;
 }
 
 /*================ Module | Notes and Form Feedback ================*/
@@ -2690,7 +2700,8 @@ $socialIconFontStack: 'icons';
   }
 
   &[aria-current="page"] { /* bespoke-bite */
-    font-weight: 600;
+    /* font-weight: 600; */
+    text-shadow: 1px 0 0 currentColor;
   }
 
 }

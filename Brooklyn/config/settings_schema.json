@@ -694,6 +694,16 @@
         }
       },
       {
+        "type": "text",
+        "id": "social_footer_heading",
+        "label": {
+          "en": "Footer heading"
+        },
+        "info": {
+          "en": "Heading text shown in footer above social media links "
+        }
+      },
+      {
         "type": "image_picker",
         "id": "share_image",
         "label": {
