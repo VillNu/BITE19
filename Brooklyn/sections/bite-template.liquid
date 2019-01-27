@@ -1,0 +1,43 @@
+<!-- /templates/bite-template.liquid -->
+<div id="BiteProductsSection" data-section-id="{{ section.id }}" data-section-type="bite-products-template" }}">
+  {% include 'bite-template' %}
+</div>
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Kategorieseiten",
+    "en": "Collection pages",
+    "es": "Páginas de colección",
+    "fr": "Pages de collection",
+    "it": "Pagine delle collezioni",
+    "ja": "コレクションページ",
+    "pt-BR": "Páginas de Coleções"
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "cool",
+      "label": {
+        "en": "Too cool for school?"
+      },
+      "options": [
+        {
+          "value": "cool",
+          "label": {
+            "en": "Cool"
+          }
+        },
+        {
+          "value": "school",
+          "label": {
+            "en": "School"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
