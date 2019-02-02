@@ -1,0 +1,57 @@
+<!-- /snippets/bite-flow.liquid -->
+
+{% comment %}
+  todo: now create one "item", then copy code to "bite-flow-item"
+  and then turn this page into the "flow grid"
+{% endcomment %}
+
+<style> /* create 3 custom fonts*/
+@font-face {
+  font-family: "Austin-Roman";
+  src: url("https://media.bitestudios.se/font-austin.php") format("opentype");
+}
+@font-face {
+  font-family: "Brown-Regular";
+  src: url("https://media.bitestudios.se/font-brown.php") format("opentype");
+}
+@font-face {
+  font-family: "Brown-Bold";
+  src: url("https://media.bitestudios.se/font-brown-bold.php") format("opentype");
+}
+/* !important overrides mailchimp settings */
+.font-austin { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
+.font-brown { font-family: Brown-Regular, Lato, san-serif !important; }
+.font-brown-bold { font-family: Brown-Bold, Lato, san-serif !important; }
+h1 { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
+h2 { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
+h3 { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
+h4 { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
+</style>
+
+<div class="" style="display: grid; grid-gap: 10px; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; align-items: center;">
+
+  {% for block in section.blocks %}
+    <div class="{{block.settings.type}}" style="background: {{section.settings.color}};
+                         grid-column: {{ block.settings.flow-item-col-start }} / {{ block.settings.flow-item-col-end }};
+                         grid-row: {{ block.settings.flow-item-row-start }} / {{ block.settings.flow-item-row-end }};
+                         padding: 10px;"
+                         {{ block.shopify_attributes }}>
+      {% case block.settings.type  %}
+        {% when "product" %}
+          <div class="product">
+            <img src="{{ block.settings.product | img_url: 'master' }}">
+             {{ block.settings.product }}
+          </div>
+        {% when "image" %}
+          <div class="image">
+            <img src="{{ block.settings.image | img_url: 'master' }}">
+          </div>
+        {% when "text" %}
+          <div class="text font-brown">
+            <h1 class="font-austin">{{ block.settings.header }}</h1>
+            {{ block.settings.text }}
+          </div>
+      {% endcase %}
+    </div>
+  {% endfor %}
+</div>

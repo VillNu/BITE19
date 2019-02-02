@@ -1,0 +1,90 @@
+<!-- /sections/bite-flow.liquid -->
+<div id="BiteSection" data-section-id="{{ section.id }}" data-section-type="bite-products-template">
+  {% include 'bite-flow' %}
+</div>
+
+
+
+{% schema %}
+{
+  "name": "Bite Flow",
+  "class": "bite-flow",
+  "settings": [
+    {
+      "type": "color",
+      "label": "Background color",
+      "id": "color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "flow-item",
+      "name": "Flow Item",
+      "settings": [
+        {
+          "type": "select",
+          "label": "Type",
+          "id": "type",
+          "options": [
+            {"value": "product", "label": "Product"},
+            {"value": "image", "label": "Image"},
+            {"value": "text", "label": "Text"}
+          ]
+        },
+        {
+          "type": "range",
+          "label": "Starts at column",
+          "id": "flow-item-col-start",
+          "min": 1,
+          "max": 6,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Ends at column",
+          "id": "flow-item-col-end",
+          "min": 2,
+          "max": 7,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "label": "Starts at row",
+          "id": "flow-item-row-start",
+          "min": 1,
+          "max": 99,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Ends at row",
+          "id": "flow-item-row-end",
+          "min": 2,
+          "max": 100,
+          "default": 2
+        },
+        {
+          "type": "text",
+          "label": "Header",
+          "id": "header"
+        },
+        {
+          "type": "text",
+          "label": "text",
+          "id": "text"
+        },
+        {
+          "type": "product",
+          "label": "Product",
+          "id": "product"
+        },
+        {
+          "type": "url",
+          "label": "URL",
+          "id": "url"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
