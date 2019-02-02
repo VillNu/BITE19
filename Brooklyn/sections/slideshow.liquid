@@ -51,8 +51,20 @@
   negative top-margin for alignment and force full height.
 {% endcomment %}
 <div data-section-id="{{ section.id }}" data-section-type="slideshow-section">
+
+  {% unless section.settings.slider_logo == blank %}
+  <div style="position: absolute; z-index: 1; top: 50%; left: 40%;">
+    <img class="slider__logo lazyload" src="{{ section.settings.slider_logo | img_url: '300x' }}" style="margin-top: -15%; margin-left: -50%;">
+  </div>
+  {% endunless %}
+
   {% if section.blocks.size > 0 %}
-    <div class="hero-{{ section.id }} hero{% if hero_full_height %} hero--full-height{% endif %} hero--first" id="Hero"{% if hero_full_height %} data-fullscreen="true"{% endif %}{% if hero_parallax %}data-parallax="true"{% endif %} data-autoplay="{{ section.settings.hero_home_auto }}" data-autoplayspeed="{{ section.settings.home_hero_auto_speed }}">
+    <div class="hero-{{ section.id }} hero{% if hero_full_height %} hero--full-height{% endif %} hero--first"
+          id="Hero"{% if hero_full_height %} data-fullscreen="true"{% endif %}
+          {% if hero_parallax %}data-parallax="true"{% endif %}
+          data-autoplay="{{ section.settings.hero_home_auto }}" data-autoplayspeed="{{ section.settings.home_hero_auto_speed }}">
+
+
       {% for block in section.blocks %}
 
           <div class="hero__slide slide--{{ block.id }}{% if block.settings.image == blank %} slide--placeholder{% endif %}" data-color="{{ section.settings.slide_text_color }}" style="color: {{ section.settings.slide_text_color }};" {{ block.shopify_attributes }}>
@@ -145,6 +157,9 @@
           </div>
 
       {% endfor %}
+
+
+
     </div>
   {% endif %}
 </div>
@@ -270,6 +285,11 @@
         "pt-BR": "Botão"
       },
       "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "slider_logo",
+      "label": "Fixed Logo"
     }
   ],
   "blocks": [
