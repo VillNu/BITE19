@@ -3462,6 +3462,8 @@ $(document).ready(function() {
 
 
 /**** bespoke-bite ****/
+
+
 $(window).on("scroll touchmove", function() {
 
   if ($('body').hasClass("template-index")) {
@@ -3473,10 +3475,12 @@ $(window).on("scroll touchmove", function() {
 
 
     /* toggle menu-logo when scrolling hero */
-    if ($(".slide__logo").offset().top + $(".slide__logo").height() - $(window).scrollTop() > 0) {
-      //$(".mobile-nav__item:has(#menu-logo)").addClass("dont_overshine_the_hero");
-      $(".mobile-nav__item:has(#menu-logo)").fadeOut(); }
-    else { $(".mobile-nav__item:has(#menu-logo)").fadeIn(); }
+    if ($(".slide__logo").length > 0){
+      if ($(".slide__logo").offset().top + $(".slide__logo").height() - $(window).scrollTop() > 0) {
+        //$(".mobile-nav__item:has(#menu-logo)").addClass("dont_overshine_the_hero");
+        $(".mobile-nav__item:has(#menu-logo)").fadeOut(); }
+      else { $(".mobile-nav__item:has(#menu-logo)").fadeIn(); }
+    }
 
 
     /* togle left menu items color for better visability */
