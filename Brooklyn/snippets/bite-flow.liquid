@@ -6,26 +6,15 @@
 {% endcomment %}
 
 <style> /* create 3 custom fonts*/
-@font-face {
-  font-family: "Austin-Roman";
-  src: url("https://media.bitestudios.se/font-austin.php") format("opentype");
-}
-@font-face {
-  font-family: "Brown-Regular";
-  src: url("https://media.bitestudios.se/font-brown.php") format("opentype");
-}
-@font-face {
-  font-family: "Brown-Bold";
-  src: url("https://media.bitestudios.se/font-brown-bold.php") format("opentype");
-}
-/* !important overrides mailchimp settings */
-.font-austin { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
-.font-brown { font-family: Brown-Regular, Lato, san-serif !important; }
-.font-brown-bold { font-family: Brown-Bold, Lato, san-serif !important; }
-h1 { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
-h2 { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
-h3 { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
-h4 { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
+  @font-face {  font-family: "Austin-Roman";
+    src: url("https://media.bitestudios.se/font-austin.php") format("opentype");  }
+  @font-face {  font-family: "Brown-Regular";
+    src: url("https://media.bitestudios.se/font-brown.php") format("opentype");  }
+  @font-face {  font-family: "Brown-Bold";
+    src: url("https://media.bitestudios.se/font-brown-bold.php") format("opentype");  }
+  .font-austin { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
+  .font-brown { font-family: Brown-Regular, Lato, san-serif !important; }
+  .font-brown-bold { font-family: Brown-Bold, Lato, san-serif !important; }
 </style>
 
 <div class="" style="display: grid; grid-gap: 10px; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; align-items: center;">
@@ -47,7 +36,7 @@ h4 { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
             <img src="{{ block.settings.image | img_url: 'master' }}">
           </div>
         {% when "text" %}
-          <div class="text font-brown">
+          <div class="text">
             <h1 class="font-austin">{{ block.settings.header }}</h1>
             {{ block.settings.text }}
           </div>

@@ -288,6 +288,15 @@
         }
       },
       {
+        "type": "select",
+        "id": "use_custom_fonts",
+        "label": "Use Custom Bite Fonts",
+        "options": [
+          {"value": "yes", "label": "Body text: Brown, headers: Austin"},
+          {"value": "no", "label": "Use fonts below"}
+        ]
+      },
+      {
         "type": "font_picker",
         "id": "type_header_family",
         "label": {

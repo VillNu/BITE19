@@ -417,9 +417,26 @@ $color-blankstate: rgba($colorTextBody, 0.35);
 $color-blankstate-background: rgba($colorTextBody, 0.10);
 
 /*================ Typography ================*/
+
+@font-face {
+  font-family: "Austin-Roman";
+  src: url("https://media.bitestudios.se/font-austin.php") format("opentype");
+}
+@font-face {
+  font-family: "Brown-Regular";
+  src: url("https://media.bitestudios.se/font-brown.php") format("opentype");
+}
+@font-face {
+  font-family: "Brown-Bold";
+  src: url("https://media.bitestudios.se/font-brown-bold.php") format("opentype");
+}
+
+
+
 {%- assign accent_family = settings.type_accent_family -%}
 {%- assign base_family = settings.type_base_family -%}
 {%- assign header_family = settings.type_header_family -%}
+
 
 {{ accent_family | font_face }}
 {{ base_family | font_face }}
@@ -435,24 +452,32 @@ $color-blankstate-background: rgba($colorTextBody, 0.10);
 {{ base_family_bold_italic | font_face }}
 {{ accent_family_bold | font_face }}
 
-// Header Font
-$headerFontStack: {{ header_family.family }}, {{ header_family.fallback_families }};
-$headerFontWeight: {{ header_family.weight }};
-$headerFontStyle: {{ header_family.style }};
-$headerBaseFontSize: {{ settings.type_header_base_size }};
+  $headerFontStack: {{ header_family.family }}, {{ header_family.fallback_families }};
+  {% if settings.use_custom_fonts == "yes" %}
+    $accentFontStack: Austin-Roman, Georgia, "Times New Roman", serif;
+  {% endif %}
+  $headerFontWeight: {{ header_family.weight }};
+  $headerFontStyle: {{ header_family.style }};
+  $headerBaseFontSize: {{ settings.type_header_base_size }};
 
-// Body Font
-$bodyFontStack: {{ base_family.family }}, {{ base_family.fallback_families }};
-$bodyFontWeight: {{ base_family.weight }};
-$bodyFontWeightBold: {{ base_family_bold.weight | default: 700 }};
-$bodyFontStyle: {{ base_family.style }};
-$baseFontSize: {{ settings.type_base_size }}; // Henceforth known as 1em
+  // Body Font
+  $bodyFontStack: {{ base_family.family }}, {{ base_family.fallback_families }};
+  {% if settings.use_custom_fonts == "yes" %}
+    $bodyFontStack: Brown-Regular, "Work-Sans", sans-serif;
+  {% endif %}
+  $bodyFontWeight: {{ base_family.weight }};
+  $bodyFontWeightBold: {{ base_family_bold.weight | default: 700 }};
+  $bodyFontStyle: {{ base_family.style }};
+  $baseFontSize: {{ settings.type_base_size }}; // Henceforth known as 1em
 
-// Accent Font
-$accentFontStack: {{ accent_family.family }}, {{ accent_family.fallback_families }};
-$accentFontWeight: {{ accent_family.weight }};
-$accentFontWeightBold: {{ accent_family_bold.weight | default: 700 }};
-$accentFontStyle: {{ accent_family.style }};
+  // Accent Font
+  $accentFontStack: {{ accent_family.family }}, {{ accent_family.fallback_families }};
+  {% if settings.use_custom_fonts == "yes" %}
+    $accentFontStack: Austin-Roman, Georgia, "Times New Roman", serif;
+  {% endif %}
+  $accentFontWeight: {{ accent_family.weight }};
+  $accentFontWeightBold: {{ accent_family_bold.weight | default: 700 }};
+  $accentFontStyle: {{ accent_family.style }};
 
 @font-face {
   font-family: 'icons';
@@ -2331,23 +2356,28 @@ $shareCountBg: $colorBody;
       @include headerFontStack;
     {% endif %}
     position: absolute;
-    position: absolute;
     left: calc(40% - 14vh);
     top: 66%;
   }
 
   a.hero__cta {
-/*    {% if settings.type_accent_subheadings %}
-      @include accentFontStack;
-    {% else %}
-      @include headerFontStack;
-    {% endif %} */
-    position: absolute;
+    @include headerFontStack;
     position: absolute;
     right: 20%;
-    top: 80%;
+    top: 82%;
+  }
+
+  .hero__text-content {
+    opacity: 0;
+    transition: opacity 3s cubic-bezier(0.960, -0.300, 0.105, 1.075);
+  }
+  &.slick-active .hero__text-content {
+    opacity: 1;
   }
 }
+
+
+
 
 /*================ Font sizes ================*/
 .hero__slide {

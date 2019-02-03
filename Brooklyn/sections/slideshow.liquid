@@ -140,11 +140,11 @@
                       src="{{ block.settings.slide_logo | img_url: '300x' }}">
                   {% endunless %}
                   {% unless block.settings.slide_subheading == blank %}
-                    <p class="hero__subtitle">
+                    <h1 class="hero__subtitle">
                       <a href="{{ block.settings.slide_link }}" style="color: {{ section.settings.slide_button_label_color }}; background-color: {{ section.settings.slide_button_background_color }}">
                         {{ block.settings.slide_subheading | escape }}
                       </a>
-                    </p>
+                    </h1>
                   {% endunless %}
                   {% unless block.settings.slide_cta == blank %}
                     <a class="hero__cta" href="{{ block.settings.slide_link }}" style="color: {{ section.settings.slide_button_label_color }}; background-color: {{ section.settings.slide_button_background_color }}">
