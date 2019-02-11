@@ -53,8 +53,8 @@
 <div data-section-id="{{ section.id }}" data-section-type="slideshow-section">
 
   {% unless section.settings.slider_logo == blank %}
-  <div style="position: absolute; z-index: 1; top: 50%; left: 40%;">
-    <img class="slider__logo lazyload" src="{{ section.settings.slider_logo | img_url: '300x' }}" style="margin-top: -15%; margin-left: -50%;">
+  <div class="slider__logo-wrapper" style="position: absolute; z-index: 1; top: 50%; left: 40%; width: 33%;">
+    <img class="slider__logo lazyload" src="{{ section.settings.slider_logo | img_url: '2000x' }}" style="margin-top: -15%; margin-left: -50%;">
   </div>
   {% endunless %}
 
@@ -69,29 +69,39 @@
 
           <div class="hero__slide slide--{{ block.id }}{% if block.settings.image == blank %} slide--placeholder{% endif %}" data-color="{{ section.settings.slide_text_color }}" style="color: {{ section.settings.slide_text_color }};" {{ block.shopify_attributes }}>
             {% if hero_full_height %}
-              {% if block.settings.image == blank %}
-                <div class="placeholder-background">
-                  {% capture current %}{% cycle 1, 2 %}{% endcapture %}
-                  {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-                </div>
+
+              {% if block.settings.video != blank %}
+                <video autoplay="true" muted="true" loop="true" style="min-width: 100%; min-height: 100%;">
+                  <source src="{{ block.settings.video }}" type="video/mp4">
+                </video>
               {% else %}
-                <noscript>
-                  {% if forloop.first == true %}
-                    <div class="hero__image-no-js"{% if block.settings.image %} style="background-image: url('{{ block.settings.image | img_url: '2048x' }}');"{% endif %}></div>
-                  {% endif %}
-                </noscript>
-                {% assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
-                <img class="hero__image hero__image--{{ block.id }} lazyload fade-in{% unless forloop.first == true %} lazypreload{% endunless %}"
-                  {% if forloop.first == true %}
-                    src="{{ block.settings.image | img_url: '300x' }}"
-                  {% endif %}
-                  data-src="{{ img_url }}"
-                  data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048, 4472]"
-                  data-aspectratio="{{ block.settings.image.aspect_ratio }}"
-                  data-sizes="auto"
-                  data-parent-fit="cover"
-                  alt="{{ block.settings.image.alt | escape }}">
+
+                {% if block.settings.image == blank %}
+                  <div class="placeholder-background">
+                    {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                    {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {% else %}
+                  <noscript>
+                    {% if forloop.first == true %}
+                      <div class="hero__image-no-js"{% if block.settings.image %} style="background-image: url('{{ block.settings.image | img_url: '2048x' }}');"{% endif %}></div>
+                    {% endif %}
+                  </noscript>
+                  {% assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                  <img class="hero__image hero__image--{{ block.id }} lazyload fade-in{% unless forloop.first == true %} lazypreload{% endunless %}"
+                    {% if forloop.first == true %}
+                      src="{{ block.settings.image | img_url: '300x' }}"
+                    {% endif %}
+                    data-src="{{ img_url }}"
+                    data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048, 4472]"
+                    data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+                    data-sizes="auto"
+                    data-parent-fit="cover"
+                    alt="{{ block.settings.image.alt | escape }}">
+                {% endif %}
+
               {% endif %}
+
             {% else %}
               {% if block.settings.image != blank %}
                 <noscript>
@@ -249,7 +259,7 @@
       "id": "slide_text_color",
       "label": {
         "de": "Text",
-        "en": "Text",
+        "en": "Heading color",
         "es": "texto",
         "fr": "Texte",
         "it": "Testo",
@@ -263,7 +273,7 @@
       "id": "slide_button_label_color",
       "label": {
         "de": "Schaltflächenbezeichnung",
-        "en": "Button label",
+        "en": "Subheading color",
         "es": "Etiqueta de botón",
         "fr": "Texte du bouton",
         "it": "Etichetta pulsante",
@@ -277,7 +287,7 @@
       "id": "slide_button_background_color",
       "label": {
         "de": "Schaltfläche",
-        "en": "Button",
+        "en": "Subheading background color",
         "es": "Botón",
         "fr": "Bouton",
         "it": "Pulsante",
@@ -316,6 +326,19 @@
             "it": "Immagine",
             "ja": "画像",
             "pt-BR": "Imagem"
+          }
+        },
+        {
+          "type": "text",
+          "id": "video",
+          "label": {
+            "de": "Videolink",
+            "en": "Video link (overrides image)",
+            "es": "Enlace de video",
+            "fr": "Lien de la vidéo",
+            "it": "Link video",
+            "ja": "ビデオリンク",
+            "pt-BR": "Link do vídeo"
           }
         },
         {
@@ -444,7 +467,7 @@
           "id": "slide_cta",
           "label": {
             "de": "Schaltflächentext",
-            "en": "Button text",
+            "en": "Call to action",
             "es": "Botón de texto",
             "fr": "Texte du bouton",
             "it": "Testo pulsante",

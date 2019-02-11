@@ -3463,6 +3463,12 @@ $(document).ready(function() {
 
 /**** bespoke-bite ****/
 
+if ($(".slider__logo").length > 0){
+  if ($(".slider__logo").offset().top + $(".slider__logo").height() - $(window).scrollTop() > 0) {
+    //$(".mobile-nav__item:has(#menu-logo)").addClass("dont_overshine_the_hero");
+    $(".mobile-nav__item:has(#menu-logo)").hide("clip"); }
+  else { $(".mobile-nav__item:has(#menu-logo)").show("clip"); }
+}
 
 $(window).on("scroll touchmove", function() {
 
@@ -3475,11 +3481,17 @@ $(window).on("scroll touchmove", function() {
 
 
     /* toggle menu-logo when scrolling hero */
-    if ($(".slide__logo").length > 0){
+    if ($(".slide__logo").length > 0){ /* slider on homepage */
       if ($(".slide__logo").offset().top + $(".slide__logo").height() - $(window).scrollTop() > 0) {
         //$(".mobile-nav__item:has(#menu-logo)").addClass("dont_overshine_the_hero");
-        $(".mobile-nav__item:has(#menu-logo)").fadeOut(); }
-      else { $(".mobile-nav__item:has(#menu-logo)").fadeIn(); }
+        $(".mobile-nav__item:has(#menu-logo)").addClass("competes_with_hero"); }
+      else { $(".mobile-nav__item:has(#menu-logo)").removeClass("competes_with_hero"); }
+    }
+    if ($(".slider__logo").length > 0){
+      if ($(".slider__logo").offset().top + $(".slider__logo").height() - $(window).scrollTop() > 0) {
+        //$(".mobile-nav__item:has(#menu-logo)").addClass("dont_overshine_the_hero");
+        $(".mobile-nav__item:has(#menu-logo)").hide("clip"); }
+      else { $(".mobile-nav__item:has(#menu-logo)").show("clip"); }
     }
 
 

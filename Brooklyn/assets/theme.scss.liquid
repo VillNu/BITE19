@@ -1708,8 +1708,8 @@ a {
   -webkit-overflow-scrolling: touch;
 
   @include at-query($min, $large) {
-    padding-left: $gutter;
-    padding-right: $gutter;
+    padding-left: unset;
+    padding-right: unset;
     overflow: visible;
   }
 
@@ -2356,14 +2356,14 @@ $shareCountBg: $colorBody;
       @include headerFontStack;
     {% endif %}
     position: absolute;
-    left: calc(40% - 14vh);
-    top: 66%;
+    left: 29.3%;
+    top: 67%;
   }
 
   a.hero__cta {
     @include headerFontStack;
     position: absolute;
-    right: 20%;
+    right: 29.3%;
     top: 82%;
   }
 
@@ -2386,7 +2386,7 @@ $shareCountBg: $colorBody;
   }
 
   .hero__subtitle {
-    font-size: em(15px);
+    font-size: em(20px);
   }
 
   a.hero__cta {
