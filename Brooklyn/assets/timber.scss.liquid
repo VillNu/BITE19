@@ -2680,7 +2680,7 @@ $socialIconFontStack: 'icons';
   li {
     margin-bottom: 0;
     list-style: none;
-  }  
+  }
 }
 
 .mobile-nav__search {
@@ -2833,6 +2833,14 @@ $socialIconFontStack: 'icons';
   }
 }
 
+.menu-logo__wrapper {
+  height: 30px;
+  overflow: hidden;
+
+  &.competes_with_hero {
+    height: 0;
+  }
+}
 
 /*================ Cart bubble for items in cart ================*/
 @include at-query($min, $large) {
