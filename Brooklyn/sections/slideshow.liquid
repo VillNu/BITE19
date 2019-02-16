@@ -29,11 +29,31 @@
   {% endcomment %}
   <style>
     {% if section.blocks.size > 0 %}
-      .site-nav__link, .site-header__logo a, .site-nav__link:hover, .site-header__logo a:hover {
+      .site-nav__link,       .site-header__logo a,
+      .site-nav__link:hover, .site-header__logo a:hover,
+      .hero__text-content a {
         color: {{ section.settings.slide_text_color }};
+        {% if section.settings.slide_text_inverted %}
+          filter: invert(100%);
+        {% endif %}
       }
+      .hero__header.not-over-hero .site-nav__link,
+      .hero__header.not-over-hero .site-header__logo a,
+      .hero__header.not-over-hero .site-nav__link:hover,
+      .hero__header.not-over-hero .site-header__logo a:hover {
+        {% if section.settings.slide_text_inverted %}
+          filter: invert(0%);
+        {% endif %}
+      }
+
       .burger-icon {
         background: {{ section.settings.slide_text_color }};
+      }
+
+      .cart-link__bubble--visible {
+        {% if section.settings.slide_text_inverted %}
+          background: #a12b2b;
+        {% endif %}
       }
     {% else %}
       .site-nav__link, .site-header__logo a, .site-nav__link:hover, .site-header__logo a:hover {
@@ -44,6 +64,7 @@
       }
     {% endif %}
   </style>
+
 {% endif %}
 
 {% comment %}
@@ -53,8 +74,8 @@
 <div data-section-id="{{ section.id }}" data-section-type="slideshow-section">
 
   {% unless section.settings.slider_logo == blank %}
-  <div class="slider__logo-wrapper" style="position: absolute; z-index: 1; top: 50%; left: 40%; width: 33%;">
-    <img class="slider__logo lazyload" src="{{ section.settings.slider_logo | img_url: '2000x' }}" style="margin-top: -15%; margin-left: -50%;">
+  <div class="slider__fixed-logo-wrapper">
+    <img class="slider__fixed-logo lazyload" src="{{ section.settings.slider_logo | img_url: '2000x' }}">
   </div>
   {% endunless %}
 
@@ -141,24 +162,22 @@
               <div class="hero__text-align">
                 <div class="hero__text-content">
                   {% unless block.settings.slide_heading == blank %}
-                    <h2 class="h1 hero__title">
+                    <h1 class="h1 hero__title">
                       {{ block.settings.slide_heading | escape }}
-                    </h2>
+                    </h1>
                   {% endunless %}
                   {% unless block.settings.slide_logo == blank %}
                     <img class="slide__logo lazyload fade-in"
                       src="{{ block.settings.slide_logo | img_url: '300x' }}">
                   {% endunless %}
                   {% unless block.settings.slide_subheading == blank %}
-                    <h1 class="hero__subtitle">
-                      <a href="{{ block.settings.slide_link }}" style="color: {{ section.settings.slide_button_label_color }}; background-color: {{ section.settings.slide_button_background_color }}">
-                        {{ block.settings.slide_subheading | escape }}
-                      </a>
-                    </h1>
+                    <a class="hero__subtitle" href="{{ block.settings.slide_link }}">
+                      <h2>{{ block.settings.slide_subheading | escape }}</h2>
+                    </a>
                   {% endunless %}
                   {% unless block.settings.slide_cta == blank %}
-                    <a class="hero__cta" href="{{ block.settings.slide_link }}" style="color: {{ section.settings.slide_button_label_color }}; background-color: {{ section.settings.slide_button_background_color }}">
-                      {{ block.settings.slide_cta | escape }}
+                    <a class="hero__cta" href="{{ block.settings.slide_link }}">
+                      <h5>{{ block.settings.slide_cta | escape }}</h5>
                     </a>
                   {% endunless %}
                 </div>
@@ -269,32 +288,10 @@
       "default": "#ffffff"
     },
     {
-      "type": "color",
-      "id": "slide_button_label_color",
-      "label": {
-        "de": "Schaltflächenbezeichnung",
-        "en": "Subheading color",
-        "es": "Etiqueta de botón",
-        "fr": "Texte du bouton",
-        "it": "Etichetta pulsante",
-        "ja": "ボタンラベル",
-        "pt-BR": "Etiqueta do botão"
-      },
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "slide_button_background_color",
-      "label": {
-        "de": "Schaltfläche",
-        "en": "Subheading background color",
-        "es": "Botón",
-        "fr": "Bouton",
-        "it": "Pulsante",
-        "ja": "ボタン",
-        "pt-BR": "Botão"
-      },
-      "default": "#ffffff"
+      "type": "checkbox",
+      "id": "slide_text_inverted",
+      "label": "Invert heading color",
+      "default": false
     },
     {
       "type": "image_picker",
@@ -333,7 +330,7 @@
           "id": "video",
           "label": {
             "de": "Videolink",
-            "en": "Video link (overrides image)",
+            "en": "Video source (overrides image)",
             "es": "Enlace de video",
             "fr": "Lien de la vidéo",
             "it": "Link video",
