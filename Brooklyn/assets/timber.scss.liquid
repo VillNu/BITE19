@@ -156,15 +156,14 @@
   font-family: $headerFontStack;
   font-weight: $headerFontWeight;
   font-style: $headerFontStyle;
+  letter-spacing: $headerLetterSpacing;
 }
 
 @mixin accentFontStack {
   font-family: $accentFontStack;
   font-weight: $accentFontWeight;
   font-style: $accentFontStyle;
-  {% if settings.type_accent_spacing %}
-    letter-spacing: 0.1em;
-  {% endif %}
+  letter-spacing: $accentLetterSpacing;
   {% if settings.type_accent_transform %}
     text-transform: uppercase;
   {% endif %}
@@ -372,7 +371,7 @@ $successGreen: #56ad6a;
 $successGreenBg: #ecfef0;
 
 // Drawer sizes and colors
-$drawerNavWidth: 300px;
+$drawerNavWidth: 200px;
 $drawerCartWidth: 300px;
 $drawerCartWidthLarge: 400px; // small-up width
 $drawerHeaderHeight: 80px;
@@ -425,6 +424,43 @@ $color-blankstate: rgba($colorTextBody, 0.35);
 $color-blankstate-background: rgba($colorTextBody, 0.10);
 
 /*================ Typography ================*/
+@font-face {
+  font-family: 'Austin Roman';
+  src: url('{{ "Austin-Roman_autohinted.eot" | asset_url }}');
+  src: url('{{ "Austin-Roman_autohinted.eot?#iefix" | asset_url }}') format('embedded-opentype'),
+       url('{{ "Austin-Roman.svg#Austin-Roman" | asset_url }}') format('svg'),
+       url('{{ "Austin-Roman_autohinted.ttf" | asset_url }}') format('truetype'),
+       url('{{ "Austin-Roman.woff" | asset_url }}') format('woff'),
+       url('{{ "Austin-Roman_autohinted.woff2" | asset_url }}') format('woff2'),
+       url('{{ "Austin-Roman.otf" | asset_url }}') format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Brown';
+  src: url('{{ "Brown-Regular_autohinted.eot" | asset_url }}');
+  src: url('{{ "Brown-Regular_autohinted.eot?#iefix" | asset_url }}') format('embedded-opentype'),
+       url('{{ "Brown-Regular.svg#Brown-Regular" | asset_url }}') format('svg'),
+       url('{{ "Brown-Regular_autohinted.ttf" | asset_url }}') format('truetype'),
+       url('{{ "Brown-Regular.woff" | asset_url }}') format('woff'),
+       url('{{ "Brown-Regular_autohinted.woff2" | asset_url }}') format('woff2'),
+       url('{{ "Brown-Regular.otf" | asset_url }}') format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Brown';
+  src: url('{{ "Brown-Bold_autohinted.eot" | asset_url }}');
+  src: url('{{ "Brown-Bold_autohinted.eot?#iefix" | asset_url }}') format('embedded-opentype'),
+       url('{{ "Brown-Bold.svg#Brown-Bold" | asset_url }}') format('svg'),
+       url('{{ "Brown-Bold_autohinted.ttf" | asset_url }}') format('truetype'),
+       url('{{ "Brown-Bold.woff" | asset_url }}') format('woff'),
+       url('{{ "Brown-Bold_autohinted.woff2" | asset_url }}') format('woff2'),
+       url('{{ "Brown-Bold.otf" | asset_url }}') format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
 {%- assign accent_family = settings.type_accent_family -%}
 {%- assign base_family = settings.type_base_family -%}
 {%- assign header_family = settings.type_header_family -%}
@@ -444,32 +480,26 @@ $color-blankstate-background: rgba($colorTextBody, 0.10);
 {{ accent_family_bold | font_face }}
 
 // Header Font
-$headerFontStack: {{ header_family.family }}, {{ header_family.fallback_families }};
-{% if settings.use_custom_fonts == "yes" %}
-  $accentFontStack: Austin-Roman, Georgia, "Times New Roman", serif;
-{% endif %}
+$headerFontStack: {% if settings.custom_header_font != "" %}{{ settings.custom_header_font }}, {% endif %}{{ header_family.family }}, {{ header_family.fallback_families }};
 $headerFontWeight: {{ header_family.weight }};
 $headerFontStyle: {{ header_family.style }};
 $headerBaseFontSize: {{ settings.type_header_base_size }};
+$headerLetterSpacing: {{ settings.header_letter_spacing }}px;
 
 // Body Font
-$bodyFontStack: {{ base_family.family }}, {{ base_family.fallback_families }};
-{% if settings.use_custom_fonts == "yes" %}
-  $bodyFontStack: Brown-Regular, "Work-Sans", sans-serif;
-{% endif %}
+$bodyFontStack: {% if settings.custom_body_font != "" %}{{ settings.custom_body_font }}, {% endif %}{{ base_family.family }}, {{ base_family.fallback_families }};
 $bodyFontWeight: {{ base_family.weight }};
 $bodyFontWeightBold: {{ base_family_bold.weight | default: 700 }};
 $bodyFontStyle: {{ base_family.style }};
 $baseFontSize: {{ settings.type_base_size }}; // Henceforth known as 1em
+$bodyLetterSpacing: {{ settings.body_letter_spacing }}px;
 
 // Accent Font
-$accentFontStack: {{ accent_family.family }}, {{ accent_family.fallback_families }};
-{% if settings.use_custom_fonts == "yes" %}
-  $accentFontStack: Austin-Roman, Georgia, "Times New Roman", serif;
-{% endif %}
+$accentFontStack: {% if settings.custom_body_font != "" %}{{ settings.custom_body_font }}, {% endif %}{{ accent_family.family }}, {{ accent_family.fallback_families }};
 $accentFontWeight: {{ accent_family.weight }};
 $accentFontWeightBold: {{ accent_family_bold.weight | default: 700 }};
 $accentFontStyle: {{ accent_family.style }};
+$accentLetterSpacing: {{ settings.accent_letter_spacing }}px;
 
 @font-face {
   font-family: 'icons';
@@ -538,7 +568,7 @@ body {
 .main-content {
   display: block;
   padding-top: 10px; /* $gutter; */
-  min-height: 84vh;
+  min-height: calc(100vh - 12em);
 
   @include at-query($min, $postSmall) {
     padding-bottom: 40px;
@@ -562,19 +592,6 @@ hr {
 }
 
 /*================ Partials | Typography styles ================*/
-@font-face {
-  font-family: "Austin-Roman";
-  src: url("https://media.bitestudios.se/font-austin.php") format("opentype");
-}
-@font-face {
-  font-family: "Brown-Regular";
-  src: url("https://media.bitestudios.se/font-brown.php") format("opentype");
-}
-@font-face {
-  font-family: "Brown-Bold";
-  src: url("https://media.bitestudios.se/font-brown-bold.php") format("opentype");
-}
-
 body,
 input,
 textarea,
@@ -590,6 +607,7 @@ select {
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   text-transform: uppercase; /* bespoke-bite */
+  letter-spacing: $bodyLetterSpacing;
 }
 
 
@@ -603,16 +621,10 @@ h6 {
   font-family: $headerFontStack;
   font-weight: $headerFontWeight;
   font-style: $headerFontStyle;
+  letter-spacing: $headerLetterSpacing;
   margin: 0 0 0.5em;
   line-height: 1.4;
   text-rendering: optimizeLegibility;
-
-
-  // Headings in the hero/slideshow use the color set in
-  // the Slideshow section settings, not $colorHeadings
-  &:not(.hero__title) {
-    color: $colorHeadings;
-  }
 
   a {
     text-decoration: none;
@@ -762,7 +774,7 @@ ol ul {
   margin: 4px 0 5px 20px;
 }
 li {
-  margin-bottom: 0.25em;
+  margin: 0.6em 0.6em 0 0;
 }
 
 ul.square {
@@ -1842,6 +1854,11 @@ $socialIconFontStack: 'icons';
     &:hover {
       color: $colorDrawerText;
     }
+
+    &[aria-current="page"] {
+      /* font-weight: 600; */
+      text-shadow: 0.5px 0 0 currentColor;
+    }
   }
 
   input[type='text'],
@@ -2171,11 +2188,15 @@ $socialIconFontStack: 'icons';
 /*================ Module-specific styles ================*/
 /*================ Module | Footer ================*/
 .site-footer {
-  padding-bottom: $gutter;
 
   .bite-footer {
     display: grid;
     grid-auto-flow: column;
+    justify-content: space-around;
+
+    .footer-header {
+      margin-right: 0.6em;
+    }
   }
 
   @include at-query ($max, $small) {
@@ -2188,8 +2209,14 @@ $socialIconFontStack: 'icons';
     color: $colorTextBody;
 
     &:active {
-      color: darken($colorTextBody, 20%);
+      color: lighten($colorTextBody, 20%);
     }
+    &[aria-current="page"] {
+      /* font-weight: 600; */
+      text-shadow: 0.5px 0 0 currentColor;
+    }
+
+
   }
 }
 
@@ -2678,7 +2705,6 @@ $socialIconFontStack: 'icons';
   margin: auto;
 
   li {
-    margin-bottom: 0;
     list-style: none;
   }
 }
@@ -2719,24 +2745,15 @@ $socialIconFontStack: 'icons';
 
 .mobile-nav__item a {
   display: inline-block;
-  font-size: 13px;
 
   .mobile-nav__subsublist & {
     padding-left: 45px;
-    font-size: 13px;
   }
-
-  &[aria-current="page"] { /* bespoke-bite */
-    /* font-weight: 600; */
-    text-shadow: 0.5px 0 0 currentColor;
-  }
-
 }
 
 .mobile-nav__item a,
 .mobile-nav__toggle button {
   color: $colorDrawerText;
-  padding: $gutter / 2;
   text-decoration: none;
   pointer-events: auto; /* bespoke-bite */
 
@@ -2758,8 +2775,7 @@ $socialIconFontStack: 'icons';
   .mobile-nav__item.over-hero > a,
   .mobile-nav__item.over-hero > .mobile-nav__has-sublist > a,
   .mobile-nav__item.over-hero > .mobile-nav__has-sublist > .mobile-nav__toggle > button {
-    /*color: white; /* white color for better contrast  */
-    filter: invert(100%);
+    color: white; /* white color for better contrast  */
   }
 }
 

@@ -148,15 +148,14 @@
   font-family: $headerFontStack;
   font-weight: $headerFontWeight;
   font-style: $headerFontStyle;
+  letter-spacing: $headerLetterSpacing;
 }
 
 @mixin accentFontStack {
   font-family: $accentFontStack;
   font-weight: $accentFontWeight;
   font-style: $accentFontStyle;
-  {% if settings.type_accent_spacing %}
-    letter-spacing: 0.1em;
-  {% endif %}
+  letter-spacing: $accentLetterSpacing;
   {% if settings.type_accent_transform %}
     text-transform: uppercase;
   {% endif %}
@@ -364,7 +363,7 @@ $successGreen: #56ad6a;
 $successGreenBg: #ecfef0;
 
 // Drawer sizes and colors
-$drawerNavWidth: 300px;
+$drawerNavWidth: 200px;
 $drawerCartWidth: 300px;
 $drawerCartWidthLarge: 400px; // small-up width
 $drawerHeaderHeight: 80px;
@@ -419,18 +418,41 @@ $color-blankstate-background: rgba($colorTextBody, 0.10);
 /*================ Typography ================*/
 
 @font-face {
-  font-family: "Austin-Roman";
-  src: url("https://media.bitestudios.se/font-austin.php") format("opentype");
+  font-family: 'Austin Roman';
+  src: url('{{ "Austin-Roman_autohinted.eot" | asset_url }}');
+  src: url('{{ "Austin-Roman_autohinted.eot?#iefix" | asset_url }}') format('embedded-opentype'),
+       url('{{ "Austin-Roman.svg#Austin-Roman" | asset_url }}') format('svg'),
+       url('{{ "Austin-Roman_autohinted.ttf" | asset_url }}') format('truetype'),
+       url('{{ "Austin-Roman.woff" | asset_url }}') format('woff'),
+       url('{{ "Austin-Roman_autohinted.woff2" | asset_url }}') format('woff2'),
+       url('{{ "Austin-Roman.otf" | asset_url }}') format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-  font-family: "Brown-Regular";
-  src: url("https://media.bitestudios.se/font-brown.php") format("opentype");
+  font-family: 'Brown';
+  src: url('{{ "Brown-Regular_autohinted.eot" | asset_url }}');
+  src: url('{{ "Brown-Regular_autohinted.eot?#iefix" | asset_url }}') format('embedded-opentype'),
+       url('{{ "Brown-Regular.svg#Brown-Regular" | asset_url }}') format('svg'),
+       url('{{ "Brown-Regular_autohinted.ttf" | asset_url }}') format('truetype'),
+       url('{{ "Brown-Regular.woff" | asset_url }}') format('woff'),
+       url('{{ "Brown-Regular_autohinted.woff2" | asset_url }}') format('woff2'),
+       url('{{ "Brown-Regular.otf" | asset_url }}') format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-  font-family: "Brown-Bold";
-  src: url("https://media.bitestudios.se/font-brown-bold.php") format("opentype");
+  font-family: 'Brown';
+  src: url('{{ "Brown-Bold_autohinted.eot" | asset_url }}');
+  src: url('{{ "Brown-Bold_autohinted.eot?#iefix" | asset_url }}') format('embedded-opentype'),
+       url('{{ "Brown-Bold.svg#Brown-Bold" | asset_url }}') format('svg'),
+       url('{{ "Brown-Bold_autohinted.ttf" | asset_url }}') format('truetype'),
+       url('{{ "Brown-Bold.woff" | asset_url }}') format('woff'),
+       url('{{ "Brown-Bold_autohinted.woff2" | asset_url }}') format('woff2'),
+       url('{{ "Brown-Bold.otf" | asset_url }}') format("opentype");
+  font-weight: bold;
+  font-style: normal;
 }
-
 
 
 {%- assign accent_family = settings.type_accent_family -%}
@@ -452,32 +474,27 @@ $color-blankstate-background: rgba($colorTextBody, 0.10);
 {{ base_family_bold_italic | font_face }}
 {{ accent_family_bold | font_face }}
 
-  $headerFontStack: {{ header_family.family }}, {{ header_family.fallback_families }};
-  {% if settings.use_custom_fonts == "yes" %}
-    $accentFontStack: Austin-Roman, Georgia, "Times New Roman", serif;
-  {% endif %}
+// Header Font
+  $headerFontStack: {% if settings.custom_header_font != "" %}{{ settings.custom_header_font }}, {% endif %}{{ header_family.family }}, {{ header_family.fallback_families }};
   $headerFontWeight: {{ header_family.weight }};
   $headerFontStyle: {{ header_family.style }};
   $headerBaseFontSize: {{ settings.type_header_base_size }};
+  $headerLetterSpacing: {{ settings.header_letter_spacing }}px;
 
   // Body Font
-  $bodyFontStack: {{ base_family.family }}, {{ base_family.fallback_families }};
-  {% if settings.use_custom_fonts == "yes" %}
-    $bodyFontStack: Brown-Regular, "Work-Sans", sans-serif;
-  {% endif %}
+  $bodyFontStack: {% if settings.custom_body_font != "" %}{{ settings.custom_body_font }}, {% endif %}{{ base_family.family }}, {{ base_family.fallback_families }};
   $bodyFontWeight: {{ base_family.weight }};
   $bodyFontWeightBold: {{ base_family_bold.weight | default: 700 }};
   $bodyFontStyle: {{ base_family.style }};
   $baseFontSize: {{ settings.type_base_size }}; // Henceforth known as 1em
+  $bodyLetterSpacing: {{ settings.body_letter_spacing }}px;
 
   // Accent Font
-  $accentFontStack: {{ accent_family.family }}, {{ accent_family.fallback_families }};
-  {% if settings.use_custom_fonts == "yes" %}
-    $accentFontStack: Austin-Roman, Georgia, "Times New Roman", serif;
-  {% endif %}
+  $accentFontStack: {% if settings.custom_accent_font != "" %}{{ settings.custom_accent_font }}, {% endif %}{{ accent_family.family }}, {{ accent_family.fallback_families }};
   $accentFontWeight: {{ accent_family.weight }};
   $accentFontWeightBold: {{ accent_family_bold.weight | default: 700 }};
   $accentFontStyle: {{ accent_family.style }};
+  $accentLetterSpacing: {{ settings.accent_letter_spacing }}px;
 
 @font-face {
   font-family: 'icons';
@@ -996,31 +1013,33 @@ input,
 textarea,
 button,
 select {
-  line-height: 1.563; // 25px based on 16px font
+  line-height: 1.6em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-
+$headerIncrement: (($headerBaseFontSize - $baseFontSize) / 5);
 h1 {
   font-size: em($headerBaseFontSize);
 }
 
 h2 {
-  font-size: em(floor($headerBaseFontSize * 0.93));
+  font-size: em(floor($headerBaseFontSize - $headerIncrement * 1));
 }
 
 h3 {
-  font-size: em(floor($headerBaseFontSize * 0.77));
+  font-size: em(floor($headerBaseFontSize - $headerIncrement * 2));
 }
 
 h4 {
-  font-size: em(floor($headerBaseFontSize * 0.65));
+  font-size: em(floor($headerBaseFontSize - $headerIncrement * 3));
 }
 
 h5 {
-  font-size: em(floor($headerBaseFontSize * 0.56));
+  font-size: em(floor($headerBaseFontSize - $headerIncrement * 4));
 }
 
 h6 {
-  font-size: em(floor($headerBaseFontSize * 0.51));
+  font-size: em(floor($headerBaseFontSize - $headerIncrement * 5));
 }
 
 {% if settings.type_accent_subheadings %}
@@ -2268,7 +2287,7 @@ $shareCountBg: $colorBody;
 .hero--full-height {
   // Height is set by JS on slider init. vh is a nice default for modern browsers.
   height: 100vh;
-  min-height: 550px;
+  /* min-height: 550px; */
 
   .slick-list,
   .slick-track {
@@ -2339,34 +2358,73 @@ $shareCountBg: $colorBody;
 }
 
 /*================ Extra specificity to override Timber defaults ================*/
+.slider__fixed-logo-wrapper {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 40%;
+  width: 33%;
+
+  .slider__fixed-logo {
+    margin-top: -15%;
+    margin-left: -50%;
+  }
+
+  @include at-query($min, $postSmall) {
+    width: 33%;
+  }
+
+  @include at-query($min, $large) {
+    width: 33%;
+  }
+
+}
+
 .hero__slide {
   .hero__title {
-    margin-bottom: 20px;
-    line-height: 1.25;
-    letter-spacing: 0;
     position: absolute;
     left: 50%;
     top: 50%;
+    text-align: center;
   }
 
   .hero__subtitle {
-    {% if settings.type_accent_subheadings %}
-      @include accentFontStack;
-    {% else %}
-      @include headerFontStack;
-    {% endif %}
     position: absolute;
-    left: 29.3%;
-    top: 67%;
+    left: 31%;
+    top: 66%;
+    text-align: left;
   }
 
-  a.hero__cta {
-    @include headerFontStack;
+  .hero__cta {
     position: absolute;
-    right: 29.3%;
+    right: 27.5%;
     top: 82%;
+    text-align: right;
   }
 
+  @include at-query($min, $postSmall) {
+    .hero__title {
+    }
+
+    .hero__subtitle {
+    }
+
+    .hero__cta {
+    }
+  }
+
+  @include at-query($min, $large) {
+    .hero__title {
+    }
+
+    .hero__subtitle {
+    }
+
+    .hero__cta {
+    }
+  }
+
+    /* slide headings fades in after a delay */
   .hero__text-content {
     opacity: 0;
     transition: opacity 3s cubic-bezier(0.960, -0.300, 0.105, 1.075);
@@ -2377,48 +2435,46 @@ $shareCountBg: $colorBody;
 }
 
 
-
-
 /*================ Font sizes ================*/
 .hero__slide {
   .hero__title {
-    font-size: em(50px);
+  /*  font-size: em(28px); */
   }
 
   .hero__subtitle {
-    font-size: em(20px);
+  /*  font-size: em(20px); */
   }
 
   a.hero__cta {
-    font-size: em(16px);
+  /*  font-size: em(16px); */
   }
 
 
   @include at-query($min, $postSmall) {
     .hero__title {
-      font-size: em(60px);
+    /*  font-size: em(60px); */
     }
 
     .hero__subtitle {
-      font-size: em(18px);
+    /*  font-size: em(18px); */
     }
 
     a.hero__cta {
-      font-size: em(18px);
+    /*  font-size: em(18px); */
     }
   }
 
   @include at-query($min, $large) {
     .hero__title {
-      font-size: em(64px);
+    /*  font-size: em(64px); */
     }
 
     .hero__subtitle {
-      font-size: em(25px);
+    /*  font-size: em(32px); */
     }
 
     a.hero__cta {
-      font-size: em(20px);
+    /*  font-size: em(20px); */
     }
   }
 }
