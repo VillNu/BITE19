@@ -18,9 +18,7 @@
           <li class="mobile-nav__item{% if template.name == 'index' %} over-hero{% endif %}">
             <div class="mobile-nav__has-sublist">
               <a
-                href="{{ link.url }}"
-                class="mobile-nav__link"
-                id="Label-{{ forloop.index }}"
+                href="{{ link.url }}"  class="mobile-nav__link"   id="Label-{{ forloop.index }}"
                 {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>{{ link.title | escape }}</a>
               <div class="mobile-nav__toggle">
                 <button type="button" class="mobile-nav__toggle-btn icon-fallback-text" aria-controls="Linklist-{{ forloop.index }}" aria-expanded="false">
@@ -65,8 +63,7 @@
                     {% for grandchildlink in childlink.links %}
                       <li class="mobile-nav__item{% if template.name == 'index' %} over-hero{% endif %}">
                         <a
-                          href="{{ grandchildlink.url }}"
-                          class="mobile-nav__link"
+                          href="{{ grandchildlink.url }}"  class="mobile-nav__link"
                           {% unless template.name == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless%}>
                             {{ grandchildlink.title | escape }}
                         </a>
@@ -104,6 +101,12 @@
 
       {% for link in linklists[section.settings.drawer_bottom_link_list].links %}
         <li class="mobile-nav__item mobile-nav__item--secondary{% if template.name == 'index' %} over-hero{% endif %}"><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+
+      {% for product_type in collection.all_types %}
+      <li class="mobile-nav__item">
+        {{ product_type | link_to_type }}
+      </li>
       {% endfor %}
     </ul>
     <!-- //mobile-nav -->

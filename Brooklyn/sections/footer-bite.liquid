@@ -29,7 +29,7 @@
             <span class="footer-header">{{ toplevel.title }}</span>
             <ul class="no-bullets site-footer__linklist">
               {% for secondlevel in toplevel.links %}
-                <li><a href="{{ secondlevel.url }}">{{ secondlevel.title }}</a></li>
+                <li><a href="{{ secondlevel.url }}" {% unless template.name == 'index' %}{% if secondlevel.active %}aria-current="page"{% endif %}{% endunless%}>{{ secondlevel.title }}</a></li>
               {% endfor %}
             </ul>
           </div>
@@ -38,12 +38,10 @@
 
       {% if footer_social_enable %}
         <div class="">
+          {% if settings.social_footer_heading != blank %}
+              <span class="footer-header social_footer_heading">{{ settings.social_footer_heading | escape }}</span>
+          {% endif %}
             <ul class="no-bullets social-icons">
-              {% if settings.social_footer_heading != blank %}
-                <li>
-                  <span class="footer-header social_footer_heading">{{ settings.social_footer_heading | escape }}</span>
-                </li>
-              {% endif %}
               {% if settings.social_facebook_link != blank %}
                 <li>
                   <a href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">

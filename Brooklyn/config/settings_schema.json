@@ -289,11 +289,12 @@
       },
       {
         "type": "select",
-        "id": "use_custom_fonts",
+        "id": "custom_header_font",
         "label": "Use Custom Bite Fonts",
         "options": [
-          {"value": "yes", "label": "Body text: Brown, headers: Austin"},
-          {"value": "no", "label": "Use fonts below"}
+          {"value": "", "label": "Use fonts below"},
+          {"value": "Brown", "label": "Brown"},
+          {"value": "Austin Roman", "label": "Austin Roman"}
         ]
       },
       {
@@ -301,7 +302,7 @@
         "id": "type_header_family",
         "label": {
           "de": "Schriftart",
-          "en": "Font",
+          "en": "Fallback font",
           "es": "Fuente",
           "fr": "Police",
           "it": "Font",
@@ -382,8 +383,54 @@
               "ja": "34ピクセル",
               "pt-BR": "34px"
             }
+          },
+          {
+            "value": "36px",
+            "label": {
+              "de": "36px",
+              "en": "36px",
+              "es": "36px",
+              "fr": "36 px",
+              "it": "36 px",
+              "ja": "36ピクセル",
+              "pt-BR": "36px"
+            }
+          },
+          {
+            "value": "38px",
+            "label": {
+              "de": "38px",
+              "en": "38px",
+              "es": "38px",
+              "fr": "38 px",
+              "it": "38 px",
+              "ja": "38ピクセル",
+              "pt-BR": "38px"
+            }
+          },
+          {
+            "value": "40px",
+            "label": {
+              "de": "40px",
+              "en": "40px",
+              "es": "40px",
+              "fr": "40 px",
+              "it": "40 px",
+              "ja": "40ピクセル",
+              "pt-BR": "40px"
+            }
           }
         ]
+      },
+      {
+          "type":   "range",
+          "id":     "header_letter_spacing",
+          "min":       0,
+          "max":       3,
+          "step":      0.1,
+          "unit":      "px",
+          "label":     "Letter spacing",
+          "default":   0
       },
       {
         "type": "select",
@@ -458,6 +505,16 @@
         }
       },
       {
+        "type": "select",
+        "id": "custom_accent_font",
+        "label": "Use Custom Bite Fonts",
+        "options": [
+          {"value": "", "label": "Use fonts below"},
+          {"value": "Brown", "label": "Brown"},
+          {"value": "Austin Roman", "label": "Austin Roman"}
+        ]
+      },
+      {
         "type": "font_picker",
         "id": "type_accent_family",
         "label": {
@@ -485,17 +542,14 @@
         }
       },
       {
-        "type": "checkbox",
-        "id": "type_accent_spacing",
-        "label": {
-          "de": "Leerzeichen",
-          "en": "Space letters",
-          "es": "Espaciar letras",
-          "fr": "Espacer les lettres",
-          "it": "Distanzia lettere",
-          "ja": "文字の隙間を入れる",
-          "pt-BR": "Espaçar letras"
-        }
+          "type":   "range",
+          "id":     "accent_letter_spacing",
+          "min":       0,
+          "max":       3,
+          "step":      0.1,
+          "unit":      "px",
+          "label":     "Letter spacing",
+          "default":   0
       },
       {
         "type": "checkbox",
@@ -521,6 +575,16 @@
           "ja": "本文",
           "pt-BR": "Corpo do texto"
         }
+      },
+      {
+        "type": "select",
+        "id": "custom_body_font",
+        "label": "Use Custom Bite Fonts",
+        "options": [
+          {"value": "", "label": "Use fonts below"},
+          {"value": "Brown", "label": "Brown"},
+          {"value": "Austin Roman", "label": "Austin Roman"}
+        ]
       },
       {
         "type": "font_picker",
@@ -549,6 +613,30 @@
           "pt-BR": "Tamanho básico"
         },
         "options": [
+          {
+            "value": "12px",
+            "label": {
+              "de": "12px",
+              "en": "12px",
+              "es": "12px",
+              "fr": "12 px",
+              "it": "12 px",
+              "ja": "12ピクセル",
+              "pt-BR": "12px"
+            }
+          },
+          {
+            "value": "13px",
+            "label": {
+              "de": "13px",
+              "en": "13px",
+              "es": "13px",
+              "fr": "13 px",
+              "it": "13 px",
+              "ja": "13ピクセル",
+              "pt-BR": "13px"
+            }
+          },
           {
             "value": "14px",
             "label": {
@@ -598,6 +686,16 @@
             }
           }
         ]
+      },
+      {
+          "type":   "range",
+          "id":     "body_letter_spacing",
+          "min":       0,
+          "max":       3,
+          "step":      0.1,
+          "unit":      "px",
+          "label":     "Letter spacing",
+          "default":   0
       },
       {
         "type": "checkbox",
