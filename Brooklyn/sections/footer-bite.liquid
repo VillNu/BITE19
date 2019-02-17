@@ -25,19 +25,22 @@
 
       {% if menu.links.size > 0 %}
         {% for toplevel in menu.links %}
-          <div class="">
-            <span class="footer-header">{{ toplevel.title }}</span>
-            <ul class="no-bullets site-footer__linklist">
-              {% for secondlevel in toplevel.links %}
-                <li><a href="{{ secondlevel.url }}" {% unless template.name == 'index' %}{% if secondlevel.active %}aria-current="page"{% endif %}{% endunless%}>{{ secondlevel.title }}</a></li>
-              {% endfor %}
-            </ul>
+          <div class="footer-item__outer">
+            <div class="footer-item__inner">
+              <span class="footer-header">{{ toplevel.title }}</span>
+              <ul class="no-bullets site-footer__linklist">
+                {% for secondlevel in toplevel.links %}
+                  <li><a href="{{ secondlevel.url }}" {% unless template.name == 'index' %}{% if secondlevel.active %}aria-current="page"{% endif %}{% endunless%}>{{ secondlevel.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
         {% endfor %}
       {% endif %}
 
       {% if footer_social_enable %}
-        <div class="">
+        <div class="footer-item__outer">
+          <div class="page__footer_inner">
           {% if settings.social_footer_heading != blank %}
               <span class="footer-header social_footer_heading">{{ settings.social_footer_heading | escape }}</span>
           {% endif %}
@@ -122,7 +125,8 @@
                   </a>
                 </li>
               {% endif %}
-            </ul>
+            </ul>      
+          </div>
         </div>
       {% endif %}
 

@@ -2808,22 +2808,18 @@ $slick-opacity-not-active: 0.25;
 
 /*================ Module | Collection images at top of templates ================*/
 .collection-hero {
-  margin-top: -$contentTopMarginSmall;
-  margin-bottom: $contentTopMarginSmall;
   overflow: hidden;
 
   @include at-query($min, $large) {
-    margin-top: -$contentTopMargin + ($gutter / 2);
-    margin-bottom: $contentTopMargin;
   }
 
   @include at-query($max, $medium) {
-    margin-bottom: $gutter * 2;
   }
 }
 
 .collection-hero__image-wrapper {
   position: relative;
+  height: 100vh;
 
   .no-js & {
     @include visuallyHidden;
@@ -2845,7 +2841,8 @@ $slick-opacity-not-active: 0.25;
 .collection-hero__image {
   position: absolute;
   display: block;
-  width: 100%;
+  min-width: 100%;
+  min-height: 100vh;
   object-fit: cover;
   object-position: 50% 50%;
   // Used for the IE lazysizes object-fit polyfill

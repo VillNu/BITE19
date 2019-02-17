@@ -567,15 +567,12 @@ body {
 
 .main-content {
   display: block;
-  padding-top: 10px; /* $gutter; */
   min-height: calc(100vh - 12em);
 
   @include at-query($min, $postSmall) {
-    padding-bottom: 40px;
   }
 
   @include at-query($min, $large) {
-    padding-top: 10px; /* $contentTopMargin; */
   }
 }
 
@@ -2191,8 +2188,13 @@ $socialIconFontStack: 'icons';
 
   .bite-footer {
     display: grid;
-    grid-auto-flow: column;
-    justify-content: space-around;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    justify-items: center;
+    grid-row-gap: 10px;
+
+  @include at-query($max, $small) {
+      grid-template-columns: repeat(3, 1fr);
+    }
 
     .footer-header {
       margin-right: 0.6em;
