@@ -2759,11 +2759,6 @@ $socialIconFontStack: 'icons';
   text-decoration: none;
   pointer-events: auto; /* bespoke-bite */
 
-  /* bespoke-bite: */
-  @include at-query ($min, $large) { /* when large screen */
-    padding: 0; /* compact menu */
-  }
-
   &:active,
   &:focus {
     color: darken($colorDrawerText, 15%);
@@ -2777,8 +2772,17 @@ $socialIconFontStack: 'icons';
   .mobile-nav__item.over-hero > a,
   .mobile-nav__item.over-hero > .mobile-nav__has-sublist > a,
   .mobile-nav__item.over-hero > .mobile-nav__has-sublist > .mobile-nav__toggle > button {
-    color: white; /* white color for better contrast  */
+    color: $colorNav; /* white color for better contrast  */
+
+    img {
+      filter: invert(100%);
+    }
   }
+
+  .mobile-nav__logo-link {
+    margin-left: 1px; /* bespoke-bite */
+  }
+
 }
 
 .mobile-nav__item--secondary {
