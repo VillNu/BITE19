@@ -29,3 +29,11 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/windows
 
 *.yml
+*.bat
+*.eot
+*.ttf
+*.woff
+*.woff2
+*.otf
+*.svg
+Brooklyn/assets/fonts/
