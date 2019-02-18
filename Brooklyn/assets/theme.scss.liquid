@@ -1020,6 +1020,9 @@ select {
 $headerIncrement: (($headerBaseFontSize - $baseFontSize) / 5);
 h1 {
   font-size: em($headerBaseFontSize);
+  @include at-query($max, $small) {
+    font-size: 0.1vw;
+  }
 }
 
 h2 {
