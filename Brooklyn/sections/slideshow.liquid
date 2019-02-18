@@ -55,6 +55,63 @@
           background: #a12b2b;
         {% endif %}
       }
+
+      .slider__fixed-logo-wrapper {
+        position: absolute;
+        width: 80%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr calc({{ section.settings.slider_fixed_logo_width }}) 1fr;
+        grid-template-rows: 1fr min-content 1fr;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .slider__fixed-logo-wrapper .slider__fixed-logo {
+        grid-column: 2/3;
+        grid-row: 2/3;
+      }
+
+      .hero__text-wrap {
+
+      }
+      .hero__text-align {
+        display: grid;
+        grid-template-rows: 1fr min-content 1fr;
+        grid-template-columns: 1fr {{ section.settings.slider_fixed_logo_width }} 1fr;
+      }
+      .hero__text-align .slide__logo {
+        width: 100%;
+        grid-column: 2/3;
+        grid-row: 2/3;
+      }
+      .hero__text-align .hero__text-content {
+        grid-row-start: 3;
+        grid-column: 1/4;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr {{ section.settings.slider_fixed_logo_width }} 1fr;
+        align-content: space-evenly;
+      }
+      .hero__text-align .hero__title {
+        grid-column: 2/3;
+
+      }
+      .hero__text-align .hero__text-content .hero__subtitle {
+        grid-column: 2 / span 2;
+        justify-self: start;
+      }
+      .hero__text-align .hero__text-content .hero__cta {
+        grid-column: 1 / span 2;
+        justify-self: end;
+      }
+      .hero__text-align .hero__text-content h1,
+      .hero__text-align .hero__text-content h2,
+      .hero__text-align .hero__text-content h3,
+      .hero__text-align .hero__text-content h4,
+      .hero__text-align .hero__text-content h5,
+      .hero__text-align .hero__text-content h6 {
+        margin: 0;
+      }
     {% else %}
       .site-nav__link, .site-header__logo a, .site-nav__link:hover, .site-header__logo a:hover {
         color: {{ settings.color_headings }};
@@ -73,9 +130,9 @@
 {% endcomment %}
 <div data-section-id="{{ section.id }}" data-section-type="slideshow-section">
 
-  {% unless section.settings.slider_logo == blank %}
+  {% unless section.settings.slider_fixed_logo == blank %}
   <div class="slider__fixed-logo-wrapper">
-    <img class="slider__fixed-logo lazyload" src="{{ section.settings.slider_logo | img_url: '2000x' }}">
+    <img class="slider__fixed-logo lazyload" src="{{ section.settings.slider_fixed_logo | img_url: '2000x' }}">
   </div>
   {% endunless %}
 
@@ -160,15 +217,17 @@
             </style>
             <div class="hero__text-wrap slideshow__overlay">
               <div class="hero__text-align">
-                <div class="hero__text-content">
-                  {% unless block.settings.slide_heading == blank %}
-                    <h1 class="h1 hero__title">
-                      {{ block.settings.slide_heading | escape }}
-                    </h1>
-                  {% endunless %}
+                {% if section.settings.slider_fixed_logo != blank %}
+                    <img class="slide__logo lazyload visibility-hidden" src="{{ section.settings.slider_fixed_logo | img_url: '2000x' }}">
+                {% else %}
                   {% unless block.settings.slide_logo == blank %}
                     <img class="slide__logo lazyload fade-in"
                       src="{{ block.settings.slide_logo | img_url: '300x' }}">
+                  {% endunless %}
+                {% endif %}
+                <div class="hero__text-content">
+                  {% unless block.settings.slide_heading == blank %}
+                    <h1 class="hero__title">{{ block.settings.slide_heading | escape }}</h1>
                   {% endunless %}
                   {% unless block.settings.slide_subheading == blank %}
                     <a class="hero__subtitle" href="{{ block.settings.slide_link }}">
@@ -270,6 +329,10 @@
             "ja": "10秒",
             "pt-BR": "10 segundos"
           }
+        },
+        {
+          "value": "3600000",
+          "label": "1 hour"
         }
       ]
     },
@@ -295,8 +358,16 @@
     },
     {
       "type": "image_picker",
-      "id": "slider_logo",
-      "label": "Fixed Logo"
+      "id": "slider_fixed_logo",
+      "label": "Fixed Logo",
+      "info": "Turns off slide logos"
+    },
+    {
+      "type": "text",
+      "id": "slider_fixed_logo_width",
+      "label": "Logo width",
+      "info": "Please include correct unit",
+      "default": "33%"
     }
   ],
   "blocks": [
@@ -429,7 +500,7 @@
           "id": "slide_logo",
           "label": {
             "de": "Slide logo",
-            "en": "Slide logo",
+            "en": "Slide logo (shown if no fixed logo)",
             "es": "Slide logo",
             "fr": "Slide logo",
             "it": "Slide logo",

@@ -1027,6 +1027,9 @@ h1 {
 
 h2 {
   font-size: em(floor($headerBaseFontSize - $headerIncrement * 1));
+  @include at-query($max,460px) {
+    font-size: 7.2vw;
+  }
 }
 
 h3 {
@@ -2339,12 +2342,16 @@ $shareCountBg: $colorBody;
 
 .hero__text-content {
   position: relative;
-  opacity: 0;
-  display: table-cell;
-  vertical-align: middle;
-  padding: 15px 30px 0;
-  @include transition('color 0.2s ease');
   width: 100%;
+  height: 100%;
+  display: table-cell;  vertical-align: middle;  padding: 15px 30px 0;
+
+  display: grid;
+  grid-column: 1fr 1fr 1fr;
+  padding: 0;
+
+  @include transition('color 0.2s ease');
+  opacity: 0;
 
   .slick-initialized & {
     opacity: 1;
@@ -2361,57 +2368,20 @@ $shareCountBg: $colorBody;
 }
 
 /*================ Extra specificity to override Timber defaults ================*/
-.slider__fixed-logo-wrapper {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 40%;
-  width: 33%;
-
-  .slider__fixed-logo {
-    margin-top: -15%;
-    margin-left: -50%;
-  }
-
-  @include at-query($min, $postSmall) {
-    width: 33%;
-  }
-
-  @include at-query($min, $large) {
-    width: 33%;
-  }
-
-}
 
 .hero__slide {
   .hero__title {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    text-align: center;
   }
-
   .hero__subtitle {
-    position: absolute;
-    left: 31%;
-    top: 66%;
-    text-align: left;
   }
-
   .hero__cta {
-    position: absolute;
-    right: 27.5%;
-    top: 82%;
-    text-align: right;
   }
 
   @include at-query($min, $postSmall) {
     .hero__title {
     }
-
     .hero__subtitle {
     }
-
     .hero__cta {
     }
   }
@@ -2419,10 +2389,8 @@ $shareCountBg: $colorBody;
   @include at-query($min, $large) {
     .hero__title {
     }
-
     .hero__subtitle {
     }
-
     .hero__cta {
     }
   }
@@ -2650,7 +2618,7 @@ $slick-opacity-not-active: 0.25;
   .slick-initialized & {
     display: block;
     visibility: visible;
-    left: -1.777%;
+    left: -10vw;
   }
 
   .slick-loading & {

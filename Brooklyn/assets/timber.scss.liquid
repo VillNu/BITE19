@@ -2859,8 +2859,10 @@ $socialIconFontStack: 'icons';
   height: 30px;
   overflow: hidden;
 
-  &.competes_with_hero {
-    height: 0;
+  @include at-query($max,$small) {
+    &.competes_with_hero {
+      height: 0;
+    }
   }
 }
 
