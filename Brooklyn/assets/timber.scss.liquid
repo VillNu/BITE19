@@ -1895,6 +1895,10 @@ $socialIconFontStack: 'icons';
 /*      display: block; */
       @include transform(translateX(0));
     }
+
+    .js-drawer-open-right & {
+        left: -$drawerCartWidthLarge;
+    }
   }
 }
 
@@ -2858,11 +2862,9 @@ $socialIconFontStack: 'icons';
 .menu-logo__wrapper {
   height: 30px;
   overflow: hidden;
-
-  @include at-query($max,$small) {
-    &.competes_with_hero {
-      height: 0;
-    }
+  
+  &.competes_with_hero {
+    height: 0;
   }
 }
 
