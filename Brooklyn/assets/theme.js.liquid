@@ -2810,7 +2810,7 @@ theme.HeaderSection = (function() {
           .closest('.mobile-nav__has-sublist')
           .toggleClass('mobile-nav--expanded', toggleState)
           .next()
-          .slideToggle(400,contrastLeftNavItems());
+          .slideToggle(400,function(){contrastLeftNavItems();});
       });
     }
   });
@@ -3509,7 +3509,7 @@ function hideMenuLogoFromSlideLogos() {
   }
 }
 
-function contrastLeftNavItems() {
+function contrastLeftNavItems() { // is also called from line
   /* add class to menu list items over hero */
   /* togle left menu items color for better visability */
   $(".mobile-nav__item, mobile-nav__toggle-btn").each(function(){
@@ -3548,5 +3548,5 @@ function clickLeftMenu(element) {
     .closest('.mobile-nav__has-sublist')
     .toggleClass('mobile-nav--expanded', toggleState)
     .next()
-    .slideToggle();
+    .slideToggle(400, function(){contrastLeftNavItems();});
 }
