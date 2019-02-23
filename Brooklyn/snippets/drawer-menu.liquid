@@ -19,19 +19,10 @@
         {% if link.links != blank %}
           <li class="mobile-nav__item">
             <div class="mobile-nav__has-sublist">
-              <a
-                href="{{ link.url }}"  class="mobile-nav__link"   id="Label-{{ forloop.index }}"
-                {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>{{ link.title | escape }}</a>
-              <div class="mobile-nav__toggle">
+              <div class="mobile-nav__link" id="Label-{{ forloop.index }}"></div>
+              <div class="mobile-nav__toggle" {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
                 <button type="button" class="mobile-nav__toggle-btn icon-fallback-text" aria-controls="Linklist-{{ forloop.index }}" aria-expanded="false">
-                  <span class="icon-fallback-text mobile-nav__toggle-open">
-                    <span class="icon icon-plus" aria-hidden="true"></span>
-                    <span class="fallback-text">{{ 'general.drawers.expand_submenu' | t }} {{ link.title | escape }}</span>
-                  </span>
-                  <span class="icon-fallback-text mobile-nav__toggle-close">
-                    <span class="icon icon-minus" aria-hidden="true"></span>
-                    <span class="fallback-text">{{ 'general.drawers.collapse_submenu' | t }} {{ link.title | escape }}</span>
-                  </span>
+                  <strong>{{ link.title | escape }}</strong>
                 </button>
               </div>
             </div>
