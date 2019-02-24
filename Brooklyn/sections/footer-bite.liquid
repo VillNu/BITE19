@@ -27,7 +27,7 @@
         {% for toplevel in menu.links %}
           <div class="footer-item__outer">
             <div class="footer-item__inner">
-              <span class="footer-header">{{ toplevel.title }}</span>
+              <span class="footer-item_header">{{ toplevel.title }}</span>
               <ul class="no-bullets site-footer__linklist">
                 {% for secondlevel in toplevel.links %}
                   <li><a href="{{ secondlevel.url }}" {% unless template.name == 'index' %}{% if secondlevel.active %}aria-current="page"{% endif %}{% endunless%}>{{ secondlevel.title }}</a></li>
@@ -42,7 +42,7 @@
         <div class="footer-item__outer">
           <div class="page__footer_inner">
           {% if settings.social_footer_heading != blank %}
-              <span class="footer-header social_footer_heading">{{ settings.social_footer_heading | escape }}</span>
+              <span class="footer-item_header social_footer_heading">{{ settings.social_footer_heading | escape }}</span>
           {% endif %}
             <ul class="no-bullets social-icons">
               {% if settings.social_facebook_link != blank %}
