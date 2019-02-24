@@ -558,16 +558,17 @@ body {
 .wrapper {
   max-width: $siteWidth;
   margin: 0 auto;
-  padding: 0 ($gutter / 2);
+/*  padding: 0 ($gutter / 2); */
 
   @include at-query ($min, $postSmall) {
-    padding: 0 $gutter;
+/*    padding: 0 $gutter; */
   }
 }
 
 .main-content {
   display: block;
   min-height: calc(100vh - 12em);
+
 
   @include at-query($min, $postSmall) {
   }
@@ -619,8 +620,8 @@ h6 {
   font-weight: $headerFontWeight;
   font-style: $headerFontStyle;
   letter-spacing: $headerLetterSpacing;
-  margin: 0 0 0.5em;
-  line-height: 1.4;
+  margin: 0 0 0.1em;
+  line-height: 1.0;
   text-rendering: optimizeLegibility;
 
   a {
@@ -1455,6 +1456,7 @@ html input[disabled] {
 /*================ Partials | Images, SVG, and iframes ================*/
 img {
   border: 0 none;
+  display: block;
 }
 
 svg:not(:root) {
@@ -1853,8 +1855,8 @@ $socialIconFontStack: 'icons';
     }
 
     &[aria-current="page"] {
-      /* font-weight: 600; */
-      text-shadow: 0.5px 0 0 currentColor;
+      font-weight: 600;
+      /* text-shadow: 0.5px 0 0 currentColor; */
     }
   }
 
@@ -1885,7 +1887,7 @@ $socialIconFontStack: 'icons';
 /* bespoke-bite: version for bigger screens with always opened menu */
 @include at-query($min, $large) {
   .drawer--left {
-    width: calc(100vw/6);
+    width: calc((100vw - 50px) / 6);
     left: 0;
     display: block;
     background-color: transparent;
@@ -2218,8 +2220,8 @@ $socialIconFontStack: 'icons';
       color: lighten($colorTextBody, 20%);
     }
     &[aria-current="page"] {
-      /* font-weight: 600; */
-      text-shadow: 0.5px 0 0 currentColor;
+      font-weight: 600;
+      /* text-shadow: 0.5px 0 0 currentColor; */
     }
 
 
@@ -2232,7 +2234,7 @@ $socialIconFontStack: 'icons';
   }
 }
 
-.footer-header {
+.footer-item_header {
   /* font-weight: bold; */
   text-shadow: 0.5px 0 0 currentColor;
 }
@@ -2457,7 +2459,7 @@ $socialIconFontStack: 'icons';
 
 /*================ Module | Site Header ================*/
 .site-header {
-  padding: ($gutter / 2) 0 0;
+  padding: 10px 0 0 0;
 
   .grid--table {
     display: table;
@@ -2537,6 +2539,7 @@ $socialIconFontStack: 'icons';
 /*================ Module | Section Headers ================*/
 .section-header {
   margin-bottom: 30px;
+  margin-top: 30px;
 
   .section-header__title {
     letter-spacing: 0;

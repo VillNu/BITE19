@@ -376,7 +376,7 @@ $colorDrawerButtonText: {{ settings.color_drawer_button_text }};
 $drawerTransition: 'all 0.35s cubic-bezier(0.46, 0.01 , 0.32, 1)';
 
 // Sizing variables
-$gutter: 30px;
+$gutter: 10px; /* default: 30px*/
 $gridGutterMobile: 22px;
 $section-spacing-small: 35px;
 $gridGutter: 30px; // can be a %, but nested grids will have smaller margins because of it
@@ -1664,8 +1664,8 @@ input[type="image"] {
     '.    .    ix   ix   xi xi'
     'xii  xii  xiii xiii xiv xiv'
     '.    .    xiii xiii xiv xiv';
-  margin-left: -20px;
-  margin-right: -20px;
+  margin-left: -10px;
+  margin-right: -10px;
 
   & [class^="bite-grid--"], & [class*=" bite-grid--"] {
     padding: 0;
@@ -2922,12 +2922,13 @@ $slick-opacity-not-active: 0.25;
   margin-right: 0.3em;
 }
 /*================ Module | Theme Header and Navigation Overrides ================*/
+.site-header {
+  padding: 10px;
+}
 @include at-query($max, $medium) {
   .site-header {
-    padding: 0;
-
     .grid--table {
-      height: $drawerHeaderHeight;
+      height: 0; /*  $drawerHeaderHeight; */
     }
   }
 }
