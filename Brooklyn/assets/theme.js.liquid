@@ -1827,7 +1827,7 @@ var slickTheme = (function(module, $) {
       speed: 1000,
       cssEase: 'ease-in-out',
       centerMode: true,
-      centerPadding: '10%', /* default '100px' */
+      centerPadding: slickTheme.cache.$hero.data('centerpadding'), /* default '100px' */
       slidesToShow: 1,
       focusOnSelect: true,
       focusOnChange: settings.focusOnChange,
@@ -2851,7 +2851,8 @@ theme.SlideshowSection = (function() {
       fullscreen: $(slideshow).data('fullscreen'),
       parallax: $(slideshow).data('parallax'),
       autoplay: $(slideshow).data('autoplay'),
-      autoplaySpeed: $(slideshow).data('autoplayspeed')
+      autoplaySpeed: $(slideshow).data('autoplayspeed'),
+      centerPadding: $(slideshow).data('centerpadding')
     });
 
     // remove header absolute display if slideshow is empty
