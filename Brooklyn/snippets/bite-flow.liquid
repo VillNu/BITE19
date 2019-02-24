@@ -1,46 +1,63 @@
 <!-- /snippets/bite-flow.liquid -->
-
-{% comment %}
-  todo: now create one "item", then copy code to "bite-flow-item"
-  and then turn this page into the "flow grid"
-{% endcomment %}
-
-<style> /* create 3 custom fonts*/
-  @font-face {  font-family: "Austin-Roman";
-    src: url("https://media.bitestudios.se/font-austin.php") format("opentype");  }
-  @font-face {  font-family: "Brown-Regular";
-    src: url("https://media.bitestudios.se/font-brown.php") format("opentype");  }
-  @font-face {  font-family: "Brown-Bold";
-    src: url("https://media.bitestudios.se/font-brown-bold.php") format("opentype");  }
-  .font-austin { font-family: Austin-Roman, Georgia, Times New Roman, serif !important; }
-  .font-brown { font-family: Brown-Regular, Lato, san-serif !important; }
-  .font-brown-bold { font-family: Brown-Bold, Lato, san-serif !important; }
+<style>
+  .block {
+    background: {{section.settings.color}};
+  }
+{% for block in section.blocks %}
+  #block-{{block.id}} {
+    grid-column-end: span {{block.settings.flow-item-colspan}};
+    grid-row-end: span {{block.settings.flow-item-rowspan}};
+    align-self: {{block.settings.flow-item-align}};
+  }
+{% endfor %}
 </style>
 
-<div class="" style="display: grid; grid-gap: 10px; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; align-items: center;">
+<div class="bite-flow--container">
 
   {% for block in section.blocks %}
-    <div class="{{block.settings.type}}" style="background: {{section.settings.color}};
-                         grid-column: {{ block.settings.flow-item-col-start }} / {{ block.settings.flow-item-col-end }};
-                         grid-row: {{ block.settings.flow-item-row-start }} / {{ block.settings.flow-item-row-end }};
-                         padding: 10px;"
-                         {{ block.shopify_attributes }}>
-      {% case block.settings.type  %}
-        {% when "product" %}
-          <div class="product">
-            <img src="{{ block.settings.product | img_url: 'master' }}">
-             {{ block.settings.product }}
-          </div>
-        {% when "image" %}
-          <div class="image">
-            <img src="{{ block.settings.image | img_url: 'master' }}">
-          </div>
-        {% when "text" %}
-          <div class="text">
-            <h1 class="font-austin">{{ block.settings.header }}</h1>
-            {{ block.settings.text }}
-          </div>
-      {% endcase %}
-    </div>
+
+    {% if block.settings.product != blank %}
+      {% assign product = all_products[block.settings.product] %}
+      {% assign url = product.url %}
+      {% assign image = product.featured_image %}
+      {% assign type = 'product' %}
+
+    {% else %}
+      {% assign url = block.settings.link %}
+      {% assign image = block.settings.image %}
+      {% if image != blank %}
+        {% assign type = 'image' %}
+      {% else %}
+        {% assign type = 'text' %}
+      {% endif %}
+    {% endif %}
+
+    <div id="block-{{block.id}}" class="block {{ type }}" {{ block.shopify_attributes }}>
+
+    {% if url != blank %}
+      <a href="{{ url }}">
+    {% endif %}
+
+    {% if image != blank %}
+        <img src="{{ image | img_url: 'master' }}">
+    {% endif %}
+
+    {% if block.settings.product != blank %}
+        <div class="product-caption">
+          <div class="product-title">{{ product.title }}</div>
+          <div class="product-price">{{ product.price | money }}</div>
+        </div>
+    {% else if %}
+        <div class="text">
+          <h2>{{ block.settings.title }}</h2>
+          <span {% if block.settings.no_uppercase == true %}style="text-transform: none;"{% endif %}>{{ block.settings.text | newline_to_br}}</span>
+        </div>
+    {% endif %}
+
+    {% if url != blank %}
+      </a>
+    {% endif %}
+
+  </div>
   {% endfor %}
 </div>
