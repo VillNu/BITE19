@@ -2199,9 +2199,11 @@ $socialIconFontStack: 'icons';
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px,1fr));
     grid-template-columns: repeat(auto-fill, minmax(max-content, 133px));
+    grid-template-columns: repeat(auto-fit, minmax(max-content, 133px));
     grid-row-gap: 20px;
     grid-column-gap: 10px;
     justify-content: center;
+    justify-content: space-evenly;
 
   @include at-query($max, $small) {
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
