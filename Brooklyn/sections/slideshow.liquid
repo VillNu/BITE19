@@ -29,6 +29,12 @@
   {% endcomment %}
   <style>
     {% if section.blocks.size > 0 %}
+
+      .slick-initialized .slick-slide {
+        left: -{{ section.settings.home_hero_center_padding | divided_by: 2 }}vw;
+      }
+
+
       .site-nav__link,       .site-header__logo a,
       .site-nav__link:hover, .site-header__logo a:hover,
       .hero__text-content a {
@@ -61,13 +67,18 @@
       }
       .slider__fixed-logo-wrapper {
         position: absolute;
-        width: 80%;
+        width: calc(100% - {{ section.settings.home_hero_center_padding | divided_by: 1 }}%);
         height: 100vh;
         display: grid;
         grid-template-columns: 1fr calc({{ section.settings.slider_fixed_logo_width }}) 1fr;
         grid-template-rows: 1fr min-content 1fr;
         pointer-events: none;
         z-index: 1;
+      }
+      @media screen and (max-width: 769px) {
+        .slider__fixed-logo-wrapper {
+          grid-template-columns: 1fr calc({{ section.settings.slider_fixed_logo_width_mobile }}) 1fr;
+        }
       }
       .slider__fixed-logo-wrapper .slider__fixed-logo {
         grid-column: 2/3;
@@ -82,6 +93,11 @@
         grid-template-rows: 1fr min-content 1fr;
         grid-template-columns: 1fr {{ section.settings.slider_fixed_logo_width }} 1fr;
       }
+      @media screen and (max-width: 769px) {
+        .hero__text-align {
+          grid-template-columns: 1fr {{ section.settings.slider_fixed_logo_width_mobile }} 1fr;
+        }
+      }
       .hero__text-align .slide__logo {
         width: 100%;
         grid-column: 2/3;
@@ -94,6 +110,11 @@
         display: grid;
         grid-template-columns: 1fr {{ section.settings.slider_fixed_logo_width }} 1fr;
         align-content: space-evenly;
+      }
+      @media screen and (max-width: 769px) {
+        .hero__text-align .hero__text-content {
+          grid-template-columns: 1fr {{ section.settings.slider_fixed_logo_width_mobile }} 1fr;
+        }
       }
       .hero__text-align .hero__title {
         grid-column: 2/3;
@@ -143,7 +164,10 @@
     <div class="hero-{{ section.id }} hero{% if hero_full_height %} hero--full-height{% endif %} hero--first"
           id="Hero"{% if hero_full_height %} data-fullscreen="true"{% endif %}
           {% if hero_parallax %}data-parallax="true"{% endif %}
-          data-autoplay="{{ section.settings.hero_home_auto }}" data-autoplayspeed="{{ section.settings.home_hero_auto_speed }}">
+          data-autoplay="{{ section.settings.hero_home_auto }}"
+          data-autoplayspeed="{{ section.settings.home_hero_auto_speed }}"
+          data-centerpadding="{{ section.settings.home_hero_center_padding | divided_by: 2 }}%"
+          >
 
 
       {% for block in section.blocks %}
@@ -230,16 +254,16 @@
                 {% endif %}
                 <div class="hero__text-content">
                   {% unless block.settings.slide_heading == blank %}
-                    <h1 class="hero__title">{{ block.settings.slide_heading | escape }}</h1>
+                    <h{{section.settings.header_size}} class="hero__title">{{ block.settings.slide_heading | escape }}</h{{section.settings.header_size}}>
                   {% endunless %}
                   {% unless block.settings.slide_subheading == blank %}
                     <a class="hero__subtitle" href="{{ block.settings.slide_link }}">
-                      <h2>{{ block.settings.slide_subheading | escape }}</h2>
+                      <h{{section.settings.subheader_size}}>{{ block.settings.slide_subheading | escape }}</h{{section.settings.subheader_size}}>
                     </a>
                   {% endunless %}
                   {% unless block.settings.slide_cta == blank %}
                     <a class="hero__cta" href="{{ block.settings.slide_link }}">
-                      <h5>{{ block.settings.slide_cta | escape }}</h5>
+                      <h{{section.settings.cta_size}}>{{ block.settings.slide_cta | escape }}</h{{section.settings.cta_size}}>
                     </a>
                   {% endunless %}
                 </div>
@@ -340,11 +364,29 @@
       ]
     },
     {
+      "type": "range",
+      "id": "home_hero_center_padding",
+      "label": "Next slide sticks out",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": {
+        "de": "%",
+        "en": "%",
+        "es": "%",
+        "fr": "%",
+        "it": "%",
+        "ja": "%",
+        "pt-BR": "%"
+      },
+      "default": 10
+    },
+    {
       "type": "color",
       "id": "slide_text_color",
       "label": {
         "de": "Text",
-        "en": "Heading color",
+        "en": "Text color",
         "es": "texto",
         "fr": "Texte",
         "it": "Testo",
@@ -356,8 +398,101 @@
     {
       "type": "checkbox",
       "id": "slide_text_inverted",
-      "label": "Invert heading color",
+      "label": "Invert text color",
       "default": false
+    },
+    {
+      "type": "select",
+      "id": "header_size",
+      "label": "Header size",
+      "options": [
+        {
+          "value": "1",
+          "label": "Header 1"
+        },
+        {
+          "value": "2",
+          "label": "Header 2"
+        },
+        {
+          "value": "3",
+          "label": "Header 3"
+        },
+        {
+          "value": "4",
+          "label": "Header 4"
+        },
+        {
+          "value": "5",
+          "label": "Header 5"
+        },
+        {
+          "value": "6",
+          "label": "Header 6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "subheader_size",
+      "label": "Subheader size",
+      "options": [
+        {
+          "value": "1",
+          "label": "Header 1"
+        },
+        {
+          "value": "2",
+          "label": "Header 2"
+        },
+        {
+          "value": "3",
+          "label": "Header 3"
+        },
+        {
+          "value": "4",
+          "label": "Header 4"
+        },
+        {
+          "value": "5",
+          "label": "Header 5"
+        },
+        {
+          "value": "6",
+          "label": "Header 6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "cta_size",
+      "label": "Call to action size",
+      "options": [
+        {
+          "value": "1",
+          "label": "Header 1"
+        },
+        {
+          "value": "2",
+          "label": "Header 2"
+        },
+        {
+          "value": "3",
+          "label": "Header 3"
+        },
+        {
+          "value": "4",
+          "label": "Header 4"
+        },
+        {
+          "value": "5",
+          "label": "Header 5"
+        },
+        {
+          "value": "6",
+          "label": "Header 6"
+        }
+      ]
     },
     {
       "type": "image_picker",
@@ -371,6 +506,13 @@
       "label": "Logo width",
       "info": "Please include correct unit",
       "default": "33%"
+    },
+    {
+      "type": "text",
+      "id": "slider_fixed_logo_width_mobile",
+      "label": "Logo width on mobile",
+      "info": "Please include correct unit",
+      "default": "50%"
     }
   ],
   "blocks": [
@@ -477,6 +619,19 @@
           }
         },
         {
+          "type": "image_picker",
+          "id": "slide_logo",
+          "label": {
+            "de": "Slide logo",
+            "en": "Slide logo (shown if no fixed logo)",
+            "es": "Slide logo",
+            "fr": "Slide logo",
+            "it": "Slide logo",
+            "ja": "Slide logo",
+            "pt-BR": "Slide logo"
+          }
+        },
+        {
           "type": "text",
           "id": "slide_heading",
           "label": {
@@ -496,19 +651,6 @@
             "it": "Banner hero",
             "ja": "ヒーローバナー",
             "pt-BR": "Banner do Hero"
-          }
-        },
-        {
-          "type": "image_picker",
-          "id": "slide_logo",
-          "label": {
-            "de": "Slide logo",
-            "en": "Slide logo (shown if no fixed logo)",
-            "es": "Slide logo",
-            "fr": "Slide logo",
-            "it": "Slide logo",
-            "ja": "Slide logo",
-            "pt-BR": "Slide logo"
           }
         },
         {
