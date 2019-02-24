@@ -3522,6 +3522,7 @@ function contrastLeftNavItems() { // is also called from line
 
 function openLeftMenuOnScroll() {
   $button = $(".mobile-nav__toggle-btn");
+
   if ($button.attr('aria-expanded') === 'false'
       && !inView($(".slider__fixed-logo"))
       && !$button.hasClass("clicked_manually")) {
@@ -3529,7 +3530,14 @@ function openLeftMenuOnScroll() {
   else if ($button.attr('aria-expanded') === 'true'
           && inView($(".slider__fixed-logo"))
           && !$button.hasClass("clicked_manually")) {
-    clickLeftMenu($button);  }
+    clickLeftMenu($button);
+  }
+/*
+if (($(".mobile-nav").offset().top + 700) > $(".site-footer").offset().top) {
+    if ($button.attr('aria-expanded') === 'true') {
+      clickLeftMenu($button);
+    }
+  } */
 }
 
 function clickLeftMenu(element) {
