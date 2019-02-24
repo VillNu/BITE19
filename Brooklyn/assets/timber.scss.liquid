@@ -2191,18 +2191,24 @@ $socialIconFontStack: 'icons';
 /*================ Module-specific styles ================*/
 /*================ Module | Footer ================*/
 .site-footer {
+  margin: 40px 0;
 
   .bite-footer {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
-    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(130px,1fr));
+    grid-template-columns: repeat(auto-fill, minmax(max-content, 133px));
     grid-row-gap: 20px;
+    grid-column-gap: 10px;
+    justify-content: center;
 
   @include at-query($max, $small) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     }
 
-    .footer-header {
+    .footer-item__outer {
+      justify-self: center;
+    }
+    .footer-item_header {
       margin-right: 0.6em;
     }
   }
