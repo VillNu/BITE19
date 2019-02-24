@@ -114,7 +114,7 @@
 }
 
 /*================ Functions ================*/
-@function em($target, $context: $baseFontSize) {
+@function em($target, $context: $bodyFontSize) {
   @if $target == 0 {
     @return 0;
   }
@@ -478,7 +478,12 @@ $color-blankstate-background: rgba($colorTextBody, 0.10);
   $headerFontStack: {% if settings.custom_header_font != "" %}{{ settings.custom_header_font }}, {% endif %}{{ header_family.family }}, {{ header_family.fallback_families }};
   $headerFontWeight: {{ header_family.weight }};
   $headerFontStyle: {{ header_family.style }};
-  $headerBaseFontSize: {{ settings.type_header_base_size }};
+  $headerBaseFontSize: {{ settings.type_header1_size }};
+  $header2Size: {{ settings.type_header2_size }};
+  $header3Size: {{ settings.type_header3_size }};
+  $header4Size: {{ settings.type_header4_size }};
+  $header5Size: {{ settings.type_header5_size }};
+  $header6Size: {{ settings.type_header6_size }};
   $headerLetterSpacing: {{ settings.header_letter_spacing }}px;
 
   // Body Font
@@ -486,7 +491,7 @@ $color-blankstate-background: rgba($colorTextBody, 0.10);
   $bodyFontWeight: {{ base_family.weight }};
   $bodyFontWeightBold: {{ base_family_bold.weight | default: 700 }};
   $bodyFontStyle: {{ base_family.style }};
-  $baseFontSize: {{ settings.type_base_size }}; // Henceforth known as 1em
+  $bodyFontSize: {{ settings.type_base_size }}; // Henceforth known as 1em
   $bodyLetterSpacing: {{ settings.body_letter_spacing }}px;
 
   // Accent Font
@@ -1017,39 +1022,39 @@ select {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-$headerIncrement: (($headerBaseFontSize - $baseFontSize) / 5);
+
 h1 {
   font-size: em($headerBaseFontSize);
-  @include at-query($max, $small) {
-    font-size: 0.1vw;
+  @include at-query($max, 460px) {
+    font-size: 8.3vw;
   }
 }
 
 h2 {
-  font-size: em(floor($headerBaseFontSize - $headerIncrement * 1));
+  font-size: em(floor($header2Size));
   @include at-query($max,460px) {
     font-size: 7.2vw;
   }
 }
 
 h3 {
-  font-size: em(floor($headerBaseFontSize - $headerIncrement * 2));
+  font-size: em(floor($header3Size));
 }
 
 h4 {
-  font-size: em(floor($headerBaseFontSize - $headerIncrement * 3));
+  font-size: em(floor($header4Size));
 }
 
 h5 {
-  font-size: em(floor($headerBaseFontSize - $headerIncrement * 4));
+  font-size: em(floor($header5Size));
 }
 
 h6 {
-  font-size: em(floor($headerBaseFontSize - $headerIncrement * 5));
+  font-size: em(floor($header6Size));
 }
 
 {% if settings.type_accent_subheadings %}
-  h3, h4, h5, h6 {
+h4, h5, h6 {
     @include accentFontStack;
   }
 {% endif %}
@@ -3478,7 +3483,7 @@ button.mfp-arrow {
 
 .grid-product__title {
   @include bodyFontItalic;
-  font-size: em(floor($baseFontSize * 1.25));  //20px based on 16px base font size
+  font-size: em(floor($bodyFontSize * 1.25));  //20px based on 16px base font size
 }
 
 .grid-product__vendor {
@@ -3585,10 +3590,10 @@ button.mfp-arrow {
 }
 
 .rich-text__text--large {
-  font-size: em(floor($baseFontSize * 1.2));
+  font-size: em(floor($bodyFontSize * 1.2));
 }
 .rich-text__text--small {
-  font-size: em(floor($baseFontSize * 0.925));
+  font-size: em(floor($bodyFontSize * 0.925));
 }
 
 /*================ Modules | Theme collection grid item ================*/
@@ -4217,13 +4222,13 @@ button.mfp-arrow {
 
 .password-login {
   @include accentFontStack;
-  font-size: em(0.8 * $baseFontSize);
-  line-height: 0.8 * $baseFontSize;
+  font-size: em(0.8 * $bodyFontSize);
+  line-height: 0.8 * $bodyFontSize;
 }
 
 .lock-icon-svg {
-  width: 0.8 * $baseFontSize;
-  height: 0.8 * $baseFontSize;
+  width: 0.8 * $bodyFontSize;
+  height: 0.8 * $bodyFontSize;
   display: inline-block;
   vertical-align: baseline;
 
@@ -4245,7 +4250,7 @@ button.mfp-arrow {
   display: table-cell;
   vertical-align: bottom;
   padding: $gutter;
-  line-height: 1.5 * $baseFontSize;
+  line-height: 1.5 * $bodyFontSize;
   font-size: 95%;
 }
 
@@ -4258,8 +4263,8 @@ button.mfp-arrow {
 }
 
 .shopify-logo-svg {
-  width: 1.5 * $baseFontSize * 120 / 35;
-  height: 1.5 * $baseFontSize;
+  width: 1.5 * $bodyFontSize * 120 / 35;
+  height: 1.5 * $bodyFontSize;
   display: inline-block;
   line-height: 0;
   vertical-align: top;

@@ -312,115 +312,40 @@
         "default": "old_standard_tt_n4"
       },
       {
-        "type": "select",
-        "id": "type_header_base_size",
-        "label": {
-          "de": "Basisgröße",
-          "en": "Base size",
-          "es": "Tamaño de base",
-          "fr": "Taille de base",
-          "it": "Dimensione base",
-          "ja": "ベースサイズ",
-          "pt-BR": "Tamanho básico"
-        },
-        "options": [
-          {
-            "value": "26px",
-            "label": {
-              "de": "26px",
-              "en": "26px",
-              "es": "26px",
-              "fr": "26 px",
-              "it": "26 px",
-              "ja": "26ピクセル",
-              "pt-BR": "26px"
-            }
-          },
-          {
-            "value": "28px",
-            "label": {
-              "de": "28px",
-              "en": "28px",
-              "es": "28px",
-              "fr": "28 px",
-              "it": "28 px",
-              "ja": "28ピクセル",
-              "pt-BR": "28px"
-            }
-          },
-          {
-            "value": "30px",
-            "label": {
-              "de": "30px",
-              "en": "30px",
-              "es": "30px",
-              "fr": "30 px",
-              "it": "30 px",
-              "ja": "30ピクセル",
-              "pt-BR": "30px"
-            }
-          },
-          {
-            "value": "32px",
-            "label": {
-              "de": "32px",
-              "en": "32px",
-              "es": "32px",
-              "fr": "32 px",
-              "it": "32 px",
-              "ja": "32ピクセル",
-              "pt-BR": "32px"
-            }
-          },
-          {
-            "value": "34px",
-            "label": {
-              "de": "34px",
-              "en": "34px",
-              "es": "34px",
-              "fr": "34 px",
-              "it": "34 px",
-              "ja": "34ピクセル",
-              "pt-BR": "34px"
-            }
-          },
-          {
-            "value": "36px",
-            "label": {
-              "de": "36px",
-              "en": "36px",
-              "es": "36px",
-              "fr": "36 px",
-              "it": "36 px",
-              "ja": "36ピクセル",
-              "pt-BR": "36px"
-            }
-          },
-          {
-            "value": "38px",
-            "label": {
-              "de": "38px",
-              "en": "38px",
-              "es": "38px",
-              "fr": "38 px",
-              "it": "38 px",
-              "ja": "38ピクセル",
-              "pt-BR": "38px"
-            }
-          },
-          {
-            "value": "40px",
-            "label": {
-              "de": "40px",
-              "en": "40px",
-              "es": "40px",
-              "fr": "40 px",
-              "it": "40 px",
-              "ja": "40ピクセル",
-              "pt-BR": "40px"
-            }
-          }
-        ]
+        "type": "text",
+        "id": "type_header1_size",
+        "label": "Header 1 size",
+        "default": "30px"
+      },
+      {
+        "type": "text",
+        "id": "type_header2_size",
+        "label": "Header 2 size",
+        "default": "28px"
+      },
+      {
+        "type": "text",
+        "id": "type_header3_size",
+        "label": "Header 3 size",
+        "default": "22px"
+      },
+      {
+        "type": "text",
+        "id": "type_header4_size",
+        "label": "Header 4 size",
+        "default": "20px"
+      },
+      {
+        "type": "text",
+        "id": "type_header5_size",
+        "label": "Header 5 size",
+        "default": "18px"
+      },
+      {
+        "type": "text",
+        "id": "type_header6_size",
+        "label": "Header 6 size",
+        "default": "16px"
       },
       {
           "type":   "range",

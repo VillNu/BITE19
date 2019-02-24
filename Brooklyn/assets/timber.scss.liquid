@@ -122,7 +122,7 @@
 }
 
 /*================ Functions ================*/
-@function em($target, $context: $baseFontSize) {
+@function em($target, $context: $bodyFontSize) {
   @if $target == 0 {
     @return 0;
   }
@@ -483,7 +483,7 @@ $color-blankstate-background: rgba($colorTextBody, 0.10);
 $headerFontStack: {% if settings.custom_header_font != "" %}{{ settings.custom_header_font }}, {% endif %}{{ header_family.family }}, {{ header_family.fallback_families }};
 $headerFontWeight: {{ header_family.weight }};
 $headerFontStyle: {{ header_family.style }};
-$headerBaseFontSize: {{ settings.type_header_base_size }};
+$headerBaseFontSize: {{ settings.type_header1_size }};
 $headerLetterSpacing: {{ settings.header_letter_spacing }}px;
 
 // Body Font
@@ -491,7 +491,7 @@ $bodyFontStack: {% if settings.custom_body_font != "" %}{{ settings.custom_body_
 $bodyFontWeight: {{ base_family.weight }};
 $bodyFontWeightBold: {{ base_family_bold.weight | default: 700 }};
 $bodyFontStyle: {{ base_family.style }};
-$baseFontSize: {{ settings.type_base_size }}; // Henceforth known as 1em
+$bodyFontSize: {{ settings.type_base_size }}; // Henceforth known as 1em
 $bodyLetterSpacing: {{ settings.body_letter_spacing }}px;
 
 // Accent Font
@@ -594,7 +594,7 @@ input,
 textarea,
 button,
 select {
-  font-size: $baseFontSize;
+  font-size: $bodyFontSize;
   line-height: 1.6;
   font-family: $bodyFontStack;
   color: $colorTextBody;
@@ -3293,7 +3293,7 @@ $socialIconFontStack: 'icons';
   .spr-review-content-body,
   .spr-review-header-byline,
   .spr-form-label {
-    font-size: $baseFontSize;
+    font-size: $bodyFontSize;
     line-height: 1.563;
   }
 
