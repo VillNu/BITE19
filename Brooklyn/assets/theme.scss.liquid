@@ -1573,6 +1573,82 @@ input[type="image"] {
   }
 }
 /*================ Modules | Bite grid ================*/
+.bite-flow--container {
+  margin-top: 20px;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(1, min-content);
+  align-items: center;
+
+  @include at-query($min, $large) {
+    grid-template-columns: repeat(5, 1fr);
+    margin-left: calc(((100% - 50px) / 6) + 10px);
+  }
+
+  .block {
+    position: relative;
+    overflow: hidden;
+    &.product {
+      background-color: #000;
+      &:hover .product-caption {
+        opacity: 1;
+      }
+    }
+
+    a img {
+      width: 100%;
+      @include transition(all 0.8s ease);
+
+      &:hover,
+      &:focus {
+        @include transform(scale(1.03));
+        opacity: 0.7;
+      }
+    }
+
+    .product-caption {
+      pointer-events: none;
+      padding: 10px;
+      position: absolute;
+      bottom: 0;
+      color: white;
+      opacity: 0;
+      @include transition(all 0.8s ease);
+    }
+
+    .text {
+      font-size: em(16px);
+      span {
+        font-weight: bold;
+        letter-spacing: 0.1em;
+      }
+    }
+    &.image .text {
+      position: absolute;
+      top: 0;
+      padding: 10px;
+    }
+
+
+    .image-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.5);
+      display: grid;
+      align-items: center;
+      justify-items: center;
+      opacity: 0;
+      transition: .5s ease;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .image-overlay--text {
+      text-align: center;
+    }
+  }
+}
+
 .bite-grid {
   display: grid;
   grid-auto-rows: (100px, auto);

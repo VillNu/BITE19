@@ -1,6 +1,8 @@
 <!-- /sections/bite-flow.liquid -->
-<div id="BiteSection" data-section-id="{{ section.id }}" data-section-type="bite-products-template">
+<div data-section-id="{{ section.id }}" data-section-type="bite-flow">
+
   {% include 'bite-flow' %}
+
 </div>
 
 
@@ -11,9 +13,16 @@
   "class": "bite-flow",
   "settings": [
     {
+      "type": "text",
+      "label": "Name",
+      "id": "title",
+      "default": "From the World of Bite"
+    },
+    {
       "type": "color",
       "label": "Background color",
-      "id": "color"
+      "id": "color",
+      "default": "rgba(0,0,0,0)"
     }
   ],
   "blocks": [
@@ -22,56 +31,9 @@
       "name": "Flow Item",
       "settings": [
         {
-          "type": "select",
-          "label": "Type",
-          "id": "type",
-          "options": [
-            {"value": "product", "label": "Product"},
-            {"value": "image", "label": "Image"},
-            {"value": "text", "label": "Text"}
-          ]
-        },
-        {
-          "type": "range",
-          "label": "Starts at column",
-          "id": "flow-item-col-start",
-          "min": 1,
-          "max": 6,
-          "default": 1
-        },
-        {
-          "type": "range",
-          "label": "Ends at column",
-          "id": "flow-item-col-end",
-          "min": 2,
-          "max": 7,
-          "default": 2
-        },
-        {
-          "type": "range",
-          "label": "Starts at row",
-          "id": "flow-item-row-start",
-          "min": 1,
-          "max": 99,
-          "default": 1
-        },
-        {
-          "type": "range",
-          "label": "Ends at row",
-          "id": "flow-item-row-end",
-          "min": 2,
-          "max": 100,
-          "default": 2
-        },
-        {
-          "type": "text",
-          "label": "Header",
-          "id": "header"
-        },
-        {
-          "type": "text",
-          "label": "text",
-          "id": "text"
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
         },
         {
           "type": "product",
@@ -80,8 +42,87 @@
         },
         {
           "type": "url",
-          "label": "URL",
-          "id": "url"
+          "label": "Link",
+          "id": "link"
+        },
+        {
+          "type": "text",
+          "label": "Header",
+          "id": "title",
+          "default": "New Flow Item!"
+        },
+        {
+          "type": "textarea",
+          "label": "Text",
+          "id": "text",
+          "info": "HTML works."
+        },
+        {
+          "type": "checkbox",
+          "label": "Disable UPPERCASE",
+          "id": "no_uppercase",
+          "default": true
+        },
+        {
+          "type": "select",
+          "label": "Behavior",
+          "id": "type",
+          "options": [
+            {"value": "product", "label": "Product"},
+            {"value": "image", "label": "Image, text fades in"},
+            {"value": "text", "label": "Still text"}
+          ],
+          "default": "text"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "flow-item-colspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "flow-item-rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "flow-item-align",
+          "options": [
+            {"value": "start", "label": "Top"},
+            {"value": "center", "label": "Center"},
+            {"value": "end", "label": "Bottom"}
+          ],
+          "default": "center"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bite Flow",
+      "category": "Bite Specials",
+      "blocks": [
+        {
+          "type": "flow-item",
+          "settings": {
+            "image": "",
+            "type": "text",
+            "flow-item-colspan": 2,
+            "flow-item-rowspan": 1,
+            "flow-item-align": "center",
+            "title": "Classical Contrasts",
+            "text": "Our artist of re-defined\nocha sItet ipsaese et ulliquo optatusam faccus. Sant en\nditaquos as eate volorum.",
+            "no_uppercase": true,
+            "product": "",
+            "link": ""
+          }
         }
       ]
     }
