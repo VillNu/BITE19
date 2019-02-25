@@ -3519,7 +3519,7 @@ function hideMenuLogoFromFixedLogo() {
 
 function contrastHeaderLinksWhenNotOverHero() {
   /* toggle header color when scrolling hero */
-  if ($(".header-wrapper.hero__header").offset().top + 40 >= $(".main-content").offset().top) {
+  if ($(".site-header").offset().top + ($(".site-header").height() / 2) >= $(".main-content").offset().top) {
     $(".header-wrapper.hero__header").addClass("not-over-hero"); }
   else { $(".header-wrapper.hero__header").removeClass("not-over-hero"); }
 }
