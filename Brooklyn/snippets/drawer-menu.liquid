@@ -22,7 +22,7 @@
               <div class="mobile-nav__link" id="Label-{{ forloop.index }}"></div>
               <div class="mobile-nav__toggle" {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
                 <button type="button" class="mobile-nav__toggle-btn icon-fallback-text" aria-controls="Linklist-{{ forloop.index }}" aria-expanded="false">
-                  <strong>{{ link.title | escape }}</strong>
+                  {{ link.title | escape }}
                 </button>
               </div>
             </div>
