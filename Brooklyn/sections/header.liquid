@@ -7,7 +7,14 @@
     <div class="header-wrapper{% unless hero_full_height %} header-wrapper--over-hero{% endunless %}">
 
       {% if section.settings.show_announcement %}
-        {% if section.settings.home_page_only == false or template.name == 'index' %}
+
+        {% assign show_announcement = false %}
+        {% if template.name == 'index' and section.settings.show_announcement_homepage %}{% assign show_announcement = true %}{%  endif %}
+        {% if template.name == 'collection' and section.settings.show_announcement_collection %}{% assign show_announcement = true %}{%  endif %}
+        {% if template.name == 'product' and section.settings.show_announcement_product %}{% assign show_announcement = true %}{%  endif %}
+        {% if cart.attributes.announcement_closed == "true" %}{% assign show_announcement = false %}{% endif %}
+
+        {% if show_announcement %}
           <style>
             .announcement-bar {
               background-color: {{ section.settings.color_bg }};
@@ -28,19 +35,24 @@
             }
           </style>
 
-          {% if section.settings.link == blank %}
             <div class="announcement-bar">
-          {% else %}
-            <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar--link">
-          {% endif %}
-
-            <p class="announcement-bar__message">{{ section.settings.text | escape }}</p>
-
-          {% if section.settings.link == blank %}
+            {% if section.settings.link != blank %}
+              <a href="{{ section.settings.link }}" class="announcement-bar--link">
+            {% endif %}
+                <div class="announcement-bar__header">{{ section.settings.header | escape }}</div>
+                <div class="announcement-bar__message">{{ section.settings.text | escape }}</div>
+            {% if section.settings.link != blank %}
+              </a>
+            {% endif %}
+              <a href="#" class="announcement-bar__close" onclick="closeAnnouncement()">&#x2715;</a> {{ cart.attributes.announcement_closed }}
+{% comment %}
+              <button type="button" class="icon-fallback-text site-nav__link site-nav__link--burger js-drawer-open-button-left" aria-controls="NavDrawer" aria-expanded="true">
+                <span class="x-icon x-icon--top"></span>
+                <span class="x-icon x-icon--bottom"></span>
+                <span class="fallback-text">Site navigation</span>
+              </button>
+{% endcomment %}
             </div>
-          {% else %}
-            </a>
-          {% endif %}
 
         {% endif %}
       {% endif %}
@@ -301,17 +313,34 @@
     },
     {
       "type": "checkbox",
-      "id": "home_page_only",
+      "id": "show_announcement_homepage",
       "label": {
-        "de": "Nur Startseite",
-        "en": "Home page only",
-        "es": "Solo página de inicio",
-        "fr": "Page d'accueil uniquement",
-        "it": "Solo home page",
-        "ja": "ホームページのみ",
-        "pt-BR": "Apenas página inicial"
+        "de": "Startseite",
+        "en": " on Home page",
+        "es": "página de inicio",
+        "fr": "Page d'accueil",
+        "it": "home page",
+        "pt-BR": "página inicial"
       },
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement_collection",
+      "label": " on Collection pages",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement_product",
+      "label": " on Product pages",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "header",
+      "label": "Header",
+      "default": "Special offer now"
     },
     {
       "type": "text",

@@ -3447,7 +3447,9 @@ $(document).ready(function() {
   sections.register('map', theme.Maps);
   sections.register('search', theme.Search);
 
+  $(".announcement-bar").addClass("show");
   updateBite();
+
 });
 
 
@@ -3463,7 +3465,33 @@ $(window).on("scroll touchmove", function() {
   */
 });
 
+
+
+
+
 /* BESPOKE BITE FUNCTIONS  */
+
+function closeAnnouncement() {
+
+/*  theme.cache.announcementClosed = $('#announcement_closed');
+  theme.cache.announcementClosed.on('change', function() {
+     var announcementIsClosed = $(this).val();
+  }); */
+
+  $.ajax({
+    type: "POST",
+    url: '/cart.js',
+    data: {"attributes[announcement_closed]": true}, /* We are using an attribute named "pagination" */
+    success: function(d){
+      // window.location.reload();
+      console.log("Announcement bar was closed.");
+    },
+    dataType: 'json'
+  });
+
+  $(".announcement-bar").removeClass("show");
+}
+
 function updateBite() {
   if ($('body').hasClass("template-index")) {
     hideMenuLogoFromFixedLogo();
