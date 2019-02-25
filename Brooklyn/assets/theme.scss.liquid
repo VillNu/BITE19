@@ -2555,6 +2555,7 @@ $shareCountBg: $colorBody;
 .header-container {
   position: fixed;
   z-index: $zindexHeroHeader;
+  top: 0;
 }
 body.template-index .header-container{
   position: fixed;
@@ -2923,7 +2924,7 @@ $slick-opacity-not-active: 0.25;
 }
 /*================ Module | Theme Header and Navigation Overrides ================*/
 .site-header {
-  padding: 10px;
+  padding: 0 10px;
 }
 @include at-query($max, $medium) {
   .site-header {
