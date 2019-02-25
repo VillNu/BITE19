@@ -1321,8 +1321,21 @@ a,
   text-decoration: none;
   background: transparent;
 
-  &:hover {
+
+
+
+
+  &:not([aria-current="page"]):hover {
     color: $colorLinkHover;
+    text-shadow: 0.5px 0 0 currentColor;
+  }
+
+  &:active {
+    color: lighten($colorTextBody, 20%);
+  }
+
+  &[aria-current="page"] {
+    font-weight: 600;
   }
 }
 
@@ -1847,19 +1860,6 @@ $socialIconFontStack: 'icons';
     padding: 0 $gutter $gutter;
   }
 
-  a {
-    color: $colorDrawerText;
-
-    &:hover {
-      color: $colorDrawerText;
-    }
-
-    &[aria-current="page"] {
-      font-weight: 600;
-      /* text-shadow: 0.5px 0 0 currentColor; */
-    }
-  }
-
   input[type='text'],
   input[type='email'],
   input[type='number'],
@@ -2221,20 +2221,6 @@ $socialIconFontStack: 'icons';
     .grid__item {
       padding-bottom: 5px;
     }
-  }
-
-  a {
-    color: $colorTextBody;
-
-    &:active {
-      color: lighten($colorTextBody, 20%);
-    }
-    &[aria-current="page"] {
-      font-weight: 600;
-      /* text-shadow: 0.5px 0 0 currentColor; */
-    }
-
-
   }
 }
 
@@ -2694,15 +2680,6 @@ $socialIconFontStack: 'icons';
   opacity: 0;
   pointer-events: none;
 
-  a {
-    background-color: $colorNav;
-
-    &:hover,
-    &:active {
-      background-color: darken($colorNav, 10%);
-    }
-  }
-
   ul {
     background-color: $colorNav;
     padding: ($gutter / 3) 0;
@@ -2746,6 +2723,14 @@ $socialIconFontStack: 'icons';
     }
   }
 
+  & button[aria-expanded="true"] {
+    font-weight: 600;
+  }
+  & button:not([aria-expanded="true"]):hover {
+    text-shadow: 0.5px 0 0 currentColor;
+  }
+
+
 /* bespoke-bite: remove horisontal lines
   &:after {
     content: "";
@@ -2775,11 +2760,6 @@ $socialIconFontStack: 'icons';
   text-decoration: none;
   pointer-events: auto; /* bespoke-bite */
 
-  &:active,
-  &:focus {
-    color: darken($colorDrawerText, 15%);
-    /* background-color: darken($colorDrawers, 5%);  bespoke-bite */
-  }
 }
 
 /* bespoke-bite: */
@@ -2867,7 +2847,6 @@ $socialIconFontStack: 'icons';
 
   .mobile-nav__link {
     padding-left: $gutter;
-    font-weight: $bodyFontWeight;
   }
 }
 
