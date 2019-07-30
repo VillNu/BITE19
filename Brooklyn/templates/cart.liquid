@@ -13,6 +13,7 @@
         <h1>{{ 'cart.general.title' | t }}</h1>
       </header>
 
+<div id="bold-cart-msg"></div>
       <form action="/cart" method="post" novalidate class="cart">
 
         <div class="cart__row medium-down--hide cart__header-labels">
@@ -108,7 +109,7 @@
                       <small class="cart__price cart__price--strikethrough">{{ item.original_line_price | money }}</small>
                     {% endif %}
 
-                    <span class="cart__price">{{ item.line_price | money }}</span>
+                    <span class="cart__price"><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total" style="display:none !important;"></span>{{ item.line_price | money }}</span>
 
                     {% assign discounts_size = item.discounts | size %}
                     {% if discounts_size > 0 %}
@@ -145,7 +146,7 @@
                   <p class="cart__subtotal">{{ 'cart.general.subtotal' | t }}</p>
                 </div>
                 <div class="grid__item one-half large--one-third">
-                  <p class="cart__subtotal">{{ cart.total_price | money }}</p>
+                  <p class="cart__subtotal"><span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_total" style="display:none !important;"></span>{{ cart.total_price | money }}</p>
                 </div>
               </div>
 

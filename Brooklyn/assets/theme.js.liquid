@@ -540,7 +540,11 @@ slate.Variants = (function() {
       if (this.enableHistoryState) {
         this._updateHistoryState(variant);
       }
-    },
+    
+if (window.BOLD && BOLD.common && BOLD.common.eventEmitter && typeof BOLD.common.eventEmitter.emit === 'function' && BOLDCURRENCY.currentCurrency) {
+  BOLD.common.eventEmitter.emit('BOLD_CURRENCY_double_check');
+}
+},
 
     /**
      * Trigger event when variant image changes
@@ -1044,12 +1048,11 @@ var ajaxCart = (function(module, $) {
     $cartContainer.append(template(data));
 
     cartCallback(cart);
-    console.log("cart loaded: ");
-    if(window.BOLD && BOLD.common && BOLD.common.eventEmitter && typeof BOLD.common.eventEmitter.emit === 'function'){
-      BOLD.common.eventEmitter.emit('BOLD_COMMON_cart_loaded', cart);
+    if (window.BOLD && BOLD.common && BOLD.common.eventEmitter && typeof BOLD.common.eventEmitter.emit === 'function' && BOLDCURRENCY.currentCurrency) {
+      BOLD.common.eventEmitter.emit('BOLD_CURRENCY_double_check');
     }
 
-  };
+};
 
   cartCallback = function(cart) {
     $body.removeClass('drawer--is-loading');
