@@ -1,3 +1,4 @@
+{% comment %}
 <style>
   {% if image.aspect_ratio <= 1 %}
     {% assign max_width = height | times: image.aspect_ratio %}
@@ -51,3 +52,4 @@
     }
   {% endif %}
 </style>
+{% endcomment %}

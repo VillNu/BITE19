@@ -6,7 +6,7 @@
     },
     "404": {
       "title": "404 Side ikke fundet",
-      "subtext_html": "Den side, du leder efter, eksisterer ikke. <a href=\"\/\" class=\"text-link\">Klik her<\/a> for at fortsætte med at handle."
+      "subtext_html": "Den side, du leder efter, eksisterer ikke. <a href=\"/\" class=\"text-link\">Klik her</a> for at fortsætte med at handle."
     },
     "pagination": {
       "previous": "Forrige",
@@ -19,7 +19,7 @@
       "login_form_submit": "Tilgå",
       "signup_form_email_label": "E-mail",
       "signup_form_success": "Vi sender en e-mail til dig, lige inden vi åbner.",
-      "admin_link_html": "Ejer du butikken? <a href=\"\/admin\" class=\"text-link\">Log ind her<\/a>",
+      "admin_link_html": "Ejer du butikken? <a href=\"/admin\" class=\"text-link\">Log ind her</a>",
       "password_link": "Brug adgangskode for at få adgang",
       "powered_by_shopify_html": "Denne butik vil blive drevet af {{ shopify }}",
       "close": "luk (esc)"
@@ -86,13 +86,13 @@
       "note": "Særlige instruktioner til sælger",
       "subtotal": "Subtotal",
       "taxes_and_shipping_at_checkout": "Moms og levering bliver beregnet ved kassen",
-      "taxes_and_shipping_policy_at_checkout_html": "Moms og <a href=\"{{ link }}\">levering<\/a> bliver beregnet ved kassen",
+      "taxes_and_shipping_policy_at_checkout_html": "Moms og <a href=\"{{ link }}\">levering</a> bliver beregnet ved kassen",
       "taxes_included_but_shipping_at_checkout": "Inklusive moms. Levering bliver beregnet ved kassen",
-      "taxes_included_and_shipping_policy_html": "Inklusive moms. <a href=\"{{ link }}\">Levering<\/a> bliver beregnet ved kassen.",
+      "taxes_included_and_shipping_policy_html": "Inklusive moms. <a href=\"{{ link }}\">Levering</a> bliver beregnet ved kassen.",
       "update": "Opdater indkøbskurv",
       "checkout": "Gå til kassen",
       "empty": "Din indkøbskurv er tom.",
-      "continue_browsing_html": "Fortsæt med at browse <a href=\"\/collections\/all\">her<\/a>.",
+      "continue_browsing_html": "Fortsæt med at browse <a href=\"/collections/all\">her</a>.",
       "close_cart": "Luk indkøbskurv",
       "savings_html": "Du sparer {{ savings }}",
       "reduce_quantity": "Reducer antal genstande med en",
@@ -248,7 +248,7 @@
     "map": {
       "address_error": "Der opstod en fejl under forsøg på at finde adressen",
       "address_no_results": "Ingen resultater for den adresse",
-      "address_query_limit_html": "Du har overskredet Googles API-brugerbegrænsning. Overvej at opgradere til en <a href=\"https:\/\/developers.google.com\/maps\/premium\/usage-limits\">Premium-plan<\/a>.",
+      "address_query_limit_html": "Du har overskredet Googles API-brugerbegrænsning. Overvej at opgradere til en <a href=\"https://developers.google.com/maps/premium/usage-limits\">Premium-plan</a>.",
       "auth_error_html": "Der opstod et problem under forsøg på at bekræfte din Google Maps-konto."
     }
   },
@@ -268,16 +268,16 @@
   },
   "products": {
     "general": {
-      "save_html": "Gem<br \/>{{ saved_amount }}",
+      "save_html": "Gem<br />{{ saved_amount }}",
       "collection_return": "Tilbage til {{ collection }}",
       "sale_price": "Udsalgspris",
       "regular_price": "Normalpris",
       "include_taxes": "Inklusive moms.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Levering<\/a> bliver beregnet ved kassen."
+      "shipping_policy_html": "<a href=\"{{ link }}\">Levering</a> bliver beregnet ved kassen."
     },
     "product": {
       "sold_out": "Udsolgt",
-      "sold_out_html": "Udsolgt<br \/>",
+      "sold_out_html": "Udsolgt<br />",
       "unavailable": "Ikke tilgængelig",
       "quantity": "Antal",
       "add_to_cart": "Læg i indkøbskurv",

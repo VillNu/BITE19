@@ -27,17 +27,27 @@
     to be the same as the slideshow text color (only if there
     is a slideshow, otherwise it's the global heading text color)
   {% endcomment %}
+
+{%  assign centerPadding = section.settings.home_hero_center_padding | at_least: 0.002 | divided_by: 2.0 %}
+{%  assign centerPaddingMobile = section.settings.home_hero_center_padding_mobile | at_least: 0.002 | divided_by: 2.0 %}
+
   <style>
     {% if section.blocks.size > 0 %}
 
       .slick-initialized .slick-slide {
-        left: -{{ section.settings.home_hero_center_padding | divided_by: 2 }}vw;
+        left: -{{ centerPadding  }}vw;
+      }
+
+      @media screen and (max-width: 769px) {
+        .slick-initialized .slick-slide {
+          left: -{{ centerPaddingMobile  }}vw;
+        }
       }
 
 
       .site-nav__link,       .site-header__logo a,
       .site-nav__link:hover, .site-header__logo a:hover,
-      .hero__text-content a {
+      .hero__text-align a {
         color: {{ section.settings.slide_text_color }};
         {% if section.settings.slide_text_inverted %}
           filter: invert(100%);
@@ -54,6 +64,10 @@
 
       .burger-icon {
         background: {{ section.settings.slide_text_color }};
+        box-shadow: unset;
+        background: white;
+        box-shadow: black;
+
       }
 
       .cart-link__bubble--visible {
@@ -67,17 +81,21 @@
       }
       .slider__fixed-logo-wrapper {
         position: absolute;
-        width: calc(100% - {{ section.settings.home_hero_center_padding | divided_by: 1 }}%);
+        width: calc((100%) - {{ section.settings.home_hero_center_padding | divided_by: 1 }}%);
         height: 100vh;
         display: grid;
         grid-template-columns: 1fr calc({{ section.settings.slider_fixed_logo_width }}) 1fr;
         grid-template-rows: 1fr min-content 1fr;
         pointer-events: none;
         z-index: 1;
+
       }
       @media screen and (max-width: 769px) {
         .slider__fixed-logo-wrapper {
           grid-template-columns: 1fr calc({{ section.settings.slider_fixed_logo_width_mobile }}) 1fr;
+          width: calc(100vw - {{ section.settings.home_hero_center_padding_mobile | divided_by: 1 }}%);
+          max-width: calc(100% - {{ section.settings.home_hero_center_padding_mobile | divided_by: 1 }}%);
+          min-width: calc(96vw - {{ section.settings.home_hero_center_padding_mobile | divided_by: 1 }}%);
         }
       }
       .slider__fixed-logo-wrapper .slider__fixed-logo {
@@ -110,6 +128,7 @@
         display: grid;
         grid-template-columns: 1fr {{ section.settings.slider_fixed_logo_width }} 1fr;
         align-content: space-evenly;
+        pointer-events: none;
       }
       @media screen and (max-width: 769px) {
         .hero__text-align .hero__text-content {
@@ -123,11 +142,26 @@
       .hero__text-align .hero__text-content .hero__subtitle {
         grid-column: 2 / span 2;
         justify-self: start;
+        pointer-events: auto;
       }
+      @media screen and (max-width: 769px) {
+        .hero__text-align .hero__text-content .hero__subtitle {
+          grid-column: 1 / span 3;
+          justify-self: center;
+        }
+}
+
       .hero__text-align .hero__text-content .hero__cta {
         grid-column: 1 / span 2;
         justify-self: end;
+        pointer-events: auto;
       }
+      @media screen and (max-width: 769px) {
+        .hero__text-align .hero__text-content .hero__cta {
+          grid-column: 1 / span 3;
+          justify-self: center;
+        }
+
       .hero__text-align .hero__text-content h1,
       .hero__text-align .hero__text-content h2,
       .hero__text-align .hero__text-content h3,
@@ -156,9 +190,11 @@
 
   {% unless section.settings.slider_fixed_logo == blank %}
   <div class="slider__fixed-logo-wrapper">
-    <img class="slider__fixed-logo lazyload" src="{{ section.settings.slider_fixed_logo | img_url: '2000x' }}">
+    <img class="slider__fixed-logo" src="{{ 'BITE-logo-white.svg' | asset_url }}" itemprop="logo">
+    <!--img class="slider__fixed-logo lazyload" src="{{ section.settings.slider_fixed_logo | img_url: '2000x' }}"-->
   </div>
   {% endunless %}
+
 
   {% if section.blocks.size > 0 %}
     <div class="hero-{{ section.id }} hero{% if hero_full_height %} hero--full-height{% endif %} hero--first"
@@ -166,7 +202,8 @@
           {% if hero_parallax %}data-parallax="true"{% endif %}
           data-autoplay="{{ section.settings.hero_home_auto }}"
           data-autoplayspeed="{{ section.settings.home_hero_auto_speed }}"
-          data-centerpadding="{{ section.settings.home_hero_center_padding | divided_by: 2 }}%"
+          data-centerpadding="{{ centerPadding }}%"
+          data-centerpadding_mobile="{{ centerPaddingMobile }}%"
           >
 
 
@@ -241,32 +278,57 @@
                 background-color: {{ block.settings.color_image_overlay }};
                 opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.00 }};
               }
+              .hero__title {
+                font-size: {{section.settings.header_size}};
+              }
+              .hero__subtitle > h2 {
+                font-size: {{section.settings.subheader_size}};
+                letter-spacing: {{ section.settings.subheader_letterspacing }};
+              }
+              .hero__cta > h4 {
+                font-size: {{section.settings.cta_size}};
+                letter-spacing: {{ section.settings.cta_letterspacing }};
+              }
             </style>
             <div class="hero__text-wrap slideshow__overlay">
               <div class="hero__text-align">
-                {% if section.settings.slider_fixed_logo != blank %}
-                    <img class="slide__logo lazyload visibility-hidden" src="{{ section.settings.slider_fixed_logo | img_url: '2000x' }}">
-                {% else %}
-                  {% unless block.settings.slide_logo == blank %}
-                    <img class="slide__logo lazyload fade-in"
-                      src="{{ block.settings.slide_logo | img_url: '300x' }}">
-                  {% endunless %}
-                {% endif %}
+            {% if section.settings.slider_fixed_logo != blank %}
+                <img class="slide__logo lazyload visibility-hidden" src="{{ section.settings.slider_fixed_logo | img_url: '2000x' }}">
+            {% else %}
+              {% unless block.settings.slide_logo == blank %}
+                <img class="slide__logo lazyload fade-in"
+                  src="{{ block.settings.slide_logo | img_url: '300x' }}">
+              {% endunless %}
+            {% endif %}
+
+            {% if block.settings.slide_link == blank %}
                 <div class="hero__text-content">
-                  {% unless block.settings.slide_heading == blank %}
-                    <h{{section.settings.header_size}} class="hero__title">{{ block.settings.slide_heading | escape }}</h{{section.settings.header_size}}>
-                  {% endunless %}
-                  {% unless block.settings.slide_subheading == blank %}
-                    <a class="hero__subtitle" href="{{ block.settings.slide_link }}">
-                      <h{{section.settings.subheader_size}}>{{ block.settings.slide_subheading | escape }}</h{{section.settings.subheader_size}}>
-                    </a>
-                  {% endunless %}
-                  {% unless block.settings.slide_cta == blank %}
-                    <a class="hero__cta" href="{{ block.settings.slide_link }}">
-                      <h{{section.settings.cta_size}}>{{ block.settings.slide_cta | escape }}</h{{section.settings.cta_size}}>
-                    </a>
-                  {% endunless %}
+            {% else %}
+                <a class="hero__text-content" href="{{ block.settings.slide_link }}">
+            {% endif %}
+
+              {% unless block.settings.slide_heading == blank %}
+                  <h1 class="hero__title">{{ block.settings.slide_heading | escape }}</h1>
+              {% endunless %}
+
+              {% unless block.settings.slide_subheading == blank %}
+                  <div class="hero__subtitle">
+                    <h2>{{ block.settings.slide_subheading | escape }}</h2>
+                  </div>
+              {% endunless %}
+
+              {% unless block.settings.slide_cta == blank %}
+                  <div class="hero__cta">
+                    <h4>{{ block.settings.slide_cta | escape }}</h4>
+                  </div>
+              {% endunless %}
+
+            {% if block.settings.slide_link == blank %}
                 </div>
+            {% else %}
+                </a>
+            {% endif %}
+
               </div>
             </div>
           </div>
@@ -322,6 +384,18 @@
       },
       "options": [
         {
+          "value": "4000",
+          "label": {
+            "de": "4 Sekunden",
+            "en": "4 seconds",
+            "es": "4 segundos",
+            "fr": "4 secondes",
+            "it": "4 secondi",
+            "ja": "4秒",
+            "pt-BR": "4 segundos"
+          }
+        },
+        {
           "value": "5000",
           "label": {
             "de": "5 Sekunden",
@@ -368,18 +442,20 @@
       "id": "home_hero_center_padding",
       "label": "Next slide sticks out",
       "min": 0,
-      "max": 100,
+      "max": 33,
       "step": 1,
-      "unit": {
-        "de": "%",
-        "en": "%",
-        "es": "%",
-        "fr": "%",
-        "it": "%",
-        "ja": "%",
-        "pt-BR": "%"
-      },
-      "default": 10
+      "unit": "%",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "home_hero_center_padding_mobile",
+      "label": "Mobile: Next slide sticks out",
+      "min": 0,
+      "max": 33,
+      "step": 1,
+      "unit": "%",
+      "default": 13
     },
     {
       "type": "color",
@@ -402,97 +478,34 @@
       "default": false
     },
     {
-      "type": "select",
+      "type": "text",
       "id": "header_size",
       "label": "Header size",
-      "options": [
-        {
-          "value": "1",
-          "label": "Header 1"
-        },
-        {
-          "value": "2",
-          "label": "Header 2"
-        },
-        {
-          "value": "3",
-          "label": "Header 3"
-        },
-        {
-          "value": "4",
-          "label": "Header 4"
-        },
-        {
-          "value": "5",
-          "label": "Header 5"
-        },
-        {
-          "value": "6",
-          "label": "Header 6"
-        }
-      ]
+      "default": "60px"
     },
     {
-      "type": "select",
+      "type": "text",
       "id": "subheader_size",
       "label": "Subheader size",
-      "options": [
-        {
-          "value": "1",
-          "label": "Header 1"
-        },
-        {
-          "value": "2",
-          "label": "Header 2"
-        },
-        {
-          "value": "3",
-          "label": "Header 3"
-        },
-        {
-          "value": "4",
-          "label": "Header 4"
-        },
-        {
-          "value": "5",
-          "label": "Header 5"
-        },
-        {
-          "value": "6",
-          "label": "Header 6"
-        }
-      ]
+      "default": "30px"
     },
     {
-      "type": "select",
+      "type": "text",
+      "id": "subheader_letterspacing",
+      "label": "Subheader letter spacing",
+      "default": "0.02em"
+    },
+    {
+      "type": "text",
       "id": "cta_size",
       "label": "Call to action size",
-      "options": [
-        {
-          "value": "1",
-          "label": "Header 1"
-        },
-        {
-          "value": "2",
-          "label": "Header 2"
-        },
-        {
-          "value": "3",
-          "label": "Header 3"
-        },
-        {
-          "value": "4",
-          "label": "Header 4"
-        },
-        {
-          "value": "5",
-          "label": "Header 5"
-        },
-        {
-          "value": "6",
-          "label": "Header 6"
-        }
-      ]
+      "default": "20px"
+    },
+    {
+      "type": "text",
+      "id": "cta_letterspacing",
+      "label": "Call to action letter spacing",
+      "default": "0.10em"
     },
     {
       "type": "image_picker",

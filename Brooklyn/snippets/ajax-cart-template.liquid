@@ -26,7 +26,7 @@
                   {{#properties}}
                     {{#each this}}
                       {{#if this}}
-                        <span class="ajaxcart__product-meta">{{@key}}: {{this}}</span>
+                        <span class="ajaxcart__product-meta property">{{@key}}: {{this}}</span>
                       {{/if}}
                     {{/each}}
                   {{/properties}}
@@ -111,6 +111,12 @@
         <button type="submit" class="btn--secondary btn--full cart__checkout" name="checkout">
           {% endraw %}{{ 'cart.general.checkout' | t }}{% raw %} <span class="icon icon-arrow-right" aria-hidden="true"></span>
         </button>
+        {% endraw %}{% include 'payment-icons' %}{% raw %}
+        {% endraw %}
+        {% if additional_checkout_buttons and settings.cart_extra_checkout_buttons %}
+          <div class="additional_checkout_buttons{% if settings.cart_extra_checkout_buttons_hide %} hidden{% endif %}">{{ content_for_additional_checkout_buttons }}</div>
+        {% endif %}
+        {% raw %}
       </div>
     </form>
   {% endraw %}

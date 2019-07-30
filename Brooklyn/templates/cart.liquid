@@ -7,11 +7,10 @@
 
 {% endcomment %}
 <div class="grid">
-  <div class="grid__item large--five-sixths push--large--one-twelfth">
+  <div class="grid__item large--nine-twelfths push--large--one-sixth">
     {% if cart.item_count > 0 %}
-      <header class="section-header text-center">
-        <h1 class="text-center">{{ 'cart.general.title' | t }}</h1>
-        <hr class="hr--small">
+      <header class="section-header">
+        <h1>{{ 'cart.general.title' | t }}</h1>
       </header>
 
       <form action="/cart" method="post" novalidate class="cart">
@@ -41,7 +40,7 @@
               <div class="grid__item large--three-fifths">
                 <div class="grid">
 
-                  <div class="grid__item one-third">
+                  <div class="grid__item one-quarter">
                     <a href="{{ item.url | within: collections.all }}" class="cart__image">
 
                       {% comment %}
@@ -52,7 +51,7 @@
                     </a>
                   </div>
 
-                  <div class="grid__item two-thirds">
+                  <div class="grid__item three-quarters">
                     <a href="{{ item.url }}" class="h4 cart__product-name">
                       {{ item.product.title }}
                     </a>
@@ -172,10 +171,15 @@
               <button type="submit" name="checkout" class="btn cart__checkout">
                 {{ 'cart.general.checkout' | t }} <span class="icon icon-arrow-right" aria-hidden="true"></span>
               </button>
-
+{% comment %}
               {% if additional_checkout_buttons and settings.cart_type != 'drawer' %}
                 <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
               {% endif %}
+{% endcomment %}
+              {% if additional_checkout_buttons and settings.cart_extra_checkout_buttons %}
+                <div class="additional_checkout_buttons{% if settings.cart_extra_checkout_buttons_hide %} hidden{% endif %}">{{ content_for_additional_checkout_buttons }}</div>
+              {% endif %}
+
             </div>
           </div>
 

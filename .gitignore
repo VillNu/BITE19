@@ -37,3 +37,10 @@ $RECYCLE.BIN/
 *.otf
 *.svg
 Brooklyn/assets/fonts/
+
+
+node_modules
+dist
+config/settings_data.json
+config.yml
+upload

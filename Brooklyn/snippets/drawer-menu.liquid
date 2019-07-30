@@ -1,25 +1,40 @@
+<!-- /snippets/drawer-menu.liquid  -->
+
+
   <div class="drawer__inner drawer-left__inner">
 
-    {% if section.settings.drawer_search_enable %}
-      {% include 'search-bar', search_btn_style: 'btn--secondary', search_bar_location: 'search-bar--drawer' %}
+    {% if section.settings.show_textbox %}
+      {% include 'textbox' %}
     {% endif %}
+
+    <div class="flex-helper flex-helper__above-menu"></div>
 
     <ul class="mobile-nav">
 
+    {% style %}
+      .menu-logo__wrapper {
+        width: {{ section.settings.menu_logo_width }};
+      }
+    {% endstyle %}
+
       <li class="mobile-nav__item menu-logo__wrapper">
         <a id="menu-logo" href="/" itemprop="url" class="mobile-nav__logo-link">
-                    <img src="{{ section.settings.logo | img_url: image_size }}"
+                    <img class="img--not-over-hero" src="{{ section.settings.logo | img_url: image_size }}"
                     srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
                     alt="{{ section.settings.logo.alt | default: shop.name }}"
+                    itemprop="logo">
+                    <img class="img--over-hero" src="{{ section.settings.logo_contrast | img_url: image_size }}"
+                    srcset="{{ section.settings.logo_contrast | img_url: image_size }} 1x, {{ section.settings.logo_contrast | img_url: image_size, scale: 2 }} 2x"
+                    alt="{{ section.settings.logo_contrast.alt | default: shop.name }}"
                     itemprop="logo">
         </a>
       </li>
 
       {% for link in linklists[section.settings.main_menu_link_list].links %}
         {% if link.links != blank %}
-          <li class="mobile-nav__item">
+          <li class="mobile-nav__item mobile-nav__item--level_1">
             <div class="mobile-nav__has-sublist">
-              <div class="mobile-nav__link" id="Label-{{ forloop.index }}"></div>
+              {% comment %}<div class="mobile-nav__link" id="Label-{{ forloop.index }}"></div>{% endcomment %}
               <div class="mobile-nav__toggle" {% unless template.name == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
                 <button type="button" class="mobile-nav__toggle-btn icon-fallback-text" aria-controls="Linklist-{{ forloop.index }}" aria-expanded="false">
                   {{ link.title | escape }}
@@ -30,7 +45,7 @@
               {% assign parent_index = forloop.index %}
               {% for childlink in link.links %}
                 {% if childlink.links != blank %}
-                <li class="mobile-nav__item">
+                <li class="mobile-nav__item mobile-nav__item--level_2">
                   <div class="mobile-nav__has-sublist">
                     <a
                       href="{{ childlink.url }}"
@@ -54,7 +69,7 @@
                   </div>
                   <ul class="mobile-nav__sublist mobile-nav__subsublist" id="Linklist-{{ parent_index }}-{{ forloop.index }}" aria-labelledby="Label-{{ parent_index }}-{{ forloop.index }}" role="navigation">
                     {% for grandchildlink in childlink.links %}
-                      <li class="mobile-nav__item">
+                      <li class="mobile-nav__item mobile-nav__item--level_3">
                         <a
                           href="{{ grandchildlink.url }}"  class="mobile-nav__link"
                           {% unless template.name == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless%}>
@@ -65,7 +80,7 @@
                   </ul>
                 </li>
                 {% else %}
-                <li class="mobile-nav__item">
+                <li class="mobile-nav__item mobile-nav__item--level_2">
                   <a
                     href="{{ childlink.url }}"
                     class="mobile-nav__link"
@@ -95,6 +110,12 @@
       {% for link in linklists[section.settings.drawer_bottom_link_list].links %}
         <li class="mobile-nav__item mobile-nav__item--secondary"><a href="{{ link.url }}">{{ link.title }}</a></li>
       {% endfor %}
-    </ul>
-    <!-- //mobile-nav -->
+    </ul>    <!-- //mobile-nav -->
+
+    <div class="flex-helper flex-helper__below-menu"></div>
+
+    {% if section.settings.drawer_search_enable %}
+      {% include 'search-bar', search_btn_style: 'btn--secondary', search_bar_location: 'search-bar--drawer' %}
+    {% endif %}
+
   </div>

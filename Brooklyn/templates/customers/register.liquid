@@ -26,6 +26,12 @@
         <label for="CreatePassword" class="hidden-label">{{ 'customer.register.password' | t }}</label>
         <input type="password" name="customer[password]" id="CreatePassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.register.password' | t }}">
 
+        <div>
+          <input type="hidden" name="customer[accepts_marketing]" value="" />
+          <input type="checkbox" name="customer[accepts_marketing]" checked="checked" />
+          Join our circle of friends and be among the first to hear about new products and events!
+        </div>
+
         <p>
           <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn--full">
         </p>

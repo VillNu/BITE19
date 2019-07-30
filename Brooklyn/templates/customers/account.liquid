@@ -11,7 +11,6 @@
 <header class="section-header text-center">
   <h1>{{ 'customer.account.title' | t }}</h1>
   {{ 'layout.customer.log_out'| t | customer_logout_link }}
-  <hr class="hr--small">
 </header>
 
 <div class="grid">
@@ -67,6 +66,11 @@
   </div>
 
 </div>
+
+<h2>{{ customer.name }}</h2>
+<p class="">{{ customer.email }}</p>
+<p class="">{% if customer.accepts_marketing == false %}<b>Not signed{% else %}<b>Signed{% endif %} up</b> for our Newsletter</p>
+
 
 {% if paginate.pages > 1 %}
   {% include 'pagination' %}

@@ -1,30 +1,663 @@
-{% if collection.image %}
-  <div class="collection-hero">
-    <noscript>
-      <div class="collection-hero__image-no-js" style="background-image:url({{ collection.image | img_url: '2048x2048' }});"></div>
-    </noscript>
-    <div class="collection-hero__image-wrapper">
-      {% assign img_url = collection.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
-      <img class="collection-hero__image lazyload"
-        src="{{ collection.image | img_url: '300x' }}"
-        data-src="{{ img_url }}"
-        data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048, 4472]"
-        data-aspectratio="{{ collection.image.aspect_ratio }}"
-        data-sizes="auto"
-        data-parent-fit="cover"
-        alt="{{ collection.image.alt | escape }}">
-    </div>
-  </div>
-{% endif %}
+<!-- /sections/collection-type-template.liquid -->
+
+<style media="screen">
+
+
+{% for product in collection.products %}
+
+  #product-{{product.id}} {
+  }
+  @media screen and (min-width: 769px) {
+    #product-{{product.id}} {
+    }
+  }
+{% endfor %}
+
+</style>
 
 <div id="CollectionSection" class="wrapper" data-section-id="{{ section.id }}" data-section-type="collection-type-template">
-grid
+
+  {% paginate collection.products by 50 %}
+
+  <div class="collection-type collection-type__grid{% if collection.image %} has_hero{% endif %}">
+
+    <div class="grid__area collection-type__hero-area">
+      {% if collection.image %}
+        <div class="collection-type-hero__wrapper hero">
+          <noscript>
+            <div class="collection-type-hero__image-no-js" style="background-image:url({{ collection.image | img_url: '2048x2048' }});"></div>
+          </noscript>
+          <div class="collection-hero__image-wrapper">
+            {% assign img_url = collection.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+            <img class="collection-hero__image is-init lazyload"
+              src="{{ collection.image | img_url: 'master' }}"
+              alt="{{ collection.image.alt | escape }}">
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="grid__area collection__main-area">
+      {%- assign position = 0 -%}
+      {% assign larger_images = section.settings.larger_images | split: ", " %}
+      {% for product in collection.products %}
+
+        {% comment %}
+          <div id="product-{{product.id}}" class="collection-product" >
+            <a href="{{ product.url | within: collection }}" class="grid-product__link">
+              <div class="collection-product__image-wrapper hover-zoom">
+                <img class="collection-product__image"
+                     src="{{ product.featured_image | img_url: 'large' }}"
+                     alt="{{ product.featured_image.alt | escape }}">
+              </div>
+              {% include 'collection-flow-product-meta' %}
+            </a>
+          </div>
+        {% endcomment %}
+
+        {%- assign position = position | plus: 1 -%}
+        {%- for block in section.blocks -%}
+          {% assign block_position = block.settings.position %}
+          {% assign block_position = block_position | plus: 0 %}
+          {%- if block_position == position -%}
+            <style>
+              #block-{{block.id}} {
+                grid-column-end: span {{ block.settings.colspan }};
+                grid-row-end: span {{ block.settings.rowspan }};
+                align-self: {{ block.settings.align }};
+
+                {%- if block.settings.align == 'stretch' -%}
+                  height: calc((100vw / 4.096 * {{block.settings.rowspan}}) + ({{block.settings.rowspan}} * 10px) - 10px);
+                  height: calc(((((100vw - (100vw/6 + 10px)) - 10px) / 3) * (3 + 80px * {{block.settings.rowspan}} / 2)));
+                {%- endif -%}
+
+                {%- if block.settings.bg_color != blank and section.settings.color != 'rgba(0,0,0,0)' -%}
+                   background-color: {{ block.settings.bg_color }};
+                {%- endif -%}
+              }
+
+              @media screen and (min-width: 769px) {
+                #block-{{block.id}} {
+                  {%- if block.type == 'flow-hero' -%}
+                    margin-left: calc(-100vw/6);
+                  {%- endif -%}
+                }
+              }
+            </style>
+            {%- include 'flow-block' -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {% assign product_image_no = forloop.index | downcase %}
+        {% assign larger_class = '' %}
+        {% for larger_image in larger_images %}
+          {% if larger_image == product_image_no %}
+            {% assign larger_class = 'larger-image' %}
+          {% endif %}
+        {% endfor %}
+
+        <div id="product-{{product.id}}" class="collection__main-area__item {{ larger_class }}">
+          <a href="{{ product.url | within: collection }}" class="grid-product__link">
+          {% include 'collection-product' %}
+        </div>
+
+      {% else %}
+        <div class="collection--no-products">
+          <p>{{ 'collections.general.no_matches' | t }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+
+  {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+  {% endif %}
+
+  {% endpaginate %}
+
+
 </div>
 
+
 {% schema %}
-{
-  "name": "Collection based on Type",
-  "settings": [
-  ]
-}
+  {
+    "name": "Shop (Type Collection)",
+    "settings": [
+      {
+        "type": "text",
+        "id": "larger_images",
+        "label": "Which images should be larger?",
+        "info": "Enter image order number, for example \"5, 10\" and they will become larger",
+        "default": "4, 10"
+      }
+    ],
+    "blocks": [
+    {
+      "type": "flow-page-details",
+      "name": "Collection Details",
+      "settings": [
+          {
+            "type": "header",
+            "content": "Placement"
+          },
+          {
+            "type": "range",
+            "label": "Spans columns",
+            "id": "colspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "range",
+            "label": "Spans rows",
+            "id": "rowspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "select",
+            "label": "Vertical position",
+            "id": "align",
+            "options": [
+              {"value": "auto", "label": "Auto"},
+              {"value": "stretch", "label": "Stretch"},
+              {"value": "start", "label": "Top"},
+              {"value": "center", "label": "Center"},
+              {"value": "end", "label": "Bottom"}
+            ],
+            "default": "stretch"
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Mobile",
+            "id": "show_on_mobile",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Desktop",
+            "id": "show_on_desktop",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "flow-image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Insert at position no",
+            "id": "position"
+          },
+          {
+            "type": "image_picker",
+            "label": "Image",
+            "id": "image"
+          },
+          {
+            "type": "url",
+            "label": "Link",
+            "id": "link"
+          },
+          {
+            "type": "header",
+            "content": "Placement"
+          },
+          {
+            "type": "range",
+            "label": "Spans columns",
+            "id": "colspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "range",
+            "label": "Spans rows",
+            "id": "rowspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "select",
+            "label": "Vertical position",
+            "id": "align",
+            "options": [
+              {"value": "auto", "label": "Auto"},
+              {"value": "stretch", "label": "Stretch"},
+              {"value": "start", "label": "Top"},
+              {"value": "center", "label": "Center"},
+              {"value": "end", "label": "Bottom"}
+            ],
+            "default": "stretch"
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Mobile",
+            "id": "show_on_mobile",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Desktop",
+            "id": "show_on_desktop",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "flow-product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Insert at position no",
+            "id": "position"
+          },
+          {
+            "type": "product",
+            "label": "Product",
+            "id": "product",
+            "info": "Chosen product will only change how the corresponding product in this collection is shown."
+          },
+          {
+            "type": "range",
+            "label": "Spans columns",
+            "id": "colspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "range",
+            "label": "Spans rows",
+            "id": "rowspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "select",
+            "label": "Vertical position",
+            "id": "align",
+            "options": [
+              {"value": "auto", "label": "Auto"},
+              {"value": "stretch", "label": "Stretch"},
+              {"value": "start", "label": "Top"},
+              {"value": "center", "label": "Center"},
+              {"value": "end", "label": "Bottom"}
+            ],
+            "default": "stretch"
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Mobile",
+            "id": "show_on_mobile",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Desktop",
+            "id": "show_on_desktop",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "flow-hero",
+        "name": "Hero Image/video",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Insert at position no",
+            "id": "position"
+          },
+          {
+            "type": "image_picker",
+            "label": "Image",
+            "id": "image"
+          },
+          {
+            "type": "text",
+            "label": "Video url",
+            "id": "video",
+            "info": "Url needs to point to either internal file, youtube, vimeo or other unrestricted location."
+          }
+        ]
+      },
+      {
+        "type": "flow-blockquote",
+        "name": "Blockquote",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Insert at position no",
+            "id": "position"
+          },
+          {
+            "type": "textarea",
+            "label": "Text",
+            "id": "text"
+          },
+          {
+            "type": "text",
+            "label": "Author",
+            "id": "author"
+          },
+          {
+            "type": "range",
+            "label": "Spans columns",
+            "id": "colspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "range",
+            "label": "Spans rows",
+            "id": "rowspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "select",
+            "label": "Vertical position",
+            "id": "align",
+            "options": [
+              {"value": "auto", "label": "Auto"},
+              {"value": "stretch", "label": "Stretch"},
+              {"value": "start", "label": "Top"},
+              {"value": "center", "label": "Center"},
+              {"value": "end", "label": "Bottom"}
+            ],
+            "default": "stretch"
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Mobile",
+            "id": "show_on_mobile",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Desktop",
+            "id": "show_on_desktop",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "flow-text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Insert at position no",
+            "id": "position"
+          },
+          {
+            "type": "text",
+            "label": "Header",
+            "id": "title"
+          },
+          {
+            "type": "textarea",
+            "label": "Text",
+            "id": "text"
+          },
+          {
+            "type": "checkbox",
+            "label": "Disable UPPERCASE",
+            "id": "no_uppercase",
+            "default": true
+          },
+          {
+            "type": "url",
+            "label": "Link",
+            "id": "link"
+          },
+          {
+            "type": "range",
+            "label": "Spans columns",
+            "id": "colspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "range",
+            "label": "Spans rows",
+            "id": "rowspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "select",
+            "label": "Vertical position",
+            "id": "align",
+            "options": [
+              {"value": "auto", "label": "Auto"},
+              {"value": "stretch", "label": "Stretch"},
+              {"value": "start", "label": "Top"},
+              {"value": "center", "label": "Center"},
+              {"value": "end", "label": "Bottom"}
+            ],
+            "default": "stretch"
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Mobile",
+            "id": "show_on_mobile",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Desktop",
+            "id": "show_on_desktop",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "flow-space",
+        "name": "Empty space",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Insert at position no",
+            "id": "position"
+          },
+          {
+            "type": "color",
+            "label": "Background color",
+            "id": "bg_color",
+            "default": "rgba(250,250,250,1)",
+            "info": "Only visible while Collection Flow backgound colors are turned on."
+          },
+          {
+            "type": "range",
+            "label": "Spans columns",
+            "id": "colspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "range",
+            "label": "Spans rows",
+            "id": "rowspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "select",
+            "label": "Vertical position",
+            "id": "align",
+            "options": [
+              {"value": "auto", "label": "Auto"},
+              {"value": "stretch", "label": "Stretch"},
+              {"value": "start", "label": "Top"},
+              {"value": "center", "label": "Center"},
+              {"value": "end", "label": "Bottom"}
+            ],
+            "default": "stretch"
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Mobile",
+            "id": "show_on_mobile",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Desktop",
+            "id": "show_on_desktop",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "flow-content",
+        "name": "Collection content",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Collection title and description"
+
+          },
+          {
+            "type": "text",
+            "label": "Insert at position no",
+            "id": "position"
+          },
+          {
+            "type": "range",
+            "label": "Spans columns",
+            "id": "colspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "range",
+            "label": "Spans rows",
+            "id": "rowspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "select",
+            "label": "Vertical position",
+            "id": "align",
+            "options": [
+              {"value": "auto", "label": "Auto"},
+              {"value": "stretch", "label": "Stretch"},
+              {"value": "start", "label": "Top"},
+              {"value": "center", "label": "Center"},
+              {"value": "end", "label": "Bottom"}
+            ],
+            "default": "stretch"
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Mobile",
+            "id": "show_on_mobile",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Desktop",
+            "id": "show_on_desktop",
+            "default": true
+          }
+        ]
+      },
+      {
+        "type": "flow-image-and-text",
+        "name": "Image and text",
+        "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "link"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title"
+        },
+        {
+          "type": "textarea",
+          "label": "Text",
+          "id": "text"
+        },
+          {
+            "type": "header",
+            "content": " Positioning"
+
+          },
+          {
+            "type": "text",
+            "label": "Insert at position no",
+            "id": "position"
+          },
+          {
+            "type": "range",
+            "label": "Spans columns",
+            "id": "colspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "range",
+            "label": "Spans rows",
+            "id": "rowspan",
+            "min": 1,
+            "max": 5,
+            "default": 1
+          },
+          {
+            "type": "select",
+            "label": "Vertical position",
+            "id": "align",
+            "options": [
+              {"value": "auto", "label": "Auto"},
+              {"value": "stretch", "label": "Stretch"},
+              {"value": "start", "label": "Top"},
+              {"value": "center", "label": "Center"},
+              {"value": "end", "label": "Bottom"}
+            ],
+            "default": "stretch"
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Mobile",
+            "id": "show_on_mobile",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "label": "Show on Desktop",
+            "id": "show_on_desktop",
+            "default": true
+          }
+        ]
+      }
+    ]
+  }
 {% endschema %}

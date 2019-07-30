@@ -81,7 +81,7 @@
   },
   "cart": {
     "general": {
-      "title": "Your cart",
+      "title": "Your shopping bag",
       "remove": "Remove",
       "note": "Special instructions for seller",
       "subtotal": "Subtotal",
@@ -89,15 +89,15 @@
       "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping<\/a> calculated at checkout",
       "taxes_included_but_shipping_at_checkout": "Tax included and shipping calculated at checkout",
       "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
-      "update": "Update Cart",
+      "update": "Update Shopping Bag",
       "checkout": "Check Out",
-      "empty": "Your cart is currently empty.",
+      "empty": "Your Shopping Bag is currently empty.",
       "continue_browsing_html": "Continue browsing <a href=\"\/collections\/all\">here<\/a>.",
-      "close_cart": "Close Cart",
+      "close_cart": "Close Shopping Bag",
       "savings_html": "You're saving {{ savings }}",
       "reduce_quantity": "Reduce item quantity by one",
       "increase_quantity": "Increase item quantity by one",
-      "cookies_required": "Enable cookies to use the shopping cart"
+      "cookies_required": "Enable cookies to use the shopping bag"
     },
     "label": {
       "quantity": "Quantity",
@@ -106,7 +106,7 @@
   },
   "collections": {
     "general": {
-      "catalog_title": "Catalog",
+      "catalog_title": "Collections",
       "all_of_collection": "All",
       "no_matches": "Sorry, there are no products in this collection."
     },
@@ -254,7 +254,7 @@
   },
   "layout": {
     "cart": {
-      "title": "Cart"
+      "title": "Shopping Bag"
     },
     "customer": {
       "account": "Account",
@@ -280,7 +280,7 @@
       "sold_out_html": "Sold<br \/> Out",
       "unavailable": "Unavailable",
       "quantity": "Quantity",
-      "add_to_cart": "Add to Cart",
+      "add_to_cart": "Add to Shopping Bag",
       "full_details": "Full details"
     },
     "zoom": {
@@ -304,5 +304,47 @@
   },
   "date_formats": {
     "month_day_year": "%b %d, %Y"
+  },
+  "shopify": {
+    "page_titles": {
+      "collections": "Collections",
+      "shopping_cart": "Your Shopping Bag"
+    },
+    "checkout": {
+      "general": {
+        "cart": "Shopping Bag",
+        "back_to_cart": "Return to your shopping bag"
+      },
+      "stock": {
+        "items_unavailable_notice": "Some items are no longer available. Your shopping bag has been updated.",
+        "removed_from_cart_notice": "Removed from your shopping bag",
+        "remove_from_cart_button_label": "Remove from shopping bag",
+        "go_back_to_cart_button_label": "Go back to my shopping bag"
+      },
+      "order_summary": {
+        "shopping_cart_label": "Shopping bag",
+        "cart_does_not_meet_discount_requirements_notice": "<strong>{{code}}<\/strong> discount code isn't valid for the items in your shopping bag"
+      },
+      "shipping": {
+        "no_rates_for_cart_or_destination_notice": "There are no shipping methods available for your shopping bag or address"
+      },
+      "marketing": {
+        "unsubscribe": {
+          "description": "You won’t receive any more shopping bag reminders from us."
+        }
+      }
+    },
+    "notices": {
+      "cart": {
+        "only_n_items_available": "You can only add {{ count }} {{ name }} to the shopping bag.",
+        "all_items_in_cart": "All {{ count }} {{ name }} are in your shopping bag.",
+        "empty_update": "cannot update empty shopping bag",
+        "generic_error": "Shopping bag error",
+        "too_many_line_items_error": "Your shopping bag can't contain more than {{ max }} items.",
+        "stock_problems_html": "One or more items are no longer available. We've provided an <a href='{{ link }}'>updated shopping bag<\/a>.",
+        "changed": "Shopping bag changed",
+        "shipping_address_not_required": "This shopping bag does not require shipping"
+      }
+    }
   }
 }

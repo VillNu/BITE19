@@ -1,8 +1,18 @@
+<!-- sections/header.liquid -->
+
+
 {% assign hero_full_height = true %}
 <div data-section-id="{{ section.id }}" data-section-type="header-section" data-template="{{ template.name }}">
+
   <div id="NavDrawer" class="drawer drawer--left">
     {% include 'drawer-menu' %}
   </div>
+
+  {% if section.settings.show_textbox %}
+    <div class="sameHeightAsAnnouncementBar"></div>
+    {% include 'textbox' %}
+  {% endif %}
+
   <div class="header-container drawer__header-container">
     <div class="header-wrapper{% unless hero_full_height %} header-wrapper--over-hero{% endunless %}">
 
@@ -12,55 +22,53 @@
         {% if template.name == 'index' and section.settings.show_announcement_homepage %}{% assign show_announcement = true %}{%  endif %}
         {% if template.name == 'collection' and section.settings.show_announcement_collection %}{% assign show_announcement = true %}{%  endif %}
         {% if template.name == 'product' and section.settings.show_announcement_product %}{% assign show_announcement = true %}{%  endif %}
+        {% if template.name == 'page' and section.settings.show_announcement_page %}{% assign show_announcement = true %}{%  endif %}
         {% if cart.attributes.announcement_closed == "true" %}{% assign show_announcement = false %}{% endif %}
 
         {% if show_announcement %}
           <style>
             .announcement-bar {
-              background-color: {{ section.settings.color_bg }};
+              background-color: {{ section.settings.announcement_color_bg }};
             }
             .announcement-bar--link:hover {
-              {% assign brightness = section.settings.color_bg | color_brightness %}
+              {% assign brightness = section.settings.announcement_color_bg | color_brightness %}
 
               {% if brightness <= 192 %}
                 {% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
-                background-color: {{ section.settings.color_bg | color_lighten: lightenAmount }};
+                background-color: {{ section.settings.announcement_color_bg | color_lighten: lightenAmount }};
               {% else %}
                 {% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}
-                background-color: {{ section.settings.color_bg | color_darken: darkenAmount }};
+                background-color: {{ section.settings.announcement_color_bg | color_darken: darkenAmount }};
               {% endif %}
             }
             .announcement-bar__message {
-              color: {{ section.settings.color_text }};
+              color: {{ section.settings.announcement_color_text }};
             }
           </style>
 
             <div class="announcement-bar">
-            {% if section.settings.link != blank %}
-              <a href="{{ section.settings.link }}" class="announcement-bar--link">
+              <a href="#" class="announcement-bar__close" onclick="closeAnnouncement()">&#x2715;</a> {{ cart.attributes.announcement_closed }}
+            {% if section.settings.announcement_link != blank %}
+              <a href="{{ section.settings.announcement_link }}" class="announcement-bar--link">
             {% endif %}
-                <div class="announcement-bar__header">{{ section.settings.header | escape }}</div>
-                <div class="announcement-bar__message">{{ section.settings.text | escape }}</div>
-            {% if section.settings.link != blank %}
+                <div class="announcement-bar__header">{{ section.settings.announcement_header | escape }}</div>
+                <div class="announcement-bar__message">{{ section.settings.announcement_text | escape }}</div>
+            {% if section.settings.announcement_link != blank %}
               </a>
             {% endif %}
-              <a href="#" class="announcement-bar__close" onclick="closeAnnouncement()">&#x2715;</a> {{ cart.attributes.announcement_closed }}
-{% comment %}
-              <button type="button" class="icon-fallback-text site-nav__link site-nav__link--burger js-drawer-open-button-left" aria-controls="NavDrawer" aria-expanded="true">
-                <span class="x-icon x-icon--top"></span>
-                <span class="x-icon x-icon--bottom"></span>
-                <span class="fallback-text">Site navigation</span>
-              </button>
-{% endcomment %}
             </div>
 
         {% endif %}
       {% endif %}
 
+
+
+
+
       <header class="site-header" role="banner">
         <div class="wrapper">
           <div class="grid--full grid--table">
-            <div class="grid__item large--hide large--one-sixth one-quarter">
+            <div class="grid__item large--hide large--one-sixth one-eighth">
               <div class="site-nav--open site-nav--mobile">
                 <button type="button" class="icon-fallback-text site-nav__link site-nav__link--burger js-drawer-open-button-left" aria-controls="NavDrawer">
                   <span class="burger-icon burger-icon--top"></span>
@@ -70,7 +78,16 @@
                 </button>
               </div>
             </div>
-            <div class="grid__item large--one-third medium-down--one-half">
+            <div class="grid__item large--one-third medium-down--three-thirds">
+              <div class="grid__item large--hide medium-down--one-whole">
+                {% if section.settings.title_in_header_on_mobile %}
+                  {% if template.name == "collection" %}
+                    <h1>{{ collection.title }}</h1>
+                  {% elsif template.name == "page" %}
+                    <h1>{{ page.title }}</h1>
+                  {% endif %}
+                {% endif %}
+              </div>
             </div>
             <nav class="grid__item large--two-thirds large--text-right medium-down--hide" role="navigation">
               {% comment %}
@@ -89,11 +106,14 @@
                     {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--header' %}
                   </li>
                 {% endcomment %}
+
+                {% comment %}
                 {% if shop.customer_accounts_enabled %}
                   <li class="site-nav__item site-nav__expanded-item site-nav__item--compressed">
                     <a class="site-nav__link site-nav__link--icon" href="/account">
                       <span class="icon-fallback-text">
-                        <span class="icon icon-customer" aria-hidden="true"></span>
+                        <!--span class="icon icon-customer" aria-hidden="true"></span-->
+                        <img class="icon icon-user" src="{{ 'user5.svg' | asset_url }}">
                         <span class="fallback-text">
                           {% if customer %}
                             {{ 'layout.customer.account' | t }}
@@ -105,6 +125,7 @@
                     </a>
                   </li>
                 {% endif %}
+                {% endcomment %}
 
                 {% if section.settings.search == 'page' or section.settings.search == 'modal' %}
                   {% assign search_modal = true %}
@@ -113,14 +134,21 @@
                   {% endif %}
                   <li class="site-nav__item site-nav__item--compressed">
                     <a href="/search" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}" data-mfp-src="#SearchModal">
+                      {% comment %}
+                      <span class="icon icon-search" aria-hidden="true"></span>
+                      <img class="icon icon-search" src="{{ 'search3.svg' | asset_url }}">
+                      {% endcomment %}
+                      <svg class="icon icon-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+                        <path d="M83.555,11.971c39.476,0,71.585,32.111,71.585,71.587c0,39.471-32.11,71.581-71.585,71.581   c-39.468,0-71.585-32.11-71.585-71.581C11.97,44.082,44.087,11.971,83.555,11.971 M167.113,83.558   C167.113,37.482,129.63,0,83.555,0C37.487,0,0,37.482,0,83.558c0,46.07,37.487,83.552,83.555,83.552   c20.924,0,40.029-7.783,54.7-20.537l53.19,53.189l0.244,0.238l3.326-0.227l4.747-4.734l0.237-3.345l-53.426-53.441   C159.33,123.581,167.113,104.482,167.113,83.558"/>
+                      </svg>
                       <span class="icon-fallback-text">
-                        <span class="icon icon-search" aria-hidden="true"></span>
                         <span class="fallback-text">{{ 'general.search.title' | t }}</span>
                       </span>
                     </a>
                   </li>
                 {% endif %}
 
+                {% comment %}
                 <li class="site-nav__item site-nav__item--compressed">
                   <a href="/cart" class="site-nav__link site-nav__link--icon cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
                     <span class="icon-fallback-text">
@@ -130,11 +158,32 @@
                     <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
                   </a>
                 </li>
+                {% endcomment %}
+
+                <li class="site-nav__item site-nav__item--compressed">
+                  <a href="/cart" class="site-nav__link site-nav__link--icon cart-link shopping-bag js-drawer-open-button-right" aria-controls="CartDrawer">
+                    {% comment %}
+                      <img class="icon icon-bag" src="{{ 'shopping-bag4.svg' | asset_url }}">
+                      {% endcomment %}
+                    <svg class="icon icon-bag" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.25 19.67">
+                      <title>Shopping bag</title>
+                      <path d="M5,7.47V3.55a3,3,0,0,1,6,0V7.47" transform="translate(-0.88 -0.04)"></path>
+                      <polygon points="10.74 5.62 13.75 5.62 13.75 19.17 0.5 19.17 0.5 5.62 3.51 5.62 10.74 5.62"></polygon>
+                    </svg>
+                    <span class="icon-fallback-text">
+                      <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
+                    </span>
+                    <span class="cart-link__count cart-count">{{ cart.item_count }}</span>
+                  </a>
+                </li>
 
               </ul>
               <!-- //site-nav -->
             </nav>
-            <div class="grid__item large--hide one-quarter">
+
+            <div class="grid__item large--hide one-eighth">
+
+              {% comment %}
               <div class="site-nav--mobile text-right">
                 <a href="/cart" class="site-nav__link cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
                   <span class="icon-fallback-text">
@@ -144,6 +193,23 @@
                   <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
                 </a>
               </div>
+              {% endcomment %}
+
+              <div class="site-nav--mobile text-right">
+                <a href="/cart" class="site-nav__link cart-link shopping-bag js-drawer-open-button-right" aria-controls="CartDrawer">
+                  {% comment %}<img class="icon icon-bag" src="{{ 'shopping-bag4.svg' | asset_url }}">{% endcomment %}
+                  <svg class="icon icon-bag " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.25 19.67">
+                    <title>Shopping bag</title>
+                    <path d="M5,7.47V3.55a3,3,0,0,1,6,0V7.47" transform="translate(-0.88 -0.04)"></path>
+                    <polygon points="10.74 5.62 13.75 5.62 13.75 19.17 0.5 19.17 0.5 5.62 3.51 5.62 10.74 5.62"></polygon>
+                  </svg>
+                  <span class="icon-fallback-text">
+                    <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
+                  </span>
+                  <span class="cart-link__count cart-count">{{ cart.item_count }}</span>
+                </a>
+              </div>
+
             </div>
           </div>
 
@@ -181,6 +247,25 @@
       }
     },
     {
+      "type": "image_picker",
+      "id": "logo_contrast",
+      "label": {
+        "de": "Contrasting Meny Logo",
+        "en": "Contrasting Menu Logo",
+        "es": "Contrasting Menu Logo",
+        "fr": "Contrasting Menu Logo",
+        "it": "Contrasting Menu Logo",
+        "ja": "Contrasting Menu ロゴ",
+        "pt-BR": "Contrasting Menu Logotipo"
+      }
+    },
+    {
+      "type": "text",
+      "label": "Menu logo width",
+      "id": "menu_logo_width",
+      "default": "80px"
+    },
+    {
       "type": "header",
       "content": "Navigation"
     },
@@ -191,7 +276,6 @@
         {
           "value": "modal",
           "label": {
-            "de": "Modal",
             "en": "Modal",
             "es": "Modal",
             "fr": "Fenêtre modale",
@@ -286,6 +370,11 @@
       }
     },
     {
+      "type": "checkbox",
+      "id": "drawer_search_mobile_only",
+      "label": "Only show on mobile"
+    },
+    {
       "type": "header",
       "content": {
         "de": "Ankündigungsleiste",
@@ -337,14 +426,20 @@
       "default": false
     },
     {
+      "type": "checkbox",
+      "id": "show_announcement_page",
+      "label": " on Page pages",
+      "default": false
+    },
+    {
       "type": "text",
-      "id": "header",
+      "id": "announcement_header",
       "label": "Header",
       "default": "Special offer now"
     },
     {
       "type": "text",
-      "id": "text",
+      "id": "announcement_text",
       "label": {
         "de": "Text",
         "en": "Text",
@@ -366,7 +461,7 @@
     },
     {
       "type": "url",
-      "id": "link",
+      "id": "announcement_link",
       "label": {
         "de": "Link",
         "en": "Link",
@@ -379,7 +474,7 @@
     },
     {
       "type": "color",
-      "id": "color_bg",
+      "id": "announcement_color_bg",
       "label": {
         "de": "Leiste",
         "en": "Bar",
@@ -393,7 +488,130 @@
     },
     {
       "type": "color",
-      "id": "color_text",
+      "id": "announcement_color_text",
+      "label": {
+        "de": "Text",
+        "en": "Text",
+        "es": "texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "pt-BR": "Texto"
+      },
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Floating text box"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_textbox",
+      "label": {
+        "de": "Ankündigung anzeigen",
+        "en": "Show textbox",
+        "es": "Mostrar anuncio",
+        "fr": "Afficher l'annonce",
+        "it": "Mostra annuncio",
+        "ja": "告知を表示する",
+        "pt-BR": "Exibir anúncio"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "textbox_hide_on_mobile",
+      "label": "Hide on mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_textbox_homepage",
+      "label": {
+        "de": "Startseite",
+        "en": " on Home page",
+        "es": "página de inicio",
+        "fr": "Page d'accueil",
+        "it": "home page",
+        "pt-BR": "página inicial"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_textbox_collection",
+      "label": " on Collection pages",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_textbox_product",
+      "label": " on Product pages",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_textbox_page",
+      "label": " on Page pages",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "textbox_header",
+      "label": "Header",
+      "default": "Special offer now"
+    },
+    {
+      "type": "textarea",
+      "id": "textbox_text",
+      "label": {
+        "de": "Text",
+        "en": "Text",
+        "es": "texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "pt-BR": "Texto"
+      },
+      "default": {
+        "de": "Hier Ankündigung platzieren",
+        "en": "Announce something here",
+        "es": "Anuncia algo aquí",
+        "fr": "Annoncer quelque chose ici",
+        "it": "Annuncia qualcosa qui",
+        "ja": "ここで告知してください",
+        "pt-BR": "Anuncie algo aqui"
+      }
+    },
+    {
+      "type": "url",
+      "id": "textbox_link",
+      "label": {
+        "de": "Link",
+        "en": "Link",
+        "es": "Enlace",
+        "fr": "Lien",
+        "it": "Link",
+        "ja": "リンク",
+        "pt-BR": "Link"
+      }
+    },
+    {
+      "type": "color",
+      "id": "textbox_color_bg",
+      "label": {
+        "de": "Leiste",
+        "en": "Bar",
+        "es": "Barra",
+        "fr": "Barre",
+        "it": "Barra",
+        "ja": "バー",
+        "pt-BR": "Barra"
+      },
+      "default": "#1c1d1d"
+    },
+    {
+      "type": "color",
+      "id": "textbox_color_text",
       "label": {
         "de": "Text",
         "en": "Text",

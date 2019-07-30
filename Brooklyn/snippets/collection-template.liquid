@@ -3,11 +3,14 @@
   Collection template, used on collection.liquid and collection.image.liquid
 {% endcomment %}
 
-{% paginate collection.products by 99 %}
+{% paginate collection.products by 50 %}
 
 <header class="section-header text-center">
+
+  {% if section.settings.title_enable %}
   <h1>{{ collection.title }}</h1>
-  <hr class="hr--small">
+  {% endif %}
+
   {% if collection.description != blank %}
     <div class="grid">
       <div class="grid__item">

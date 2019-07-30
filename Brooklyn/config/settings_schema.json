@@ -1,11 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Brooklyn",
-    "theme_author": "Shopify",
-    "theme_version": "11.0.1",
+    "theme_name": "Bite",
+    "theme_author": "Magnus Duberg",
+    "theme_version": "1.0.0",
     "theme_documentation_url": "https:\/\/help.shopify.com\/manual\/using-themes\/themes-by-shopify\/brooklyn",
-    "theme_support_url": "https:\/\/support.shopify.com\/"
+    "theme_support_url": "https:\/\/github.com\/VillNu\/BITE19\/wiki"
   },
   {
     "name": {
@@ -278,6 +278,141 @@
       {
         "type": "header",
         "content": {
+          "de": "Fließtext",
+          "en": "Body text",
+          "es": "Texto del cuerpo",
+          "fr": "Corps du texte",
+          "it": "Corpo del testo",
+          "ja": "本文",
+          "pt-BR": "Corpo do texto"
+        }
+      },
+      {
+        "type": "select",
+        "id": "custom_body_font",
+        "label": "Use Custom Font",
+        "options": [
+          {
+            "value": "",
+            "label": "Use font below"
+          },
+          {
+            "value": "Brown",
+            "label": "Brown"
+          },
+          {
+            "value": "Austin Roman",
+            "label": "Austin Roman"
+          }
+        ]
+      },
+      {
+        "type": "font_picker",
+        "id": "type_base_family",
+        "label": {
+          "de": "Schriftart",
+          "en": "Font",
+          "es": "Fuente",
+          "fr": "Police",
+          "it": "Font",
+          "ja": "フォント",
+          "pt-BR": "Fonte"
+        },
+        "default": "arapey_n4"
+      },
+      {
+        "type": "text",
+        "id": "type_base_size",
+        "label": {
+          "de": "Basisgröße",
+          "en": "Base size",
+          "es": "Tamaño de base",
+          "fr": "Taille de base",
+          "it": "Dimensione base",
+          "ja": "ベースサイズ",
+          "pt-BR": "Tamanho básico"
+        },
+        "info": "Affects all font sizes defined in em units",
+        "default": "12px"
+      },
+      {
+        "type": "text",
+        "id": "type_base_size_mobile",
+        "label": {
+          "de": "Basisgröße mobil",
+          "en": "Base size mobile",
+          "es": "Tamaño de base mobil",
+          "fr": "Taille de base mobil",
+          "it": "Dimensione base mobil",
+          "ja": "ベースサイズ mobil",
+          "pt-BR": "Tamanho básico mobil"
+        },
+        "default": "10px"
+      },
+      {
+        "type": "range",
+        "id": "body_line_height",
+        "min": 0,
+        "max": 3,
+        "step": 0.1,
+        "unit": "em",
+        "label": "Line height",
+        "default": 1.5
+      },
+      {
+        "type": "range",
+        "id": "body_letter_spacing",
+        "min": 0,
+        "max": 3,
+        "step": 0.1,
+        "unit": "px",
+        "label": "Letter spacing",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "type_base_italize_titles",
+        "label": {
+          "de": "Titel, Blockzitate, Dropdown-Links, Name des Kommentators und Datum kursiv setzen.",
+          "en": "Italicize titles, blockquotes, drop-down links, comment author name, and dates.",
+          "es": "Escribir en cursiva títulos, citas en bloques, enlaces desplegables, nombre del autor del comentario y fechas.",
+          "fr": "Mettre en italiques les titres, les blocs de citation, les commentaires, le nom de l'auteur et les dates.",
+          "it": "Scrivi in maiuscolo i titoli, le citazioni, i link a discesa, il nome dell'autore del commento e le date.",
+          "ja": "タイトル、ブロック引用、ドロップダウンリンク、コメント者名、日付を斜体で表示する。",
+          "pt-BR": "Aplicar itálico a títulos, blocos de citação, nome do autor do comentário e datas."
+        }
+      },
+      {
+        "type": "header",
+        "content": "Menus"
+      },
+      {
+        "type": "text",
+        "label": "Menu font size",
+        "id": "menu_font_size",
+        "default": "7.5pt"
+      },
+      {
+        "type": "text",
+        "label": "Menu font size mobile",
+        "id": "menu_font_size_mobile",
+        "default": "9pt"
+      },
+      {
+        "type": "text",
+        "label": "Menu line height",
+        "id": "menu_line_height",
+        "default": "14pt"
+      },
+      {
+        "type": "text",
+        "label": "Menu letter spacing",
+        "id": "menu_letter_spacing",
+        "default": "0.08em"
+      },
+      {
+        "type": "header",
+        "content": {
           "de": "Titel",
           "en": "Headings",
           "es": "Títulos",
@@ -290,11 +425,20 @@
       {
         "type": "select",
         "id": "custom_header_font",
-        "label": "Use Custom Bite Fonts",
+        "label": "Use Custom Font",
         "options": [
-          {"value": "", "label": "Use fonts below"},
-          {"value": "Brown", "label": "Brown"},
-          {"value": "Austin Roman", "label": "Austin Roman"}
+          {
+            "value": "",
+            "label": "Use font below"
+          },
+          {
+            "value": "Brown",
+            "label": "Brown"
+          },
+          {
+            "value": "Austin Roman",
+            "label": "Austin Roman"
+          }
         ]
       },
       {
@@ -348,14 +492,14 @@
         "default": "16px"
       },
       {
-          "type":   "range",
-          "id":     "header_letter_spacing",
-          "min":       0,
-          "max":       3,
-          "step":      0.1,
-          "unit":      "px",
-          "label":     "Letter spacing",
-          "default":   0
+        "type": "range",
+        "id": "header_letter_spacing",
+        "min": 0,
+        "max": 3,
+        "step": 0.1,
+        "unit": "px",
+        "label": "Letter spacing",
+        "default": 0
       },
       {
         "type": "select",
@@ -432,11 +576,20 @@
       {
         "type": "select",
         "id": "custom_accent_font",
-        "label": "Use Custom Bite Fonts",
+        "label": "Use Custom Font",
         "options": [
-          {"value": "", "label": "Use fonts below"},
-          {"value": "Brown", "label": "Brown"},
-          {"value": "Austin Roman", "label": "Austin Roman"}
+          {
+            "value": "",
+            "label": "Use font below"
+          },
+          {
+            "value": "Brown",
+            "label": "Brown"
+          },
+          {
+            "value": "Austin Roman",
+            "label": "Austin Roman"
+          }
         ]
       },
       {
@@ -467,14 +620,14 @@
         }
       },
       {
-          "type":   "range",
-          "id":     "accent_letter_spacing",
-          "min":       0,
-          "max":       3,
-          "step":      0.1,
-          "unit":      "px",
-          "label":     "Letter spacing",
-          "default":   0
+        "type": "range",
+        "id": "accent_letter_spacing",
+        "min": 0,
+        "max": 3,
+        "step": 0.1,
+        "unit": "px",
+        "label": "Letter spacing",
+        "default": 0
       },
       {
         "type": "checkbox",
@@ -491,149 +644,43 @@
       },
       {
         "type": "header",
-        "content": {
-          "de": "Fließtext",
-          "en": "Body text",
-          "es": "Texto del cuerpo",
-          "fr": "Corps du texte",
-          "it": "Corpo del testo",
-          "ja": "本文",
-          "pt-BR": "Corpo do texto"
-        }
+        "content": "Footer"
       },
       {
-        "type": "select",
-        "id": "custom_body_font",
-        "label": "Use Custom Bite Fonts",
-        "options": [
-          {"value": "", "label": "Use fonts below"},
-          {"value": "Brown", "label": "Brown"},
-          {"value": "Austin Roman", "label": "Austin Roman"}
-        ]
+        "type": "text",
+        "label": "Footer font size",
+        "id": "footer_font_size",
+        "default": "9pt"
       },
       {
-        "type": "font_picker",
-        "id": "type_base_family",
-        "label": {
-          "de": "Schriftart",
-          "en": "Font",
-          "es": "Fuente",
-          "fr": "Police",
-          "it": "Font",
-          "ja": "フォント",
-          "pt-BR": "Fonte"
-        },
-        "default": "arapey_n4"
+        "type": "text",
+        "label": "Footer line height",
+        "id": "footer_line_height",
+        "default": "10.8pt"
       },
       {
-        "type": "select",
-        "id": "type_base_size",
-        "label": {
-          "de": "Basisgröße",
-          "en": "Base size",
-          "es": "Tamaño de base",
-          "fr": "Taille de base",
-          "it": "Dimensione base",
-          "ja": "ベースサイズ",
-          "pt-BR": "Tamanho básico"
-        },
-        "options": [
-          {
-            "value": "12px",
-            "label": {
-              "de": "12px",
-              "en": "12px",
-              "es": "12px",
-              "fr": "12 px",
-              "it": "12 px",
-              "ja": "12ピクセル",
-              "pt-BR": "12px"
-            }
-          },
-          {
-            "value": "13px",
-            "label": {
-              "de": "13px",
-              "en": "13px",
-              "es": "13px",
-              "fr": "13 px",
-              "it": "13 px",
-              "ja": "13ピクセル",
-              "pt-BR": "13px"
-            }
-          },
-          {
-            "value": "14px",
-            "label": {
-              "de": "14px",
-              "en": "14px",
-              "es": "14px",
-              "fr": "14 px",
-              "it": "14 px",
-              "ja": "14ピクセル",
-              "pt-BR": "14px"
-            }
-          },
-          {
-            "value": "15px",
-            "label": {
-              "de": "15px",
-              "en": "15px",
-              "es": "15px",
-              "fr": "15 px",
-              "it": "15 px",
-              "ja": "15ピクセル",
-              "pt-BR": "15px"
-            }
-          },
-          {
-            "value": "16px",
-            "label": {
-              "de": "16px",
-              "en": "16px",
-              "es": "16px",
-              "fr": "16 px",
-              "it": "16 px",
-              "ja": "16ピクセル",
-              "pt-BR": "16px"
-            }
-          },
-          {
-            "value": "17px",
-            "label": {
-              "de": "17px",
-              "en": "17px",
-              "es": "17px",
-              "fr": "17 px",
-              "it": "17 px",
-              "ja": "17ピクセル",
-              "pt-BR": "17px"
-            }
-          }
-        ]
+        "type": "text",
+        "label": "Footer letter spacing",
+        "id": "footer_letter_spacing",
+        "default": "0.06em"
       },
       {
-          "type":   "range",
-          "id":     "body_letter_spacing",
-          "min":       0,
-          "max":       3,
-          "step":      0.1,
-          "unit":      "px",
-          "label":     "Letter spacing",
-          "default":   0
+        "type": "text",
+        "label": "Footer header font size",
+        "id": "footer_header_font_size",
+        "default": "10pt"
       },
       {
-        "type": "checkbox",
-        "id": "type_base_italize_titles",
-        "label": {
-          "de": "Titel, Blockzitate, Dropdown-Links, Name des Kommentators und Datum kursiv setzen.",
-          "en": "Italicize titles, blockquotes, drop-down links, comment author name, and dates.",
-          "es": "Escribir en cursiva títulos, citas en bloques, enlaces desplegables, nombre del autor del comentario y fechas.",
-          "fr": "Mettre en italiques les titres, les blocs de citation, les commentaires, le nom de l'auteur et les dates.",
-          "it": "Scrivi in maiuscolo i titoli, le citazioni, i link a discesa, il nome dell'autore del commento e le date.",
-          "ja": "タイトル、ブロック引用、ドロップダウンリンク、コメント者名、日付を斜体で表示する。",
-          "pt-BR": "Aplicar itálico a títulos, blocos de citação, nome do autor do comentário e datas."
-        }
+        "type": "text",
+        "label": "Footer header line height",
+        "id": "footer_header_line_height",
+        "default": "17pt"
+      },
+      {
+        "type": "text",
+        "label": "Footer header letter spacing",
+        "id": "footer_header_letter_spacing",
+        "default": "0.06em"
       }
     ]
   },
@@ -699,6 +746,16 @@
           "ja": "注文メモを有効にする",
           "pt-BR": "Habilite observações sobre o pedido"
         }
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_extra_checkout_buttons",
+        "label": "Extra checkout buttons"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_extra_checkout_buttons_hide",
+        "label": "Hide extra checkout buttons"
       }
     ]
   },
@@ -1074,6 +1131,457 @@
           "ja": "32×32ピクセルに縮小されます。",
           "pt-BR": "Será reduzida para 32 x 32 pixels"
         }
+      }
+    ]
+  },
+  {
+    "name": "Bite Flow Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headers"
+      },
+      {
+        "type": "text",
+        "label": "Headers font size",
+        "id": "flow_headers_font_size",
+        "default": "23.861pt"
+      },
+      {
+        "type": "text",
+        "label": "Headers line height",
+        "id": "flow_headers_line_height",
+        "default": "38.713pt"
+      },
+      {
+        "type": "text",
+        "label": "Headers letter spacing",
+        "id": "flow_headers_letter_spacing",
+        "default": "0.04em"
+      },
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "type": "text",
+        "label": "Text font size",
+        "id": "flow_text_font_size",
+        "default": "10.943pt"
+      },
+      {
+        "type": "text",
+        "label": "Text line height",
+        "id": "flow_text_line_height",
+        "default": "14.855pt"
+      },
+      {
+        "type": "text",
+        "label": "Text letter spacing",
+        "id": "flow_text_letter_spacing",
+        "default": "0.1em"
+      },
+      {
+        "type": "header",
+        "content": "Products"
+      },
+      {
+        "type": "text",
+        "label": "Product font size",
+        "id": "flow_product_font_size",
+        "default": "10pt"
+      },
+      {
+        "type": "text",
+        "label": "Product line height",
+        "id": "flow_product_line_height",
+        "default": "14pt"
+      },
+      {
+        "type": "text",
+        "label": "Product letter spacing",
+        "id": "flow_product_letter_spacing",
+        "default": "0.1em"
+      }
+    ]
+  },
+  {
+    "name": "Page Flow Setup",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Add sections to pages",
+        "info": "Add a page twice to have mobile and desktop versions. Make sure added pages use the tempate \"page.biteflow\""
+      },
+      {
+        "type": "page",
+        "label": "Section 1",
+        "id": "page_biteflow_section_1"
+      },
+      {
+        "type": "page",
+        "label": "Section 2",
+        "id": "page_biteflow_section_2"
+      },
+      {
+        "type": "page",
+        "label": "Section 3",
+        "id": "page_biteflow_section_3"
+      },
+      {
+        "type": "page",
+        "label": "Section 4",
+        "id": "page_biteflow_section_4"
+      },
+      {
+        "type": "page",
+        "label": "Section 5",
+        "id": "page_biteflow_section_5"
+      },
+      {
+        "type": "page",
+        "label": "Section 6",
+        "id": "page_biteflow_section_6"
+      },
+      {
+        "type": "page",
+        "label": "Section 7",
+        "id": "page_biteflow_section_7"
+      },
+      {
+        "type": "page",
+        "label": "Section 8",
+        "id": "page_biteflow_section_8"
+      },
+      {
+        "type": "page",
+        "label": "Section 9",
+        "id": "page_biteflow_section_9"
+      },
+      {
+        "type": "page",
+        "label": "Section 10",
+        "id": "page_biteflow_section_10"
+      },
+      {
+        "type": "page",
+        "label": "Section 11",
+        "id": "page_biteflow_section_11"
+      },
+      {
+        "type": "page",
+        "label": "Section 12",
+        "id": "page_biteflow_section_12"
+      },
+      {
+        "type": "page",
+        "label": "Section 13",
+        "id": "page_biteflow_section_13"
+      },
+      {
+        "type": "page",
+        "label": "Section 14",
+        "id": "page_biteflow_section_14"
+      },
+      {
+        "type": "page",
+        "label": "Section 15",
+        "id": "page_biteflow_section_15"
+      },
+      {
+        "type": "page",
+        "label": "Section 16",
+        "id": "page_biteflow_section_16"
+      },
+      {
+        "type": "page",
+        "label": "Section 17",
+        "id": "page_biteflow_section_17"
+      },
+      {
+        "type": "page",
+        "label": "Section 18",
+        "id": "page_biteflow_section_18"
+      },
+      {
+        "type": "page",
+        "label": "Section 19",
+        "id": "page_biteflow_section_19"
+      },
+      {
+        "type": "page",
+        "label": "Section 20",
+        "id": "page_biteflow_section_20"
+      }
+    ]
+  },
+  {
+    "name": "Type Flow Setup",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Choose sections for Types",
+        "info": "Add a Type (collection) twice to have mobile and desktop versions. Make sure added Types use the tempate \"collection.type\""
+      },
+      {
+        "type": "collection",
+        "label": "Section 1",
+        "id": "collection_type_section_1"
+      },
+      {
+        "type": "collection",
+        "label": "Section 2",
+        "id": "collection_type_section_2"
+      },
+      {
+        "type": "collection",
+        "label": "Section 3",
+        "id": "collection_type_section_3"
+      },
+      {
+        "type": "collection",
+        "label": "Section 4",
+        "id": "collection_type_section_4"
+      },
+      {
+        "type": "collection",
+        "label": "Section 5",
+        "id": "collection_type_section_5"
+      },
+      {
+        "type": "collection",
+        "label": "Section 6",
+        "id": "collection_type_section_6"
+      },
+      {
+        "type": "collection",
+        "label": "Section 7",
+        "id": "collection_type_section_7"
+      },
+      {
+        "type": "collection",
+        "label": "Section 8",
+        "id": "collection_type_section_8"
+      },
+      {
+        "type": "collection",
+        "label": "Section 9",
+        "id": "collection_type_section_9"
+      },
+      {
+        "type": "collection",
+        "label": "Section 10",
+        "id": "collection_type_section_10"
+      },
+      {
+        "type": "collection",
+        "label": "Section 11",
+        "id": "collection_type_section_11"
+      },
+      {
+        "type": "collection",
+        "label": "Section 12",
+        "id": "collection_type_section_12"
+      },
+      {
+        "type": "collection",
+        "label": "Section 13",
+        "id": "collection_type_section_13"
+      },
+      {
+        "type": "collection",
+        "label": "Section 14",
+        "id": "collection_type_section_14"
+      },
+      {
+        "type": "collection",
+        "label": "Section 15",
+        "id": "collection_type_section_15"
+      },
+      {
+        "type": "collection",
+        "label": "Section 16",
+        "id": "collection_type_section_16"
+      },
+      {
+        "type": "collection",
+        "label": "Section 17",
+        "id": "collection_type_section_17"
+      },
+      {
+        "type": "collection",
+        "label": "Section 18",
+        "id": "collection_type_section_18"
+      },
+      {
+        "type": "collection",
+        "label": "Section 19",
+        "id": "collection_type_section_19"
+      },
+      {
+        "type": "collection",
+        "label": "Section 20",
+        "id": "collection_type_section_20"
+      },
+      {
+        "type": "collection",
+        "label": "Section 21",
+        "id": "collection_type_section_21"
+      },
+      {
+        "type": "collection",
+        "label": "Section 22",
+        "id": "collection_type_section_22"
+      },
+      {
+        "type": "collection",
+        "label": "Section 23",
+        "id": "collection_type_section_23"
+      },
+      {
+        "type": "collection",
+        "label": "Section 24",
+        "id": "collection_type_section_24"
+      },
+      {
+        "type": "collection",
+        "label": "Section 25",
+        "id": "collection_type_section_25"
+      },
+      {
+        "type": "collection",
+        "label": "Section 26",
+        "id": "collection_type_section_26"
+      },
+      {
+        "type": "collection",
+        "label": "Section 27",
+        "id": "collection_type_section_27"
+      },
+      {
+        "type": "collection",
+        "label": "Section 28",
+        "id": "collection_type_section_28"
+      },
+      {
+        "type": "collection",
+        "label": "Section 29",
+        "id": "collection_type_section_29"
+      },
+      {
+        "type": "collection",
+        "label": "Section 30",
+        "id": "collection_type_section_30"
+      }
+    ]
+  },
+  {
+    "name": "Collection Flow Setup",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Choose sections for Collections",
+        "info": "Add a Collection (collection) twice to have mobile and desktop versions. Make sure added Collections use the tempate \"collection.collection\""
+      },
+      {
+        "type": "collection",
+        "label": "Section 1",
+        "id": "collection_collection_section_1"
+      },
+      {
+        "type": "collection",
+        "label": "Section 2",
+        "id": "collection_collection_section_2"
+      },
+      {
+        "type": "collection",
+        "label": "Section 3",
+        "id": "collection_collection_section_3"
+      },
+      {
+        "type": "collection",
+        "label": "Section 4",
+        "id": "collection_collection_section_4"
+      },
+      {
+        "type": "collection",
+        "label": "Section 5",
+        "id": "collection_collection_section_5"
+      },
+      {
+        "type": "collection",
+        "label": "Section 6",
+        "id": "collection_collection_section_6"
+      },
+      {
+        "type": "collection",
+        "label": "Section 7",
+        "id": "collection_collection_section_7"
+      },
+      {
+        "type": "collection",
+        "label": "Section 8",
+        "id": "collection_collection_section_8"
+      },
+      {
+        "type": "collection",
+        "label": "Section 9",
+        "id": "collection_collection_section_9"
+      },
+      {
+        "type": "collection",
+        "label": "Section 10",
+        "id": "collection_collection_section_10"
+      },
+      {
+        "type": "collection",
+        "label": "Section 11",
+        "id": "collection_collection_section_11"
+      },
+      {
+        "type": "collection",
+        "label": "Section 12",
+        "id": "collection_collection_section_12"
+      },
+      {
+        "type": "collection",
+        "label": "Section 13",
+        "id": "collection_collection_section_13"
+      },
+      {
+        "type": "collection",
+        "label": "Section 14",
+        "id": "collection_collection_section_14"
+      },
+      {
+        "type": "collection",
+        "label": "Section 15",
+        "id": "collection_collection_section_15"
+      },
+      {
+        "type": "collection",
+        "label": "Section 16",
+        "id": "collection_collection_section_16"
+      },
+      {
+        "type": "collection",
+        "label": "Section 17",
+        "id": "collection_collection_section_17"
+      },
+      {
+        "type": "collection",
+        "label": "Section 18",
+        "id": "collection_collection_section_18"
+      },
+      {
+        "type": "collection",
+        "label": "Section 19",
+        "id": "collection_collection_section_19"
+      },
+      {
+        "type": "collection",
+        "label": "Section 20",
+        "id": "collection_collection_section_20"
       }
     ]
   }

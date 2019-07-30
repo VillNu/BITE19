@@ -28,6 +28,8 @@
   <!-- CSS ================================================== -->
   {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+  {{ '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css' | stylesheet_tag }}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
   <!-- Sections ================================================== -->
   <script>
@@ -52,10 +54,16 @@
   </script>
 
   {{ 'jquery-2.2.3.min.js' | asset_url | script_tag }}
+  {{ 'jquery.easie-min.js' | asset_url | script_tag }}
 
   <script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
 
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+  <script src="{{ 'lineWrapDetector.js' | asset_url }}" defer="defer"></script>
+
+  <script type="text/javascript" src="{{ 'jquery.zoom.min.js' | asset_url }}" defer=”defer”>
+
 
   <!-- Header hook for plugins ================================================== -->
   {{ content_for_header }}
@@ -74,14 +82,14 @@
 {% comment %}
   Add the page template as a class for easy page or template specific styling.
 {% endcomment %}
-<body id="{{ page_title | handle }}" class="bespoke-bite {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} template-{{ template | handle }}">
 
   {% section 'header' %}
 
   <div id="CartDrawer" class="drawer drawer--right drawer--has-fixed-footer">
     <div class="drawer__fixed-header">
       <div class="drawer__header">
-        <div class="drawer__title">{{ 'cart.general.title' | t }}</div>
+        <div class="drawer__title"><a href="/cart">{{ 'cart.general.title' | t }}</a></div>
         <div class="drawer__close">
           <button type="button" class="icon-fallback-text drawer__close-button js-drawer-close">
             <span class="icon icon-x" aria-hidden="true"></span>
@@ -136,19 +144,69 @@
   {% endif %}
 
   {% if template.name == 'product' or template.name == 'index' %}
-      <script>
-        // Override default values of shop.strings for each template.
-        // Alternate product templates can change values of
-        // add to cart button, sold out, and unavailable states here.
-        theme.productStrings = {
-          addToCart: {{ 'products.product.add_to_cart' | t | json }},
-          soldOut: {{ 'products.product.sold_out' | t | json }},
-          unavailable: {{ 'products.product.unavailable' | t | json }}
-        }
+    <script>
+      // Override default values of shop.strings for each template.
+      // Alternate product templates can change values of
+      // add to cart button, sold out, and unavailable states here.
+      theme.productStrings = {
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }}
+      }
+    </script>
+  {% endif %}
+
+  {% if template.name == 'collection' %}
+
+    {% include 'ajaxify-cart' %}
+
+    {% comment %}
+      <!-- Include Cart.js -->
+      {{ 'cart.js' | asset_url | script_tag }}
+
+      <!-- Initialise Cart.js once the page has loaded -->
+      <script type="text/javascript">
+          jQuery(function() {
+              CartJS.init({{ cart | json }});
+          });
       </script>
-    {% endif %}
+    {% endcomment %}
+  {% endif %}
+
+
+  <script>
+    $("a[href*=\\#]:not([href=\\#])").click(function() {
+        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+            || location.hostname == this.hostname) {
+
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+               if (target.length) {
+                 $('html,body').animate({
+                     scrollTop: target.offset().top
+                }, 600, "easieEaseOutQuart");
+                return false;
+            }
+        }
+    });
+  </script>
+
+  <script type="text/javascript">
+  if (navigator.userAgent.indexOf('Safari') != -1) {
+    document.body.className += " safari";
+  }
+  if (navigator.appVersion.indexOf("Win")!= -1 ) {
+    document.body.className += " windows";
+  } 
+  if (navigator.appVersion.indexOf("Mac")!= -1 ) {
+    document.body.className += " mac";
+  } 
+  </script>
 
   <div id="SearchModal" class="mfp-hide">
+    <img class="search-modal__logo" src="{{ settings.favicon | img_url }}"
+    alt="{{ shop.name }}"
+    itemprop="logo">
     {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--modal' %}
   </div>
 
