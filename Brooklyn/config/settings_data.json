@@ -79,8 +79,8 @@
     "flow_product_letter_spacing": "0.06em",
     "page_biteflow_section_1": "bite-buy-back",
     "page_biteflow_section_2": "bite-buy-back",
-    "page_biteflow_section_3": "sustainability-1",
-    "page_biteflow_section_4": "sustainability-1",
+    "page_biteflow_section_3": "environmental-philosophy",
+    "page_biteflow_section_4": "environmental-philosophy",
     "page_biteflow_section_5": "contact-us",
     "page_biteflow_section_6": "contact-us",
     "page_biteflow_section_7": "",
@@ -249,7 +249,7 @@
               "slide_heading": "",
               "slide_subheading": "Environmental philosophy",
               "slide_cta": "Our promise to this earth",
-              "slide_link": "shopify:\/\/pages\/sustainability"
+              "slide_link": "shopify:\/\/pages\/environmental-philosophy"
             }
           }
         },
@@ -683,7 +683,7 @@
               "title": "Environmental Philosophy",
               "text": "A commitment to conserving the environment and to beautiful, durable design extends to every aspect of BITE. We offer a thoughtful, pared down wardrobe created with meticulous attention to fabrics and details.",
               "no_uppercase": true,
-              "link": "shopify:\/\/pages\/sustainability",
+              "link": "shopify:\/\/pages\/environmental-philosophy",
               "colspan": 2,
               "rowspan": 2,
               "align": "center",
@@ -810,7 +810,7 @@
             "type": "flow-image-and-text",
             "settings": {
               "image": "shopify:\/\/shop_images\/sustainability_9d0ec720-96e3-43df-a7f1-32e6ca9f890a.jpg",
-              "link": "shopify:\/\/pages\/sustainability",
+              "link": "shopify:\/\/pages\/environmental-philosophy",
               "title": "ENVIRONMENTAL PHILOSOPHY",
               "text": "A commitment to conserving the environment and to beautiful, durable design extends to every aspect of BITE. We offer a thoughtful, pared down wardrobe created with meticulous attention to fabrics and details. <br><br><br><br>",
               "position": "5",
@@ -825,7 +825,7 @@
             "type": "flow-image-and-text",
             "settings": {
               "image": "shopify:\/\/shop_images\/d6390746cec7c247475d16085cfdd2f5--white-blouses-all-white.jpg",
-              "link": "shopify:\/\/pages\/sustainability",
+              "link": "shopify:\/\/pages\/environmental-philosophy",
               "title": "",
               "text": "Our artist of re-defined ocha sItet\nipsaese et ulliquo optatusam faccus.\nSant en ditaquos as eate volorum.",
               "position": "9",
@@ -1708,7 +1708,7 @@
               "title": "Sustainability",
               "text": "Our artist of re-defined ocha sItet ipsaese et ulliquo optatusam faccus. Sant en ditaquos as eate volorum.",
               "no_uppercase": false,
-              "link": "shopify:\/\/pages\/sustainability",
+              "link": "shopify:\/\/pages\/environmental-philosophy",
               "colspan": 5,
               "rowspan": 1,
               "align": "start",
@@ -2255,7 +2255,6 @@
           "1563906389021": {
             "type": "flow-space",
             "settings": {
-              "bg_color": "rgba(0,0,0,0)",
               "colspan": 5,
               "rowspan": 1,
               "align": "stretch",
@@ -2303,9 +2302,9 @@
           "title": "Mobile and Desktop",
           "show_on_mobile": true,
           "show_on_desktop": false,
-          "show_title": true,
           "show_backgrounds": false,
-          "show_gridlines": false
+          "show_gridlines": false,
+          "show_title": true
         }
       },
       "page-biteflow-section_2": {
@@ -2338,7 +2337,6 @@
           "1564233356187": {
             "type": "flow-space",
             "settings": {
-              "bg_color": "#9f3a3a",
               "colspan": 2,
               "rowspan": 1,
               "align": "auto",
@@ -2377,7 +2375,6 @@
           "1564233659012": {
             "type": "flow-space",
             "settings": {
-              "bg_color": "rgba(250,230,230,1)",
               "colspan": 1,
               "rowspan": 1,
               "align": "stretch",
@@ -2398,9 +2395,9 @@
           "title": "Desktop",
           "show_on_mobile": false,
           "show_on_desktop": true,
-          "show_title": false,
           "show_backgrounds": false,
-          "show_gridlines": false
+          "show_gridlines": false,
+          "show_title": false
         }
       },
       "page-flow-sustainability2": {
@@ -2413,18 +2410,6 @@
               "video": ""
             }
           },
-          "1563131122817": {
-            "type": "flow-image",
-            "settings": {
-              "image": "shopify:\/\/shop_images\/pear.png",
-              "link": "",
-              "colspan": 1,
-              "rowspan": 1,
-              "align": "stretch",
-              "show_on_mobile": true,
-              "show_on_desktop": true
-            }
-          },
           "1564397508521": {
             "type": "flow-text",
             "settings": {
@@ -2433,6 +2418,18 @@
               "no_uppercase": true,
               "link": "",
               "colspan": 5,
+              "rowspan": 1,
+              "align": "stretch",
+              "show_on_mobile": true,
+              "show_on_desktop": true
+            }
+          },
+          "1563131122817": {
+            "type": "flow-image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/pear.png",
+              "link": "",
+              "colspan": 1,
               "rowspan": 1,
               "align": "stretch",
               "show_on_mobile": true,
@@ -2537,7 +2534,6 @@
           "1563134828940": {
             "type": "flow-space",
             "settings": {
-              "bg_color": "rgba(250,230,230,1)",
               "colspan": 2,
               "rowspan": 1,
               "align": "stretch",
@@ -2583,12 +2579,12 @@
           "1563134723177"
         ],
         "settings": {
-          "title": "Mobile and Desktop",
+          "title": "Mobile",
           "show_on_mobile": true,
           "show_on_desktop": false,
-          "show_title": false,
           "show_backgrounds": false,
-          "show_gridlines": false
+          "show_gridlines": false,
+          "show_title": false
         }
       },
       "page-biteflow-section_4": {
@@ -2606,9 +2602,52 @@
             "settings": {
               "image": "shopify:\/\/shop_images\/pear.png",
               "link": "",
-              "colspan": 1,
+              "colspan": 2,
+              "rowspan": 2,
+              "align": "start",
+              "show_on_mobile": true,
+              "show_on_desktop": true
+            }
+          },
+          "1564477628242": {
+            "type": "flow-product",
+            "settings": {
+              "product": "green-jacket",
+              "colspan": 2,
+              "rowspan": 4,
+              "align": "start",
+              "show_on_mobile": true,
+              "show_on_desktop": true
+            }
+          },
+          "1564477645036": {
+            "type": "flow-space",
+            "settings": {
+              "colspan": 3,
               "rowspan": 1,
               "align": "stretch",
+              "show_on_mobile": true,
+              "show_on_desktop": true
+            }
+          },
+          "1564480973360": {
+            "type": "flow-space",
+            "settings": {
+              "colspan": 1,
+              "rowspan": 1,
+              "align": "auto",
+              "show_on_mobile": true,
+              "show_on_desktop": true
+            }
+          },
+          "1564481050950": {
+            "type": "flow-page-details",
+            "settings": {
+              "flow_page_title": true,
+              "flow_page_details": true,
+              "colspan": 3,
+              "rowspan": 2,
+              "align": "start",
               "show_on_mobile": true,
               "show_on_desktop": true
             }
@@ -2616,15 +2655,19 @@
         },
         "block_order": [
           "1562765214554",
-          "1563134935978"
+          "1563134935978",
+          "1564477645036",
+          "1564480973360",
+          "1564477628242",
+          "1564481050950"
         ],
         "settings": {
-          "title": "Mobile and Desktop",
+          "title": "Desktop",
           "show_on_mobile": false,
           "show_on_desktop": true,
-          "show_title": false,
           "show_backgrounds": false,
-          "show_gridlines": false
+          "show_gridlines": false,
+          "show_title": false
         }
       },
       "collection-collection-template_4": {
@@ -2704,9 +2747,9 @@
           "title": "Mobile version",
           "show_on_mobile": true,
           "show_on_desktop": false,
-          "show_title": true,
           "show_backgrounds": false,
-          "show_gridlines": false
+          "show_gridlines": false,
+          "show_title": true
         }
       },
       "page-biteflow-section_6": {
@@ -2756,9 +2799,9 @@
           "title": "Desktop version",
           "show_on_mobile": false,
           "show_on_desktop": true,
-          "show_title": false,
           "show_backgrounds": false,
-          "show_gridlines": false
+          "show_gridlines": false,
+          "show_title": false
         }
       },
       "collection-type-template_12": {
