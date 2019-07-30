@@ -1691,10 +1691,6 @@ input[type="image"] {
       }
     }
 
-    .block:first-child.page-details h2 {
-      margin-top: 20px;
-      margin-bottom: 10px;
-    }
   }
 
   .block {
@@ -1721,6 +1717,15 @@ input[type="image"] {
       height: 100vh;
       overflow-x: visible;
       margin: -10px -10px 0 calc(-100vw/6);
+    }
+
+    &.block.page-details
+      & h1 {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      & span {
+        text-decoration: none;
+      }
     }
 
     &.product {

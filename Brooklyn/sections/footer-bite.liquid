@@ -202,12 +202,13 @@
       {% endif %}
   </div>
 
+  {% comment %}
   {%- if section.settings.show_payment_icons -%}
     <div class="footer-payment-icons">
       {% include 'payment-icons' %}
     </div>
   {%- endif -%}
-
+  {% endcomment %}
 </footer>
 
 <div class="footer-copyright">
@@ -223,6 +224,11 @@
     </span>
 </div>
 
+{% if secction.settings.show_currency_picker %}
+<div class="currency-picker currency-picker--footer">
+  {%- include 'bold-currency-picker-mount', openDirection: 'up' -%}
+</div>
+{% endif %}
 
 {% schema %}
 {
@@ -261,6 +267,13 @@
         "it": "Mostra le icone di pagamento",
         "ja": "支払いアイコンを表示する",
         "pt-BR": "Exibir ícones de pagamento"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_picker",
+      "label": "Show currency picker"
       },
       "default": true
     }

@@ -938,6 +938,11 @@ var ajaxCart = (function(module, $) {
   };
 
   buildCart = function(cart) {
+ 
+ /*   if(window.BOLD && BOLD.common && BOLD.common.cartDoctor && typeof BOLD.common.cartDoctor.fix === 'function'){
+      cart = BOLD.common.cartDoctor.fix(cart);
+    }
+*/
     // Start with a fresh cart div
     $cartContainer.empty();
 
@@ -1039,6 +1044,11 @@ var ajaxCart = (function(module, $) {
     $cartContainer.append(template(data));
 
     cartCallback(cart);
+    console.log("cart loaded: ");
+    if(window.BOLD && BOLD.common && BOLD.common.eventEmitter && typeof BOLD.common.eventEmitter.emit === 'function'){
+      BOLD.common.eventEmitter.emit('BOLD_COMMON_cart_loaded', cart);
+    }
+
   };
 
   cartCallback = function(cart) {

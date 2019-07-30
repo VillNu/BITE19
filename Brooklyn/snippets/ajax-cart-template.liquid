@@ -48,12 +48,17 @@
                   </div>
                   <div class="grid__item display-table-cell one-half text-right">
                     {{#if discountsApplied}}
-                      <small class="ajaxcart__price--strikethrough">{{{price}}}</small>
+                      <small class="ajaxcart__price--strikethrough">
+                        <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_price" style="display:none !important;"></span>
+                        {{{price}}}
+                      </small>
                       <span class="ajaxcart__price">
+                        <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_price" style="display:none !important;"></span>
                         {{{discountedPrice}}}
                       </span>
                     {{else}}
                       <span class="ajaxcart__price">
+                        <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_price" style="display:none !important;"></span>
                         {{{price}}}
                       </span>
                     {{/if}}
@@ -87,7 +92,10 @@
             <p class="ajaxcart__subtotal">{% endraw %}{{ 'cart.general.subtotal' | t }}{% raw %}</p>
           </div>
           <div class="grid__item one-third text-right">
-            <p class="ajaxcart__subtotal">{{{totalPrice}}}</p>
+            <p class="ajaxcart__subtotal">
+              <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_price" style="display:none !important;"></span>
+              {{{totalPrice}}}
+            </p>
           </div>
         </div>
         {{#if totalCartDiscount}}
