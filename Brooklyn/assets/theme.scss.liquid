@@ -391,12 +391,19 @@ $gutter: 10px; /* default: 30px*/
 $gridGutterMobile: 22px;
 $section-spacing-small: 35px;
 $gridGutter: 30px; // can be a %, but nested grids will have smaller margins because of it
-/* $contentTopMargin: 50px;
-   $contentTopMarginSmall: 5px; */
-$contentTopMargin: calc((100vw - 50px) / 60);
-$contentTopMarginSmall: 10px;
 $radius: 0;
 $customSelectHeight: 46px;
+
+// Margins
+$contentTopMarginMobile: calc((100vw - 50px) / 60);
+$contentRightMarginMobile: 10px;
+$contentBottomMarginMobile: 0;
+$contentLeftMarginMobile:  10px;
+
+$contentTopMarginDesktop: calc((100vw - 50px) / 60);
+$contentRightMarginDesktop: calc((100vw - 50px) / 60);
+$contentBottomMarginDesktop: 0;
+$contentLeftMarginDesktop: calc(((100vw - 50px) / 6) + 10px); 
 
 // Z-index
 $zindexNavDropdowns: 2005;
@@ -417,9 +424,9 @@ $collageImageSmall: 230px;
 // Collection Collage Grid
 // These heights are used to determine the row height for the
 // collection grid.
-$collectionCollageRowHeightFull: 450px;
-$collectionCollageRowHeightLarge: 310px;
-$collectionCollageRowHeightSmall: 280px;
+$collectionCollageRowHeightFull: 450px;  /* 450px; */
+$collectionCollageRowHeightLarge: 450px; /* 310px; */
+$collectionCollageRowHeightSmall: 450px; /* 280px; */
 
 // Password page
 $passwordPageUseBgImage: true;
@@ -1455,12 +1462,12 @@ input[type="image"] {
 @include at-query($max, $small) {
   .newsletter__submit-text--large,
   .password-page__login-form__submit-text--large {
-    display: none;
+    display: block;
   }
 
   .newsletter__submit-text--small,
   .password-page__login-form__submit-text--small {
-    display: block;
+    display: none;
   }
 }
 
@@ -1611,6 +1618,7 @@ input[type="image"] {
 }
 
 /*================ Modules | Bite Flow ================*/
+// start-sidan, collection-collection, flow-pages (inte collection -type)
 
 .flow__wrapper {
   display: none;
@@ -1649,26 +1657,28 @@ input[type="image"] {
 }
 
 .bite-flow__container {
-  margin: $contentTopMargin $contentTopMargin 0 10px;
-  /* margin: 0; */
   display: flex;
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(5, 1fr);
-/*   grid-template-columns: repeat(5, minmax(min-content, max-content)); */
+  /* grid-template-columns: repeat(5, minmax(min-content, max-content)); */
   align-items: center;
 
+  margin: $contentTopMarginMobile $contentRightMarginMobile $contentBottomMarginMobile $contentLeftMarginMobile;
+  /* margin: 0; */
+
   @include at-query($min, $large) {
-    /* margin: $contentTopMargin $contentTopMargin 0 0; */
     grid-template-columns: repeat(5, 1fr);
     /* grid-template-rows: calc(100vw / 4.096); */
-    margin-left: calc(((100vw - 50px) / 6) + 10px);
+    margin: $contentTopMarginDesktop $contentRightMarginDesktop $contentBottomMarginDesktop $contentLeftMarginDesktop;
   }
 
+  // Collection-type, collection-collection och startsidan har 4 kolumner
   @include at-query($max, $preLarge) {
     .collection-flow &,
     .template-index & {
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+      margin: 10px 10px 0 10px;
     }
   }
 
@@ -1697,6 +1707,10 @@ input[type="image"] {
     position: relative;
     overflow: hidden;
     word-break: break-word;
+    grid-column-end: span 2;
+    grid-row-end: span 2;
+    align-self: stretch;
+    /* height: calc((100vw / 4.096 * 2) + (2 * 10px) - 10px); */
 
     display: none;
     &.show_on_mobile {
@@ -1708,6 +1722,42 @@ input[type="image"] {
       @include at-query($min, $large) {
         display: block;
       }
+    }
+
+    &.cols_1 {
+      grid-column-end: span 1;
+    }
+    &.cols_2 {
+      grid-column-end: span 2;
+    }
+    &.cols_3 {
+      grid-column-end: span 3;
+    }
+    &.cols_4 {
+      grid-column-end: span 4;
+    }
+    &.cols_5 {
+      grid-column-end: span 4;
+      @include at-query($min, $large) {
+        body.template-page-biteflow & {
+          grid-column-end: span 5;
+        }
+      }
+    }
+    &.rows_1 {
+      grid-row-end: span 1;
+    }
+    &.rows_2 {
+      grid-row-end: span 2;
+    }
+    &.rows_3 {
+      grid-row-end: span 3;
+    }
+    &.rows_4 {
+      grid-row-end: span 4;
+    }
+    &.rows_5 {
+      grid-row-end: span 5;
     }
 
     &.flow-hero {
@@ -1730,6 +1780,9 @@ input[type="image"] {
         text-decoration: none;
       }
     }
+    &.page-details--centered {
+      text-align: center;
+    }
 
     &.product {
       /* background-color: #000; */
@@ -1745,6 +1798,11 @@ input[type="image"] {
     &.text {
       @include at-query($max, $large) {
         overflow-x: visible;
+      }
+      &.cols_5 {
+        @include at-query($max, $preLarge) {
+          padding: 0 30px;
+        }
       }
     }
 
@@ -1767,11 +1825,13 @@ input[type="image"] {
 
     .product-caption {
       position: absolute;
+      width: 100%;
       bottom: 0;
       padding: 10px;
-      color: white;
-      text-shadow: -2px 2px 4px black;
+      color: black;
+      /* text-shadow: -2px 2px 4px black; */
       opacity: 0;
+      background: rgba(255,255,255,{{ settings.product_caption_background | divided_by: 100.0 }});
       @include transition(all 0.8s ease);
       pointer-events: none;
     }
@@ -2051,8 +2111,8 @@ a {
 .ajaxcart__footer--fixed {
   position: absolute;
   bottom: 0;
-  left: $gutter / 2;
-  right: $gutter / 2;
+  left: $gutter;
+  right: $gutter;
   min-height: $drawerCartFooterHeight; // overwritten by JS
   padding-bottom: $gutter;
 
@@ -2405,9 +2465,17 @@ $shareCountBg: $colorBody;
   }
 }
 
-/*================ Modules | Bite Type Collections  ================*/
+/*================ Modules | Bite Collection Collections  ================*/
 
 
+
+
+/*================ Modules | Bite Type Collection  ================*/
+/* This Flow differs from Page Bite FLow and Collection Collection Flow */
+/* But they share the innermost part, the FLow Block (snippets/flow-block.liquid) */
+
+
+/* Both desktop and mobile versions are in DOM, but display:none when not presented */
 .type-flow > .wrapper {
   display: none;
   &.show_on_mobile {
@@ -2494,6 +2562,8 @@ grid-area: title;
     grid-column: 2 / -2;
   }
 
+  /* Except being in mobile or desktop version, you can also use a section for both and hide single elements
+     on either dekstop or mobile */
   .block {
     display: none;
     &.show_on_mobile {
@@ -2508,8 +2578,8 @@ grid-area: title;
     }
   }
 
-  .collection__main-area__item,
-  .block {
+  .collection__main-area__item, /* products in the collection */
+  .block { /* other items than collection products */
     grid-column-end: span 2;
     grid-row-end: span 2;
     position: relative;
@@ -2525,7 +2595,10 @@ grid-area: title;
     &.larger-image {
       grid-column-end: span 4;
       grid-row-end: span 4;
-      height: calc(((((100vw - $menu-width_desk) - 10px) / 3) * 3 + 160px))
+      height: calc(((((100vw - #{$menu-width_mob}) - 10px) / 2) * 3 + 80px));
+      @include at-query($min, $large) {
+        height: calc(((((100vw - #{$menu-width_desk}) - 10px) / 3) * 3 + 160px));
+      }
     }
 
     & > div {
@@ -2536,7 +2609,8 @@ grid-area: title;
     }
 
     &:hover form {
-      opacity: 1;
+      opacity: 1; /* displays Add to cart form */
+      display: none;
     }
   }
 
@@ -2712,13 +2786,49 @@ grid-area: title;
   }
 
   .block {
+    &.cols_1 {
+      grid-column-end: span 1;
+    }
+    &.cols_2 {
+      grid-column-end: span 2;
+    }
+    &.cols_3 {
+      grid-column-end: span 3;
+    }
+    &.cols_4 {
+      grid-column-end: span 4;
+    }
+    &.cols_5 {
+      grid-column-end: span 5;
+      @include at-query($max, $preLarge) {
+        grid-column-end: span 4;
+      }
+    }
+    &.rows_1 {
+      grid-row-end: span 1;
+    }
+    &.rows_2 {
+      grid-row-end: span 2;
+    }
+    &.rows_3 {
+      grid-row-end: span 3;
+    }
+    &.rows_4 {
+      grid-row-end: span 4;
+    }
+    &.rows_5 {
+      grid-row-end: span 5;
+    }
+
     height: 100% !important;
+
     img {
       max-width: unset;
       width: 100%;
       height: calc(100% - 80px);
       min-width: 100%;
       min-height: calc(100% - 80px);
+      object-fit: cover;
     }
     .meta {
       padding: 10px 10px 10px 0;
@@ -2733,7 +2843,17 @@ grid-area: title;
     .text {
       font-size: 1em;
     }
+
+
+    
+    &.page-details {
+      padding: 10px;
+    }
+    &.page-details--centered {
+      text-align: center;
+    }
   }
+
 }
 
 
@@ -2962,7 +3082,8 @@ grid-area: title;
   /* slide headings fades-in after a delay */
   .hero__text-content {
     opacity: 0;
-    transition: opacity 3s cubic-bezier(0.960, -0.300, 0.105, 1.075);
+    transition: opacity 2s cubic-bezier(0.9, -0.42, 0.93, 0.63); /* opacity 3s cubic-bezier(0.960, -0.300, 0.105, 1.075); */
+
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 2px 30px rgba(0, 0, 0, 0.5);
   }
   &.slick-active .hero__text-content {
@@ -3400,7 +3521,7 @@ $slick-opacity-not-active: 0.25;
 /*================ Module | Theme Header and Navigation Overrides ================*/
 .site-header {
   @include at-query ($min, $large) {
-    padding: $contentTopMargin $contentTopMargin 0;
+    padding: $contentTopMarginDesktop $contentTopMarginDesktop 0;
   }
 }
 @include at-query($max, $medium) {
@@ -4112,7 +4233,7 @@ button.mfp-arrow {
 
 .product-single__photos {
   @include at-query($max, $small) {
-    margin-top: -$contentTopMarginSmall;
+    margin-top: -$contentTopMarginMobile;
     margin-left: -($gutter / 2);
     margin-right: -($gutter / 2);
 /*    padding-bottom: 55px; */
@@ -4869,8 +4990,12 @@ button.mfp-arrow {
 /* Cookie consent texts */
 .eg-cc-banner {
 /*  width: calc(100vw - 10px) !important; */
-  margin: 5px !important;
-  padding: 5px !important;
+  left: 10px !important;
+  bottom: 10px !important;
+  right: unset !important;
+  width: unset !important;
+  margin-left: 5px;
+  border: 1px solid #e5e5e5;
 }
 .eg-cc-message,
 .eg-cc-btn {
@@ -4878,11 +5003,22 @@ button.mfp-arrow {
 }
 .eg-cc-btn {
   white-space: nowrap !important;
+  border-width: 0 !important;
 }
 .eg-cc-message {
   line-height: 1.5em;
 }
 
+/* BOLD Multi-Currency */
+.BOLD-mc-picker > .currentCurrency {
+  box-shadow: unset !important;
+}
+.BOLD-mc-picker-mnt[data-picker-location="bottom-right"][data-edge-placement="float"] {
+  bottom: 10px !important;
+}
+.BOLD-mc-picker-mnt[data-picker-location="bottom-right"] {
+  right: 10px !important;
+}
 /* Store locator */
 .bootstrap-msesl {
   * {

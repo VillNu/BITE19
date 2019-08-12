@@ -87,6 +87,25 @@
 {% endcomment %}
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} template-{{ template | handle }}">
 
+<script>
+  $(document).ready(function(){
+    $('[name=note]').change(function() {
+      var $form = $(this).closest('form');
+      if ( $form.length > 0 && $form.attr('action') == '/cart') {
+        var datastring = $form.serialize();
+        $.ajax( {
+          type: "POST",
+          url: "/cart",
+          data: datastring,
+          dataType: "json",
+          success: function(data) {},
+          error: function() {}
+        });
+      }
+    });
+  });
+</script>
+
   {% section 'header' %}
 
   <div id="CartDrawer" class="drawer drawer--right drawer--has-fixed-footer">

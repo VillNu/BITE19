@@ -2876,12 +2876,15 @@ theme.HeaderSection = (function() {
       });
 
       $toggleBtns.on('click', function() {
-        closeOtherSublists(this);
+        $(".mobile-nav").addClass("clicked_manually"); // used to stop auto-opening menu at scroll
+
         var $button = $(this);
-        var currentlyExpanded = $button.attr('aria-expanded');
-        var toggleState = false;
+        setTimeout(closeOtherSublists($button), 100);
+                
+
         // Updated aria-expanded value based on state pre-click
-        if (currentlyExpanded === 'true') {
+        var toggleState = false;
+        if ($button.attr('aria-expanded') === 'true') {
           $button.attr('aria-expanded', 'false');
         } else {
           $button.attr('aria-expanded', 'true');
@@ -2889,7 +2892,6 @@ theme.HeaderSection = (function() {
         }
 
         // Toggle that expands/collapses sublist
-        $(".mobile-nav").addClass("clicked_manually");
         $button
           .closest('.mobile-nav__has-sublist')
           .toggleClass('mobile-nav--expanded', toggleState)
@@ -3558,7 +3560,6 @@ $(document).ready(function() {
   initAnnouncementBar();
   /* Smooth scroll script in layout/theme-liquid */
   //makeLinksSelectable();
-  addPaddingToTextsOnTheEdge();
   initSlickPlayPause();
   if ($('body').hasClass('template-product')) {
     separateProductDescription();
@@ -3677,7 +3678,7 @@ function addPaddingToTextsOnTheEdge() {
       $(this).css("paddingRight","10px");
     }
     if ($(this).offset().left == 0) {
-      console.log("offset left: " + $(this).offset().left);
+      console.log("offset left : " + $(this).offset().left) + "html(" + $(this).html + ")";
       $(this).css("paddingLeft","10px");
     }
   });
@@ -3744,6 +3745,7 @@ function makeLinksSelectable () {
 
 $(window).on("resize", function() {
   adjustBodyWithToScrollbar();
+  addPaddingToTextsOnTheEdge();
   // putYourFooterDown(); Is instead called from above function afterResize()
 });
 
@@ -3964,10 +3966,10 @@ function inView(element) {
 
 function clickLeftMenu(element) {
   var $button = element;
-  var currentlyExpanded = $button.attr('aria-expanded');
-  var toggleState = false;
+
   // Updated aria-expanded value based on state pre-click
-  if (currentlyExpanded === 'true') {
+  var toggleState = false;
+  if ($button.attr('aria-expanded') === 'true') {
     $button.attr('aria-expanded', 'false');
   } else {
     $button.attr('aria-expanded', 'true');

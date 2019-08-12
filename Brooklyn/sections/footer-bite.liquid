@@ -1,3 +1,4 @@
+{% if settings.debug_mode %}<!-- sections/footer-bite.liquid -->{% endif %}
 <footer class="site-footer small--text-center" role="contentinfo">
   <div class="wrapper bite-footer">
 
@@ -38,7 +39,7 @@
         {% endfor %}
       {% endif %}
 
-      <div class="footer-item__outer">
+      <div class="footer-item__outer footer-item--newsletter">
         <div class="footer-item__inner">
           <span class="footer-item_header">Sign up to our newsletter</span>
             <div class="footer-newsletter-form">
@@ -273,9 +274,8 @@
     {
       "type": "checkbox",
       "id": "show_currency_picker",
-      "label": "Show currency picker"
-      },
-      "default": true
+      "label": "Show currency picker",
+      "default": false
     }
   ]
 }
