@@ -17,6 +17,8 @@
 {% comment %}
   Set the default button style if not defined
 {% endcomment %}
+{% assign search_btn_style = 'btn--bite' %}
+
 {% unless search_btn_style %}
   {% assign search_btn_style = 'btn--secondary' %}
 {% endunless %}
@@ -34,7 +36,8 @@
   <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="input-group-field" aria-label="{{ 'general.search.placeholder' | t }}">
   <span class="input-group-btn">
     <button type="submit" class="{{ search_btn_style }} icon-fallback-text">
-      <span class="icon icon-search" aria-hidden="true"></span>
+      {% comment %}<span class="icon icon-search" aria-hidden="true"></span>{% endcomment %}
+      {% include 'svg-definitions' with 'search-icon' %}
       <span class="fallback-text">{{ 'general.search.submit' | t }}</span>
     </button>
   </span>

@@ -1,0 +1,153 @@
+{% if settings.debug_mode %}
+<!-- /snippets/collection-type-flow.liquid -->
+{% endif %}
+
+{% comment %}
+  This file is included by the Collection Type snippet.
+{% endcomment %}
+
+{% paginate collection.products by 50 %}
+
+  <div class="collection-type collection-type__grid{% if collection.image %} has_hero{% endif %}">
+
+    <div class="grid__area collection__hero-area">
+      {% if collection.image %}
+        <div class="collection-type-hero__wrapper hero">
+          <noscript>
+            <div class="collection-type-hero__image-no-js" style="background-image:url({{ collection.image | img_url: '2048x2048' }});"></div>
+          </noscript>
+          <div class="collection-hero__image-wrapper">
+            {% assign img_url = collection.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+            {% comment %}<img class="collection-hero__image is-init lazyload"
+              src="{{ collection.image | img_url: 'master' }}"
+              alt="{{ collection.image.alt | escape }}">{% endcomment %}
+            <img class="collection-hero__image is-init lazyload lazypreload"
+              src="{{ collection.image | img_url: '500x' }}"
+              data-src="{{ collection.image | img_url: '2000x' }}"
+              data-srcset="{{ collection.image | img_url: '2000x' }} 2000w,
+                          {{ collection.image | img_url: '500x' }} 500w,
+                          {{ collection.image | img_url: '1000x' }} 1000w,
+                          {{ collection.image | img_url: '2000x' }} 2000w,
+                          {{ collection.image | img_url: '3000x' }} 3000w"
+              alt="{{ collection.image.alt | escape }}">              
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="grid__area collection__title-area">
+      {% if section.settings.show_title %}<h1 class="collection-type__title">{{ collection.title }}</h1>{% endif %}
+    </div>
+
+    <div class="grid__area collection__main-area">
+      {%- assign position = 0 -%}
+      {% assign larger_images = section.settings.larger_images | split: ", " %}
+      {% for product in collection.products %}
+
+        {% comment %}
+          <div id="product-{{product.id}}" class="collection-product" >
+            <a href="{{ product.url | within: collection }}" class="grid-product__link">
+              <div class="collection-product__image-wrapper hover-zoom">
+                <img class="collection-product__image"
+                     src="{{ product.featured_image | img_url: 'large' }}"
+                     alt="{{ product.featured_image.alt | escape }}">
+              </div>
+              {% include 'collection-flow-product-meta' %}
+            </a>
+          </div>
+        {% endcomment %}
+
+        {%- assign position = position | plus: 1 -%}
+        {%- for block in section.blocks -%}
+          {% assign block_position = block.settings.position %}
+          {% assign block_position = block_position | plus: 0 %}
+          {%- if block_position == position -%}
+            <style>
+              #block-{{block.id}} {
+                align-self: {{ block.settings.align }};
+
+                {%- if block.settings.align == 'stretch' -%}
+                  height: calc((100vw / 4.096 * {{block.settings.rowspan}}) + ({{block.settings.rowspan}} * 10px) - 10px);
+                  height: calc(((((100vw - (100vw/6 + 10px)) - 10px) / 3) * (3 + 80px * {{block.settings.rowspan}} / 2)));
+                {%- endif -%}
+
+                {%- if block.settings.bg_color != blank and section.settings.show_backgrounds != blank -%}
+                   background-color: {{ block.settings.bg_color }};
+                {%- endif -%}
+              }
+
+              @media screen and (min-width: 769px) {
+                #block-{{block.id}} {
+                  {%- if block.type == 'flow-hero' -%}
+                    margin-left: calc(-100vw/6);
+                  {%- endif -%}
+                }
+              }
+            </style>
+            {%- include 'flow-block' -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {% assign product_image_no = forloop.index | downcase %}
+        {% assign larger_class = '' %}
+        {% for larger_image in larger_images %}
+          {% if larger_image == product_image_no %}
+            {% assign larger_class = 'larger-image' %}
+          {% endif %}
+        {% endfor %}
+
+        <div id="product-{{product.id}}" class="collection__main-area__item {{ larger_class }}">
+          <a href="{{ product.url | within: collection }}" class="grid-product__link">
+          {% include 'collection-product' %}
+        </div>
+
+      {% else %}
+        {% comment %}
+          <div class="collection--no-products">
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          </div>
+        {% endcomment %}
+
+        {%- assign position = position | plus: 1 -%}
+        {%- for block in section.blocks -%}
+          {% assign block_position = block.settings.position %}
+          {% assign block_position = block_position | plus: 0 %}
+          {%- if block_position == position -%}
+            <style>
+              #block-{{block.id}} {
+                grid-column-end: span {{ block.settings.colspan }};
+                grid-row-end: span {{ block.settings.rowspan }};
+                align-self: {{ block.settings.align }};
+
+                {%- if block.settings.align == 'stretch' -%}
+                  height: calc((100vw / 4.096 * {{block.settings.rowspan}}) + ({{block.settings.rowspan}} * 10px) - 10px);
+                  height: calc(((((100vw - (100vw/6 + 10px)) - 10px) / 3) * (3 + 80px * {{block.settings.rowspan}} / 2)));
+                {%- endif -%}
+
+                {%- if block.settings.bg_color != blank and section.settings.show_backgrounds != blank -%}
+                   background-color: {{ block.settings.bg_color }};
+                {%- endif -%}
+              }
+
+              @media screen and (min-width: 769px) {
+                #block-{{block.id}} {
+                  {%- if block.type == 'flow-hero' -%}
+                    margin-left: calc(-100vw/6);
+                  {%- endif -%}
+                }
+              }
+            </style>
+            {%- include 'flow-block' -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+      {% endfor %}
+    </div>
+
+  </div>
+
+  {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+  {% endif %}
+
+{% endpaginate %}

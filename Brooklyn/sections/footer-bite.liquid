@@ -1,4 +1,5 @@
 {% if settings.debug_mode %}<!-- sections/footer-bite.liquid -->{% endif %}
+
 <footer class="site-footer small--text-center" role="contentinfo">
   <div class="wrapper bite-footer">
 
@@ -21,12 +22,18 @@
         {% assign footer_social_enable = true %}
       {% endif %}
 
+      {% comment %}
+      Beqause older browsers like Safari < 12 don't support grid-template-columns repeat(auto-fit, 1fr);
+      We have o calculate the number of columns.
+      {% endcomment %}
+      {% assign number_of_columns = 0 %}
 
       {% assign menu = linklists[section.settings.footer_link_list] %}
 
       {% if menu.links.size > 0 %}
         {% for toplevel in menu.links %}
-          <div class="footer-item__outer">
+          {% assign number_of_columns = number_of_columns | plus: 1 %}
+          <div class="footer-item__outer footer-item_{{ number_of_columns }}">
             <div class="footer-item__inner">
               <span class="footer-item_header">{{ toplevel.title }}</span>
               <ul class="no-bullets site-footer__linklist">
@@ -39,13 +46,16 @@
         {% endfor %}
       {% endif %}
 
-      <div class="footer-item__outer footer-item--newsletter">
+      {% assign number_of_columns = number_of_columns | plus: 1 %}
+      <div class="footer-item__outer footer-item--newsletter footer-item__outer footer-item_{{ number_of_columns }}">
         <div class="footer-item__inner">
           <span class="footer-item_header">Sign up to our newsletter</span>
             <div class="footer-newsletter-form">
 
 
-{% comment %}              <div id="mc_embed_signup">
+{% comment %}
+              <div id="mc_embed_signup footer-item__outer footer-item_{{ number_of_columns }}">
+                {% assign number_of_columns = number_of_columns | plus: 1 %}
                 <form action="https://bitestudios.us15.list-manage.com/subscribe/post?u=48e1cde61b5cd4dcf2ba71442&amp;id=55351d6ec0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                   <div id="mc_embed_signup_scroll">
 
@@ -92,18 +102,16 @@
               {% endform %}
 
 {% comment %}
-<!-- Begin Mailchimp Signup Form -->
-
-<form action="https://bitestudios.us15.list-manage.com/subscribe/post?u=48e1cde61b5cd4dcf2ba71442&amp;id=24b8a1b428" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-
-	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
-    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_48e1cde61b5cd4dcf2ba71442_24b8a1b428" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-    </div>
-</form>
-<!--End mc_embed_signup-->
+            <!-- Begin Mailchimp Signup Form -->
+            <form action="https://bitestudios.us15.list-manage.com/subscribe/post?u=48e1cde61b5cd4dcf2ba71442&amp;id=24b8a1b428" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+              <div id="mc_embed_signup_scroll">
+                <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_48e1cde61b5cd4dcf2ba71442_24b8a1b428" tabindex="-1" value=""></div>
+                <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+              </div>
+            </form>
+            <!--End mc_embed_signup-->
 {% endcomment %}
 
             </div>
@@ -111,7 +119,8 @@
       </div>
 
       {% if footer_social_enable %}
-        <div class="footer-item__outer">
+        {% assign number_of_columns = number_of_columns | plus: 1 %}
+        <div class="footer-item__outer footer-item__outer footer-item_{{ number_of_columns }}">
           <div class="page__footer_inner">
           {% if settings.social_footer_heading != blank %}
               <span class="footer-item_header social_footer_heading">{{ settings.social_footer_heading | escape }}</span>
@@ -119,7 +128,7 @@
             <ul class="site-footer__linklist no-bullets social-icons">
               {% if settings.social_instagram_link != blank %}
                 <li>
-                  <a href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+                  <a href="{{ settings.social_instagram_link | escape }}" target="_blank" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
                     <span class="icon icon-instagram" aria-hidden="true"></span>
                     Instagram
                   </a>
@@ -203,6 +212,14 @@
       {% endif %}
   </div>
 
+  <style>
+    @media screen and (min-width: 769px) {
+      .site-footer .bite-footer {
+        grid-template-columns: repeat({{ number_of_columns }}, auto);
+      }
+    }
+  </style>
+
   {% comment %}
   {%- if section.settings.show_payment_icons -%}
     <div class="footer-payment-icons">
@@ -212,17 +229,32 @@
   {% endcomment %}
 </footer>
 
-<div class="footer-copyright">
-  &copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: '/' }}
-  | {{ shop.address.summary }} |
-{% comment %}
+<div class="subfooter">
+
+  <span class="subfooter__item">
+    &copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: '/' }}
+  </span>
+
+  {% comment %}  
+    {{ shop.address.summary }} |
+  {% endcomment %}
+
+    <a class="subfooter__item" href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a>
+    <a class="subfooter__item" href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a>
+    <span class="subfooter__item"><i class="fa fa-phone"></i> +46 10 222 1000</span>
+
+  {% comment %}
     {% for policy in shop.policies %}
       <a href="{{ policy.url }}">{{ policy.title }}</a> |
     {% endfor %}
-    {% endcomment %}
+  {% endcomment %}
+
+  {% comment %}
     <span class="vat number">
       VAT No: SE559028204101
     </span>
+  {% endcomment %}
+
 </div>
 
 {% if secction.settings.show_currency_picker %}

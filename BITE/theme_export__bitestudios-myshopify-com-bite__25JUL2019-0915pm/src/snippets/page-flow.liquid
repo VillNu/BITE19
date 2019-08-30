@@ -1,0 +1,29 @@
+<!-- /snippets/page-flow.liquid -->
+
+<style>
+  #shopify-section-{{section.id}} .block.text {
+    background: {{section.settings.color}};
+  }
+{% for block in section.blocks %}
+  #block-{{block.id}} {
+    grid-column-end: span {{ block.settings.colspan }};
+    grid-row-end: span {{ block.settings.rowspan }};
+    align-self: {{ block.settings.align }};
+  }
+  @media screen and (min-width: 769px) {
+    #block-{{block.id}} {
+      {% if block.settings.align == 'stretch' %}
+        height: calc((100vw / 4.096 * {{block.settings.rowspan}}) + ({{block.settings.rowspan}} * 10px) - 10px);
+      {% endif %}
+    }
+  }
+{% endfor %}
+</style>
+
+<h1 class="page-flow__title{% if section.settings.show_title %}{% if section.settings.show_on_mobile %} show_on_mobile{% endif %}{% if section.settings.show_on_desktop %} show_on_desktop{% endif %}{% endif %}">{{ page.title }}</h1>
+
+<div class="bite-flow__container page-flow flow-section- {% if section.settings.show_on_mobile %}show_on_mobile{% endif %}{% if section.settings.show_on_desktop %} show_on_desktop{% endif %}{% if section.settings.show_gridlines %} show_gridlines{% endif %}{% if section.settings.show_backgrounds %} show_backgrounds{% endif %}">
+  {% for block in section.blocks %}
+    {% include 'flow-block' %}
+  {% endfor %}
+</div>

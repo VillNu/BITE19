@@ -1,0 +1,111 @@
+<!-- /snippets/collection-collection-flow.liquid -->
+
+{% comment %}
+  This file is included by the Collection Collections snippet.
+{% endcomment %}
+
+<style>
+  .block {
+    background: {{section.settings.color}};
+    grid-column-end: span 2;
+    grid-row-end: span 2;
+    align-self: stretch;
+    height: calc((100vw / 4.096 * 2) + (2 * 10px) - 10px);
+  }
+  .block.text {
+    align-self: auto;
+    height: unset;
+  }
+
+  {% assign minis = section.settings.minis | split: ", " %}
+  {% for mini in minis %}
+    #bite-flow-{{ section.id }} .block.position-{{ mini }} {
+      grid-column-end: span 1;
+      grid-row-end: span 2;
+      height: calc((100vw / 4.096 * 1) + (1 * 10px) - 10px);
+      align-self: {% cycle 'end', 'start' %};
+    }
+  {% endfor %}
+
+
+  {%- for block in section.blocks -%}
+    #block-{{block.id}} {
+      grid-column-end: span {{ block.settings.colspan }};
+      grid-row-end: span {{ block.settings.rowspan }};
+      align-self: {{ block.settings.align }};
+
+      {%- if block.settings.align == 'stretch' -%}
+        height: calc((100vw / 4.096 * {{block.settings.rowspan}}) + ({{block.settings.rowspan}} * 10px) - 10px);
+      {%- endif -%}
+
+      {%- if block.settings.bg_color != blank and section.settings.color != 'rgba(0,0,0,0)' -%}
+         background-color: {{ block.settings.bg_color }};
+      {%- endif -%}
+    }
+
+    @media screen and (min-width: 769px) {
+      #block-{{block.id}} {
+        {%- if block.type == 'flow-hero' -%}
+          margin-left: calc(-100vw/6);
+        {%- endif -%}
+      }
+    }
+  {%- endfor -%}
+
+</style>
+
+<h1 class="collection-collection__title{% if section.settings.show_title %}{% if section.settings.show_on_mobile %} show_on_mobile{% endif %}{% if section.settings.show_on_desktop %} show_on_desktop{% endif %}{% endif %}">{{ collection.title }}</h1>
+
+<div id="bite-flow-{{section.id}}" class="bite-flow__container collection-flow flow-section- {% if section.settings.show_on_mobile %} show_on_mobile{% endif %}{% if section.settings.show_on_desktop %} show_on_desktop{% endif %}{% if section.settings.show_backgrounds %} show_backgrounds{% endif %}">
+
+  {%- comment -%}
+    First, inject Collection content. Setup in section settings.
+
+    Second, inject number of products before first (block.settings.inject_after).
+    construct array of products
+    splitproduct array in two arrays: products_to_show, products_shown
+  {%- endcomment -%}
+
+  {%- assign position = 0 -%}
+
+  {%- for block in section.blocks -%}
+    {%- if block.settings.position == 0 -%}
+      {%- include 'flow-block' -%}
+    {%- endif -%}
+  {%-  endfor -%}
+
+{% comment %}
+  <div id="collection-description" class="block text show_on_desktop show_on_mobile position-{{ position }}">
+    <div class="text">
+      <h1>{{ collection.title }}</h1>
+      <span class="no-uppercase">{{ collection.description }}</span>
+    </div>
+  </div>
+{% endcomment %}
+
+  {%- for product in collection.products -%}
+
+    {%- assign position = position | plus: 1 -%}
+
+    {%- for block in section.blocks -%}
+      {% assign block_position = block.settings.position %}
+      {% assign block_position = block_position | plus: 0 %}
+      {%- if block_position == position -%}
+        {%- include 'flow-block' -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+
+    <div id="product-{{product.id}}" class="block product show_on_desktop show_on_mobile position-{{ position }}">
+        <a href="{{ product.url }}">
+          <img src="{{ product.featured_image | img_url: 'master' }}">
+          <div class="product-caption">
+            <div class="product-title">{{ product.title }}</div>
+            <div class="product-price">{{ product.price | money }}</div>
+          </div>
+        </a>
+    </div>
+
+  {%- endfor -%}
+
+</div>

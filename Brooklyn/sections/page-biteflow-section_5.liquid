@@ -1,0 +1,723 @@
+<!-- ../Brooklyn/sections/page-biteflow-section_5.liquid -->
+{% include 'page-biteflow_part_of_section' %}
+{% schema %}
+{
+  "name": "Page Flow Layout",
+  "class": "page-flow",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Description",
+      "id": "title",
+      "default": "Mobile and Desktop"
+    },
+    {
+      "type": "checkbox",
+      "label": "Show on mobile",
+      "id": "show_on_mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "label": "Show on desktop",
+      "id": "show_on_desktop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "While building..",
+      "info": "Useful while building/arranging flow items. Don't forget to uncheck before saving."
+    },
+    {
+      "type": "checkbox",
+      "label": "Block backgounds",
+      "id": "show_backgrounds",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "label": "Turn on gridlines",
+      "id": "show_gridlines",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "label": "Show page title",
+      "id": "show_title",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "flow-page-details",
+      "name": "Title and/or details",
+      "settings": [
+        {
+          "type": "checkbox",
+          "label": "Title",
+          "id": "flow_page_title",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Details",
+          "id": "flow_page_details",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Centered",
+          "id": "flow_page_details_centered",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Disable UPPERCASE",
+          "id": "flow_page_details_no_uppercase",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Placement"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "link"
+        },
+        {
+          "type": "header",
+          "content": "Placement"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video_url",
+          "label": "Video url",
+          "id": "video",
+          "accept": ["youtube", "vimeo"]
+        },
+        {
+          "type": "text",
+          "label": "Local or hosted Video url",
+          "id": "video_hosted"
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "link"
+        },
+        {
+          "type": "checkbox",
+          "label": "Autoplay",
+          "id": "autoplay"
+        },
+        {
+          "type": "checkbox",
+          "label": "Controls",
+          "id": "controls"
+        },
+        {
+          "type": "checkbox",
+          "label": "Loop",
+          "id": "loop"
+        },
+        {
+          "type": "checkbox",
+          "label": "Muted",
+          "id": "muted"
+        },
+        {
+          "type": "image_picker",
+          "label": "Poster image",
+          "id": "poster"
+        },
+        {
+          "type": "header",
+          "content": "Placement"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "label": "Product",
+          "id": "product"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-hero",
+      "name": "Hero image/video",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "text",
+          "label": "Video url",
+          "id": "video",
+          "info": "Url needs to point to either internal file, youtube, vimeo or other unrestricted location."
+        }
+      ]
+    },
+    {
+      "type": "flow-blockquote",
+      "name": "Blockquote",
+      "settings": [
+        {
+          "type": "textarea",
+          "label": "Text",
+          "id": "text"
+        },
+        {
+          "type": "text",
+          "label": "Author",
+          "id": "author"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "range",
+          "label": "Expand left",
+          "id": "margin_left",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "label": "Expand right",
+          "id": "margin_right",
+          "min": 0,
+          "max": 100,
+          "step": 10,
+          "unit": "%",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Header",
+          "id": "title"
+        },
+        {
+          "type": "textarea",
+          "label": "Text",
+          "id": "text"
+        },
+        {
+          "type": "checkbox",
+          "label": "Disable UPPERCASE",
+          "id": "no_uppercase",
+          "default": true
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "link"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-space",
+      "name": "Empty space",
+      "settings": [
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-contact-form",
+      "name": "Contact Form",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Text",
+          "id": "flow-contact-form-text",
+          "default": "Send us a message"
+        },
+        {
+          "type": "header",
+          "content": "Placement"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 1
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,16 @@
+<!-- /snippets/collection-type.liquid -->
+
+{% comment %}
+
+  This file is the first part of a section-file for collections with template collection.type.liquid.
+  The 2nd part, the schema of the section is attached by a script run outside of Shopify.
+
+  The script create 20 unique sections that can be used for different collections (Jackets, Outerwear).
+  Connect a section (or two for Mobile and Desktop) to a collection in Themes/Customize in Shopify Admin.
+  Go to Theme Settings, click Unique Type Collections.
+
+{% endcomment %}
+
+<div class="wrapper{% if section.settings.show_on_mobile %} show_on_mobile{% endif %}{% if section.settings.show_on_desktop %} show_on_desktop{% endif %}" data-section-id="{{ section.id }}" data-section-type="collection-type-template">
+  {% include 'collection-type-flow' %}
+</div>

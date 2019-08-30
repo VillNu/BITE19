@@ -1,0 +1,31 @@
+<!-- /templates/page.bite-flow.liquid -->
+
+{% case handle %}
+
+  {% when 'contact' %}
+    {% section 'page-flow-contact' %}
+    {% section 'page-flow-contact2' %}
+
+  {% when 'environmental-philosophy' %}
+    {% section 'page-flow-sustainability' %}
+    {% section 'page-flow-sustainability2' %}
+
+  {% when 'collaboration' %}
+    {% section 'page-flow-collaboration' %}
+    {% section 'page-flow-collaboration2' %}
+
+  {% when 'bite-buy-back' %}
+    {% section 'page-flow-bite-buy-back' %}
+    {% section 'page-flow-bite-buy-back2' %}
+
+  {% when 'water-aid-foundation' %}
+    {% section 'page-flow-water-aid-foundation' %}
+    {% section 'page-flow-water-aid-foundation2' %}
+
+  {% else %}
+    <div class="page-flow__message">
+      <h1>You need to create and link<br>Bite-Flow templates for this page </h1>
+      Read the manual.. ;)
+    </div>
+
+{% endcase %}

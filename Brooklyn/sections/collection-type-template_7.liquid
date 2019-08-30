@@ -1,0 +1,659 @@
+<!-- ../Brooklyn/sections/collection-type-template_7.liquid -->
+{% include 'collection-type' %}
+{% schema %}
+{
+  "name": "Type Flow Layout",
+  "class": "type-flow",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Description",
+      "default": "Mobile and Desktop"
+    },
+    {
+      "type": "checkbox",
+      "label": "Show on mobile",
+      "id": "show_on_mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "label": "Show on desktop",
+      "id": "show_on_desktop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "While building.."
+    },
+    {
+      "type": "checkbox",
+      "label": "Show empty blocks",
+      "id": "show_backgrounds",
+      "default": false,
+      "info": "Don't forget to uncheck before saving."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "label": "Show type title",
+      "id": "show_title",
+      "default": true
+    },
+    {
+      "type": "text",
+      "label": "Schrink products",
+      "id": "minis",
+      "default": "2, 5"
+    },
+    {
+      "type": "text",
+      "id": "larger_images",
+      "label": "Enlarge products",
+      "info": "Enter image order number, for example \"5, 10\" and they will become larger",
+      "default": "4, 10"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "flow-page-details",
+      "name": "Collection Title/Details",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Insert before product no..",
+          "id": "position"
+        },
+        {
+          "type": "checkbox",
+          "label": "Title",
+          "id": "details_show_title",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Details",
+          "id": "details_show_details",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Centered",
+          "id": "flow_page_details_centered",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Placement"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Insert before product no..",
+          "id": "position"
+        },
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "link"
+        },
+        {
+          "type": "header",
+          "content": "Placement"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-image-and-text",
+      "name": "Image and/or text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "link"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title"
+        },
+        {
+          "type": "textarea",
+          "label": "Text",
+          "id": "text"
+        },
+        {
+          "type": "header",
+          "content": " Positioning"
+        },
+        {
+          "type": "text",
+          "label": "Insert before product no..",
+          "id": "position"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Insert before product no..",
+          "id": "position"
+        },
+        {
+          "type": "text",
+          "label": "Header",
+          "id": "title"
+        },
+        {
+          "type": "textarea",
+          "label": "Text",
+          "id": "text"
+        },
+        {
+          "type": "checkbox",
+          "label": "Disable UPPERCASE",
+          "id": "no_uppercase",
+          "default": true
+        },
+        {
+          "type": "url",
+          "label": "Link",
+          "id": "link"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Insert before product no..",
+          "id": "position"
+        },
+        {
+          "type": "product",
+          "label": "Product",
+          "id": "product",
+          "info": "Chosen product will only change how the corresponding product in this collection is shown."
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-hero",
+      "name": "Hero Image/video",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Insert before product no..",
+          "id": "position"
+        },
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "text",
+          "label": "Video url",
+          "id": "video",
+          "info": "Url needs to point to either internal file, youtube, vimeo or other unrestricted location."
+        }
+      ]
+    },
+    {
+      "type": "flow-blockquote",
+      "name": "Blockquote",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Insert before product no..",
+          "id": "position"
+        },
+        {
+          "type": "textarea",
+          "label": "Text",
+          "id": "text"
+        },
+        {
+          "type": "text",
+          "label": "Author",
+          "id": "author"
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "flow-space",
+      "name": "Empty space",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Insert before product no..",
+          "id": "position"
+        },
+        {
+          "type": "color",
+          "label": "Background color",
+          "id": "bg_color",
+          "default": "rgba(250,250,250,1)",
+          "info": "Only visible while Collection Flow backgound colors are turned on."
+        },
+        {
+          "type": "range",
+          "label": "Spans columns",
+          "id": "colspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "label": "Spans rows",
+          "id": "rowspan",
+          "min": 1,
+          "max": 5,
+          "default": 2
+        },
+        {
+          "type": "select",
+          "label": "Vertical position",
+          "id": "align",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto"
+            },
+            {
+              "value": "stretch",
+              "label": "Stretch"
+            },
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "stretch"
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Mobile",
+          "id": "show_on_mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "label": "Show on Desktop",
+          "id": "show_on_desktop",
+          "default": true
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

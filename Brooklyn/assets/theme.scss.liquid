@@ -1211,6 +1211,7 @@ blockquote {
 
 .ajaxcart__subtotal {
   @include accentFontStack;
+  font-size: 1.4em;
 }
 
 .ajaxcart__qty-num[type="text"] {
@@ -1346,7 +1347,15 @@ input[type="image"] {
   color: color-control($colorInputBg);
 }
 
+
 /*================ Newsletter area ================*/
+
+/* Newsletter in footer menu */
+.newsletter__submit {
+  color: black;
+  background: white;
+}
+
 .newsletter {
   background-color: $colorNewsletter;
   padding: $gutter 0;
@@ -1447,8 +1456,8 @@ input[type="image"] {
 
   .newsletter__submit {
     padding: 8px 0;
-    color: black;
-    background-color: white;
+    color: white;
+    background-color: black;
     border-bottom: 1px solid black;
     font-size: 1em;
     line-height: 1.5em;
@@ -1462,24 +1471,24 @@ input[type="image"] {
 @include at-query($max, $small) {
   .newsletter__submit-text--large,
   .password-page__login-form__submit-text--large {
-    display: block;
+    display: none;
   }
 
   .newsletter__submit-text--small,
   .password-page__login-form__submit-text--small {
-    display: none;
+    display: block;
   }
 }
 
 @include at-query($min, $postSmall) {
   .newsletter__submit-text--large,
   .password-page__login-form__submit-text--large {
-    display: block;
+    display: none;
   }
 
   .newsletter__submit-text--small,
   .password-page__login-form__submit-text--small {
-    display: none;
+    display: block;
   }
 }
 
@@ -1660,12 +1669,15 @@ input[type="image"] {
   display: flex;
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr); 
   /* grid-template-columns: repeat(5, minmax(min-content, max-content)); */
   align-items: center;
 
   margin: $contentTopMarginMobile $contentRightMarginMobile $contentBottomMarginMobile $contentLeftMarginMobile;
   /* margin: 0; */
+  .template-index & {
+    margin-top: 10px;
+  }
 
   @include at-query($min, $large) {
     grid-template-columns: repeat(5, 1fr);
@@ -1739,7 +1751,8 @@ input[type="image"] {
     &.cols_5 {
       grid-column-end: span 4;
       @include at-query($min, $large) {
-        body.template-page-biteflow & {
+        body.template-page-biteflow &,
+        body.template-collection-collection & {
           grid-column-end: span 5;
         }
       }
@@ -1762,12 +1775,15 @@ input[type="image"] {
 
     &.flow-hero {
       display: block;
-      grid-column: span 5;
-      grid-row: span 2;
       height: 100vh;
       overflow-x: visible;
-      margin: calc((-100vw - 50px) / 60) calc((-100vw - 50px) / 60) 0 -10px;
-      margin-left: calc( -1 * (((100vw - 50px) / 6) + 10px));
+      margin: calc((-100vw - 50px) / 60) -10px 0 -10px;
+      @include at-query($min, $large) {
+        margin: calc((-100vw - 50px) / 60)
+                calc((-100vw - 50px) / 60)
+                0
+                calc( -1 * (((100vw - 50px) / 6) + 10px));
+      }
     }
 
     &.page-details {
@@ -1793,16 +1809,24 @@ input[type="image"] {
 
     &.blockquote {
 /*      justify-self: center; */
+      overflow: visible;
     }
 
     &.text {
-      @include at-query($max, $large) {
+      /* align-self: auto; */
+      /* height: unset; */
+
+      @include at-query($max, $preLarge) {
         overflow-x: visible;
       }
       &.cols_5 {
         @include at-query($max, $preLarge) {
           padding: 0 30px;
         }
+      }
+      & .contact-form {
+        margin-top:10px;
+        margin-bottom: 10px;
       }
     }
 
@@ -2031,7 +2055,7 @@ a {
 
 .drawer-left__inner {
   top: 0;
-  padding-top: 0;
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -2082,7 +2106,7 @@ a {
 
 @include at-query($min, $xlarge) {
   .drawer__close-button {
-    right: -20px;
+    right: -10px;
   }
 }
 
@@ -4203,7 +4227,7 @@ button.mfp-arrow {
   line-height: 1.3;
   position: absolute;
   min-width: 50px;
-  border-radius: 25px;
+/*  border-radius: 25px; */ border-width: 0;
   top: -8px;
   left: -8px;
 
@@ -4220,13 +4244,13 @@ button.mfp-arrow {
 
 .grid-product__sold-out {
   color: $colorTextBody;
-  border: 1px solid $colorTextBody;
-
+  /* border: 1px solid $colorTextBody; */
+  display: none;
 }
 
 .grid-product__on-sale {
   color: $colorSaleTag;
-  border: 1px solid $colorSaleTag;
+  /* border: 1px solid $colorSaleTag; */
 }
 
 /*================ Product Carousel ================*/
@@ -4363,13 +4387,27 @@ button.mfp-arrow {
   table-layout: fixed;
   color: #fff;
   cursor: pointer;
-
-  .collection-grid__item-title {
-    display: table-cell;
-    vertical-align: middle;
-    margin: 0 auto;
-  }
 }
+.collection-grid__item-title {
+/*    display: table-cell;
+  vertical-align: middle;
+  margin: 0 auto; */
+  display: block;
+  position: absolute;
+  width: calc(100% - 10px);
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.collection-grid__item-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 
 .custom-content {
   @include display-flexbox;
@@ -4988,28 +5026,54 @@ button.mfp-arrow {
 
 
 /* Cookie consent texts */
-.eg-cc-banner {
-/*  width: calc(100vw - 10px) !important; */
-  left: 10px !important;
+
+.eg-cc-window {
+  /*  width: calc(100vw - 10px) !important; */
+  left: 5px !important;
   bottom: 10px !important;
   right: unset !important;
   width: unset !important;
-  margin-left: 5px;
+  padding: 8.5px 12px !important;
+  -ms-flex-direction: row-reverse !important;
+  flex-direction: row-reverse !important;
   border: 1px solid #e5e5e5;
 }
+
 .eg-cc-message,
 .eg-cc-btn {
-  font-size: 0.6em !important;
-}
-.eg-cc-btn {
-  white-space: nowrap !important;
-  border-width: 0 !important;
+  font-size: 10px !important;
+  line-height: 15px !important;
 }
 .eg-cc-message {
-  line-height: 1.5em;
+  margin: 0 0 -2px 12px !important;
+  white-space: nowrap;
+}
+
+.eg-cc-compliance {
+  flex: 0 !important;
+  line-height: 0 !important;
+
+  & > .eg-cc-btn {
+    white-space: nowrap !important;
+    border-width: 0 !important;
+    display: flex !important;
+    }
+}
+
+.eg-cc-link {
+  opacity: 1 !important;
+  padding: 0 !important;
+  text-decoration: none !important;
+  transition: text-shadow 100ms ease-out;
+  &:hover {
+    text-shadow: 0.5px 0 0 currentColor;
+  }
 }
 
 /* BOLD Multi-Currency */
+.BOLD-mc-picker-mnt.injected {
+  z-index: 2000;
+}
 .BOLD-mc-picker > .currentCurrency {
   box-shadow: unset !important;
 }
@@ -5017,8 +5081,16 @@ button.mfp-arrow {
   bottom: 10px !important;
 }
 .BOLD-mc-picker-mnt[data-picker-location="bottom-right"] {
-  right: 10px !important;
+  right: 5px !important;
 }
+.BOLD-mc-picker-mnt .flag {
+  display: none;
+  /*  filter: grayscale(100%) brightness(85%) contrast(130%);
+  opacity: 1;
+*/
+}
+
+
 /* Store locator */
 .bootstrap-msesl {
   * {
@@ -5067,4 +5139,16 @@ button.mfp-arrow {
 }
 #powered_by {
   display: none;
+}
+
+
+/* Captcha Challenge */
+
+.shopify-challenge__container {
+  max-width: unset !important;
+  margin: unset !important;
+  padding: 160px 0 !important;
+}
+.grecaptcha-badge {
+  bottom: 50px !important;
 }

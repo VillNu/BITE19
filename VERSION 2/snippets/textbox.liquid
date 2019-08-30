@@ -1,0 +1,46 @@
+<!-- /snippets/textbox.liquid -->
+
+{% assign show_textbox = false %}
+{% if template.name == 'index' and section.settings.show_textbox_homepage %}{% assign show_textbox = true %}{%  endif %}
+{% if template.name == 'collection' and section.settings.show_textbox_collection %}{% assign show_textbox = true %}{%  endif %}
+{% if template.name == 'product' and section.settings.show_textbox_product %}{% assign show_textbox = true %}{%  endif %}
+{% if template.name == 'page' and section.settings.show_textbox_page %}{% assign show_textbox = true %}{%  endif %}
+{% if template.name == nil and section.settings.show_textbox_other %}{% assign show_textbox = true %}{%  endif %}
+{% if cart.attributes.textbox_closed == "true" %}{% assign show_textbox = false %}{% endif %}
+
+{% if show_textbox %}
+  <style>
+    .textbox {
+      background-color: {{ section.settings.textbox_color_bg }};
+    }
+    .textbox__link:hover {
+      {% assign brightness = section.settings.textbox_color_bg | color_brightness %}
+
+      {% if brightness <= 192 %}
+        {% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
+        background-color: {{ section.settings.textbox_color_bg | color_lighten: lightenAmount }};
+      {% else %}
+        {% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}
+        background-color: {{ section.settings.textbox_color_bg | color_darken: darkenAmount }};
+      {% endif %}
+    }
+    .textbox__message {
+      color: {{ section.settings.textbox_color_text }};
+    }
+  </style>
+
+    <div class="textbox__wrapper {% if section.settings.textbox_hide_on_mobile %} textbox--hide-on-mobile{% endif %}">
+      <div class="sameHeightAsAnnouncementBar"></div>
+      <div class="textbox">
+      {% if section.settings.link != blank %}
+        <a href="{{ section.settings.link }}" class="textbox__link">
+      {% endif %}
+          <div class="textbox__header">{{ section.settings.textbox_header | escape }}</div>
+          <div class="textbox__message">{{ section.settings.textbox_text | newline_to_br }}</div>
+      {% if section.settings.link != blank %}
+        </a>
+      {% endif %}
+      </div>
+    </div>
+
+{% endif %}

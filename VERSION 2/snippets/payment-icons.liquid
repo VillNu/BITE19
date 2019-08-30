@@ -1,0 +1,10 @@
+  {%- unless shop.enabled_payment_types == empty -%}
+    <!-- span class="">{{ 'general.payment.method' | t }} </span -->
+    <ul class="inline-list payment-icons">
+      {%- for type in shop.enabled_payment_types -%}
+        <li>
+          {{ type | payment_type_svg_tag: class: 'icon' }}
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endunless -%}

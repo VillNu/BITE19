@@ -15,15 +15,15 @@
 
   <div class="grid" data-section-type="search">
     <div class="grid__item">
-      <header class="section-header text-center">
+      <header class="section-header">
         {% if search.performed %}
           {% if search.results_count == 0 %}
-            <h1 class="text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
+            <h1 class="">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h1>
           {% else %}
-            <h1 class="text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
+            <h1 class="">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h1>
           {% endif %}
         {% else %}
-          <h1 class="text-center">{{ 'general.search.title' | t }}</h1>
+          <h1 class="">{{ 'general.search.title' | t }}</h1>
         {% endif %}
         <hr class="hr--small">
       </header>

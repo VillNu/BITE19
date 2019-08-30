@@ -1,0 +1,12 @@
+{% comment %}
+* This is included by section files
+* sections\page-biteflow-template_x.liquid, where x is from 1 to 20.
+*
+* To connect a section (connect two for mobile and desktop versions)
+* go to Theme Customize in Shopify, Theme Settings, Unique Bite Flow Pages.
+*
+{% endcomment %}
+
+<div data-section-id="{{ section.id }}" data-section-type="page-flow">
+  {% include 'page-flow' %}
+</div>

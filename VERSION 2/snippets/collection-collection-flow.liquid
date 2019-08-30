@@ -1,0 +1,105 @@
+{% if settings.debug_mode %}<!-- /snippets/collection-collection-flow.liquid -->{% endif %}
+
+{% comment %}
+  This file is included by the Collection Collections snippet.
+{% endcomment %}
+
+<style>
+  .block.text {
+    align-self: auto;
+    height: unset;
+  }
+
+  {% assign minis = section.settings.minis | split: ", " %}
+  {% for mini in minis %}
+    #bite-flow-{{ section.id }} .block.position-{{ mini }} {
+      grid-column-end: span 1;
+      grid-row-end: span 1;
+      height: calc((100vw / 4.096 * 1) + (1 * 10px) - 10px);
+      align-self: {% cycle 'end', 'start' %};
+    }
+  {% endfor %}
+
+  {% assign biggis = section.settings.biggis | split: ", " %}
+  {% for mini in minis %}
+    #bite-flow-{{ section.id }} .block.position-{{ mini }} {
+      grid-column-end: span 1;
+      grid-row-end: span 1;
+      height: calc((100vw / 4.096 * 1) + (1 * 10px) - 10px);
+      align-self: {% cycle 'end', 'start' %};
+    }
+  {% endfor %}
+
+  {%- for block in section.blocks -%}
+    #block-{{block.id}} {
+      align-self: {{ block.settings.align }};
+
+      {%- if block.settings.align == 'stretch' -%}
+        height: calc((100vw / 4.096 * {{block.settings.rowspan}}) + ({{block.settings.rowspan}} * 10px) - 10px);
+      {%- endif -%}
+    }
+
+  {%- endfor -%}
+
+</style>
+
+{% if section.settings.show_title %}<h1 class="collection-collection__title{% if section.settings.show_title %}{% if section.settings.show_on_mobile %} show_on_mobile{% endif %}{% if section.settings.show_on_desktop %} show_on_desktop{% endif %}{% endif %}">{{ collection.title }}</h1>{% endif %}
+
+<div id="bite-flow-{{section.id}}" class="bite-flow__container collection-flow flow-section- {% if section.settings.show_backgrounds %} show_backgrounds{% endif %}">
+
+  {%- assign product_position = 0 -%}
+
+  {%- comment -%}
+    First, inject blocks at block position 0 before product position 1.
+  {%- endcomment -%}
+
+  {%- for block in section.blocks -%}
+      {% assign block_position = block.settings.position %}
+      {% assign block_position = block_position | plus: 0 %}
+    {%- if block_position == 0 -%}
+      {%- include 'flow-block' -%}
+    {%- endif -%}
+  {%-  endfor -%}
+
+  {%- comment -%}
+    Second, inject blocks after each product according to block.settings.inject_after.
+  {%- endcomment -%}
+
+  {%- for product in collection.products -%}
+
+    {%- assign product_position = product_position | plus: 1 -%}
+
+    {%- for block in section.blocks -%}
+      {% assign block_position = block.settings.position %}
+      {% assign block_position = block_position | plus: 0 %}
+      {%- if block_position == product_position -%}
+        {%- include 'flow-block' -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+
+    <div id="product-{{product.id}}" class="block product show_on_desktop show_on_mobile position-{{ product_position }}">
+        <a href="{{ product.url }}">
+          <img src="{{ product.featured_image | img_url: 'master' }}">
+          <div class="product-caption">
+            <div class="product-title">{{ product.title }}</div>
+            <div class="product-price">{{ product.price | money }}</div>
+          </div>
+        </a>
+    </div>
+
+  {%- endfor -%}
+
+{%- comment -%}
+    Last, inject blocks at block position after the last product position.
+  {%- endcomment -%}
+
+  {%- for block in section.blocks -%}
+      {% assign block_position = block.settings.position %}
+      {% assign block_position = block_position | plus: 0 %}
+    {%- if block_position > product_position -%}
+      {%- include 'flow-block' -%}
+    {%- endif -%}
+  {%-  endfor -%}
+
+</div>

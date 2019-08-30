@@ -1,0 +1,269 @@
+<footer class="site-footer small--text-center" role="contentinfo">
+  <div class="wrapper bite-footer">
+
+      {% comment %}
+        Determine whether there are social links
+      {% endcomment %}
+      {% assign footer_social_enable = false %}
+      {% if
+        settings.social_twitter_link != blank
+        or settings.social_facebook_link != blank
+        or settings.social_pinterest_link != blank
+        or settings.social_google_plus_link != blank
+        or settings.social_instagram_link != blank
+        or settings.social_tumblr_link != blank
+        or settings.social_youtube_link != blank
+        or settings.social_vimeo_link != blank
+        or settings.social_fancy_link != blank
+        or settings.social_snapchat_link != blank
+      %}
+        {% assign footer_social_enable = true %}
+      {% endif %}
+
+
+      {% assign menu = linklists[section.settings.footer_link_list] %}
+
+      {% if menu.links.size > 0 %}
+        {% for toplevel in menu.links %}
+          <div class="footer-item__outer">
+            <div class="footer-item__inner">
+              <span class="footer-item_header">{{ toplevel.title }}</span>
+              <ul class="no-bullets site-footer__linklist">
+                {% for secondlevel in toplevel.links %}
+                  <li><a href="{{ secondlevel.url }}" {% unless template.name == 'index' %}{% if secondlevel.active %}aria-current="page"{% endif %}{% endunless%}>{{ secondlevel.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class="footer-item__outer">
+        <div class="footer-item__inner">
+          <span class="footer-item_header">Sign up to our newsletter</span>
+            <div class="footer-newsletter-form">
+
+
+{% comment %}              <div id="mc_embed_signup">
+                <form action="https://bitestudios.us15.list-manage.com/subscribe/post?u=48e1cde61b5cd4dcf2ba71442&amp;id=55351d6ec0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                  <div id="mc_embed_signup_scroll">
+
+                  <div class="mc-field-group">
+                  	<input placeholder="Enter your email" type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+                  </div>
+
+                	<div id="mce-responses" class="clear">
+                		<div class="response" id="mce-error-response" style="display:none"></div>
+                		<div class="response" id="mce-success-response" style="display:none"></div>
+                	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                  <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_48e1cde61b5cd4dcf2ba71442_55351d6ec0" tabindex="-1" value=""></div>
+                  <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                 </div>
+               </form>
+              </div>
+{% endcomment %}
+
+              {% form 'customer' %}
+                {{ form.errors | default_errors }}
+                {% if form.posted_successfully? %}
+                  <div class="newsletter--form">
+                    <div class="note form-success">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</div>
+                  </div>
+                {% else %}
+                  <label for="Email" class="newsletter__label hidden-label">{{ 'general.newsletter_form.newsletter_email' | t }}</label>
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+                  <div class="newsletter--form">
+                    <div class="input-group">
+                      <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_placeholder' | t }}" name="contact[email]" id="Email" class="input-group-field newsletter__input" autocorrect="off" autocapitalize="off">
+                      <span class="input-group-btn">
+                        <button id="Subscribe" type="submit"
+                          class="btn newsletter__submit"
+                          aria-label="{{ 'general.newsletter_form.submit' | t }}">
+                          <span class="newsletter__submit-text--large">{{ 'general.newsletter_form.submit' | t }}</span>
+                          <span class="newsletter__submit-text--small">
+                            <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                          </span>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endform %}
+
+{% comment %}
+<!-- Begin Mailchimp Signup Form -->
+
+<form action="https://bitestudios.us15.list-manage.com/subscribe/post?u=48e1cde61b5cd4dcf2ba71442&amp;id=24b8a1b428" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_48e1cde61b5cd4dcf2ba71442_24b8a1b428" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+<!--End mc_embed_signup-->
+{% endcomment %}
+
+            </div>
+        </div>
+      </div>
+
+      {% if footer_social_enable %}
+        <div class="footer-item__outer">
+          <div class="page__footer_inner">
+          {% if settings.social_footer_heading != blank %}
+              <span class="footer-item_header social_footer_heading">{{ settings.social_footer_heading | escape }}</span>
+          {% endif %}
+            <ul class="site-footer__linklist no-bullets social-icons">
+              {% if settings.social_instagram_link != blank %}
+                <li>
+                  <a href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+                    <span class="icon icon-instagram" aria-hidden="true"></span>
+                    Instagram
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_facebook_link != blank %}
+                <li>
+                  <a href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+                    <span class="icon icon-facebook" aria-hidden="true"></span>
+                    Facebook
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_twitter_link != blank %}
+                <li>
+                  <a href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+                    <span class="icon icon-twitter" aria-hidden="true"></span>
+                    Twitter
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_pinterest_link != blank %}
+                <li>
+                  <a href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+                    <span class="icon icon-pinterest" aria-hidden="true"></span>
+                    Pinterest
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_snapchat_link != blank %}
+                <li>
+                  <a href="{{ settings.social_snapchat_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Snapchat' }}">
+                    <span class="icon icon-snapchat" aria-hidden="true"></span>
+                    Snapchat
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_google_plus_link != blank %}
+                <li>
+                  <a href="{{ settings.social_google_plus_link | escape }}" rel="publisher" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Google Plus' }}">
+                    <span class="icon icon-google_plus" aria-hidden="true"></span>
+                    Google Plus
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_tumblr_link != blank %}
+                <li>
+                  <a href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+                    <span class="icon icon-tumblr" aria-hidden="true"></span>
+                    Tumblr
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_youtube_link != blank %}
+                <li>
+                  <a href="{{ settings.social_youtube_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+                    <span class="icon icon-youtube" aria-hidden="true"></span>
+                    YouTube
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_vimeo_link != blank %}
+                <li>
+                  <a href="{{ settings.social_vimeo_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+                    <span class="icon icon-vimeo" aria-hidden="true"></span>
+                    Vimeo
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_fancy_link != blank %}
+                <li>
+                  <a href="{{ settings.social_fancy_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Fancy' }}">
+                    <span class="icon icon-fancy" aria-hidden="true"></span>
+                    Fancy
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      {% endif %}
+  </div>
+
+  {%- if section.settings.show_payment_icons -%}
+    <div class="footer-payment-icons">
+      {% include 'payment-icons' %}
+    </div>
+  {%- endif -%}
+
+</footer>
+
+<div class="footer-copyright">
+  &copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: '/' }}
+  | {{ shop.address.summary }} |
+{% comment %}
+    {% for policy in shop.policies %}
+      <a href="{{ policy.url }}">{{ policy.title }}</a> |
+    {% endfor %}
+    {% endcomment %}
+    <span class="vat number">
+      VAT No: SE559028204101
+    </span>
+</div>
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Fußzeile",
+    "en": "Footer",
+    "es": "Pie de página",
+    "fr": "Pied de page",
+    "it": "Footer",
+    "ja": "フッター",
+    "pt-BR": "Rodapé"
+  },
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "footer_link_list",
+      "label": {
+        "de": "Fußzeilenmenü",
+        "en": "Footer menu",
+        "es": "Menú inferior",
+        "fr": "Menu pied de page",
+        "it": "Menu footer",
+        "ja": "フッターメニュー",
+        "pt-BR": "Menu do rodapé"
+      },
+      "default": "footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": {
+        "de": "Zahlungssymbole anzeigen",
+        "en": "Show payment icons",
+        "es": "Mostrar iconos de pago",
+        "fr": "Afficher les icônes de paiement",
+        "it": "Mostra le icone di pagamento",
+        "ja": "支払いアイコンを表示する",
+        "pt-BR": "Exibir ícones de pagamento"
+      },
+      "default": true
+    }
+  ]
+}
+{% endschema %}

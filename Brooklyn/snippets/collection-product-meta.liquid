@@ -1,0 +1,114 @@
+<div class="collection-product__meta">
+
+  <div class="product-meta--column">
+    {% assign on_sale = false %}
+    {% if product.compare_at_price > product.price %}
+      {% assign on_sale = true %}
+    {% endif %}
+
+    {% assign sold_out = true %}
+    {% if product.available %}
+      {% assign sold_out = false %}
+    {% endif %}
+
+    <div class="product__title">{{ product.title }}</div>
+    <span class="product__price-wrap">
+      <span class="product__price">
+        {% if on_sale %}
+          <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+        {% else %}
+           <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+        {% endif %}
+        {% if product.price_varies %}
+          {{ product.price_min | money_without_trailing_zeros }}
+          <span class="icon-fallback-text">
+            <span class="icon icon-plus product__price-min" aria-hidden="true"></span>
+            <span class="fallback-text">+</span>
+          </span>
+        {% else %}
+          {{ product.price | money_without_trailing_zeros }}
+        {% endif %}
+      </span>
+    </span>
+    {% if section.settings.product_vendor_enable %}
+      <p class="product__vendor">{{ product.vendor }}</p>
+    {% endif %}
+
+    {% if sold_out %}
+      <div class="product__sold-out">
+        <p>{{ 'products.product.sold_out' | t }}</p>
+      </div>
+    {% elsif on_sale %}
+      <div class="product__on-sale">
+        {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | money_without_trailing_zeros }} {% endcapture %}
+        <p>Save {{ saved_amount }}</p>
+      </div>
+    {% endif %}
+
+
+    {% capture "form_classes" %}
+      product-single__form{% if product.has_only_default_variant %} product-single__form--no-variants{% endif %}
+    {%- endcapture %}
+
+    {% capture "form_id" %}AddToCartForm--{{ product.id }}{%- endcapture %}
+  </div>
+
+</a>
+  <div class="product-meta--column">
+    {% form 'product', product, class:form_classes, id:form_id %}
+      {% unless product.has_only_default_variant %}
+        {% for option in product.options_with_values %}
+          {% if option.values.size > 1 %}
+            <div class="radio-wrapper js product-form__item">
+              <label class="product-description--label single-option-radio__label{% if option.name == 'Default' or option.name == 'Title' %} hidden-label{% endif %}"
+                for="Product{{product.id}}Select-option-{{ forloop.index0 }}">
+                Quick add {{ option.name | escape }}
+              </label>
+              <fieldset class="single-option-radio"
+                name="{{ option.name | handleize }}"
+                id="Product{{product.id}}Select-option-{{ forloop.index0 }}">
+                {% assign option_index = forloop.index %}
+                {% for value in option.values %}
+                  {% assign variant_label_state = true %}
+                  {% if product.options.size == 1 %}
+                    {% unless product.variants[forloop.index0].available  %}
+                      {% assign variant_label_state = false %}
+                    {% endunless %}
+                  {% endif %}
+                  <input type="radio"
+                    {% if option.selected_value == value %} checked="checked"{% endif %}
+                    {% unless variant_label_state %} disabled="disabled"{% endunless %}
+                    value="{{ value | escape }}"
+                    data-index="option{{ option_index }}"
+                    name="{{ option.name | handleize }}"
+                    class="single-option-selector__radio{% unless variant_label_state %} disabled{% endunless %}"
+                    id="Product{{product.id}}Select-option-{{ option.name | handleize }}-{{ value | escape }}">
+                  <label for="Product{{product.id}}Select-option-{{ option.name | handleize }}-{{ value | escape }}"{% unless variant_label_state %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+                {% endfor %}
+              </fieldset>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endunless %}
+
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+      <input type="submit" value="Quick add {{ product.options[0] | escape }}" class="btn_" />
+      <input type="hidden" name="return_to" value="back" />
+
+      <div class="product-single__add-to-cart">
+        <button data-test="hello" type="submit" name="add" id="AddToCart--{{ product.id }}" class="btn btn--add-to-cart"{% unless current_variant.available %} disabled="disabled"{% endunless %}>
+          <span class="btn__text">
+            {% if current_variant.available %}
+              {{ 'products.product.add_to_cart' | t }}
+            {% else %}
+              {{ 'products.product.sold_out' | t }}
+            {% endif %}
+          </span>
+        </button>
+      </div>
+
+
+    {% endform %}
+  </div>
+
+</div>

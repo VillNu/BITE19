@@ -1,0 +1,15 @@
+{% comment %}
+* This is the 1st part of section files for pages with the template page-biteflow.
+* you only have to update /settings_schema_page_biteflow.json,
+* then run the script, and it creates numerous unique section files for Page Bite Flow pages (Bite Buy Back, Sustainability etc).
+* The resulting section files are: sections\page-biteflow-template_x.liquid, where x is from 1 to 20.
+*
+* To connect a section (connect two for mobile and desktop versions)
+* go to Theme Customize in Shopify, Theme Settings, Unique Bite Flow Pages.
+*
+* Windows command script syntax: https://ss64.com/nt/syntax-esc.html
+{% endcomment %}
+
+<div data-section-id="{{ section.id }}" data-section-type="page-flow">
+  {% include 'page-flow' %}
+</div>

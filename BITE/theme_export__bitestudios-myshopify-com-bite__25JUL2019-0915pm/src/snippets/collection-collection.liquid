@@ -1,0 +1,19 @@
+<!-- /snippets/collection-collection.liquid -->
+
+{% comment %}
+
+  This section is chosen by the Collection Collection template.
+
+  This is the first part of a section-file included by /templates/collection.collection.liquid
+  The 2nd part, "schema-part" of the section is attached by a script run outside of Shopify.
+
+  The two parts are made in 20 copies of unique sections for collections thta use the collection.collection template.
+  To include a section to at collection page, open Online Store/Themes/Customize in Shopify Admin.
+  Switch to tab Theme Settings and click Unique Collection Collections.
+  Choose to associate a collection twice to have separate versions for mobile and desktop.
+
+{% endcomment %}
+
+<div data-section-id="{{ section.id }}" data-section-type="collection-flow">
+  {% include 'collection-collection-flow' %}
+</div>

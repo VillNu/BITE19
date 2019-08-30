@@ -2569,7 +2569,13 @@ theme.Product = (function() {
         Calculate when to detach fixed element to avoid content overlap.
         Subtract product copy height from the limit because plugin uses offset().top
       ==============================================================================*/
-      var calcLimit = $wrapper.offset().top + $wrapper.height();
+      //var calcLimit = $wrapper.offset().top + $wrapper.height();
+      var metaOutOfWindow = $meta.height() - $(window).height();
+      if (metaOutOfWindow < 0) { metaOutOfWindow = 0; }
+      var calcLimit = $wrapper.offset().top + $wrapper.height() + metaOutOfWindow;
+      var calcLimit = ($(document).height() - $('.site-footer').outerHeight());
+
+      var calcLimit = $wrapper.offset().top + $wrapper.height()
       calcLimit -= productCopyHeight;
 
       // Init sticky if desc shorter than images and fits in viewport
@@ -2579,8 +2585,11 @@ theme.Product = (function() {
       ) {
         theme.variables.productPageSticky = true;
         $meta.scrollToFixed({
+          spacerClass: "spacerClass",
           limit: calcLimit,
-          marginTop: (($(window).width() - 50) / 60)
+          // bottom: $(window).height() - ($(window).height() - metaOutOfWindow)
+          // marginTop: (($(window).width() - 50) / 60),
+          // marginTop: ($('.product-single__meta .sameHeightAsAnnouncementBar').height())
         });
       } else {
         theme.variables.productPageSticky = false;
@@ -3558,20 +3567,54 @@ $(document).ready(function() {
   //if ($(".hero").length) { $(".header-wrapper").addClass("hero__header"); }
   updateBite();
   initAnnouncementBar();
-  /* Smooth scroll script in layout/theme-liquid */
+  /* instead of here, there is a Smooth scroll script in layout/theme-liquid */
   //makeLinksSelectable();
-  initSlickPlayPause();
+  initSlickPlayPause(); // There's a slider on both the Startpage and the Mobile product page
   if ($('body').hasClass('template-product')) {
     separateProductDescription();
+    initProductPageAccordionListeners();
     initZoom();
   }
+  resizeOnOrientationChange();
+  // putYourFooterDown();
+  // removeCurrencyCodes();
+  // makeCookieLinkOpenInSameTab()
   $(window).trigger('resize');
-  //putYourFooterDown();
-
 });
 
 
 /*  BESPOKE BITE  -  On-document-ready Functions  */
+
+function resizeOnOrientationChange() {
+  // Listen for orientation changes
+window.addEventListener("orientationchange", function() {
+  location.reload();
+  // alert(screen.orientation); 	// Announce the new orientation number
+}, false);
+}
+
+function makeCookieLinkOpenInSameTab() {
+
+  var cookieLnk = document.querySelector('.eg-cc-link');
+  var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+          console.log(mutation.type);
+      });
+  });
+  observer.observe(cookieLnk, {attributes: true, childList: true, characterData: true });
+ 
+  // observer.disconnect();
+}
+
+function removeCurrencyCodes() {
+  if (BOLDCURRENCY) {
+    $.each(BOLDCURRENCY.rateInfo, function(key, value){
+      console.log(key);
+      BOLDCURRENCY.converter.setCurrentCurrency(key);
+      $("[data-" + key + "]").attr("data-" + key, $("[data-" + key + "]").attr("data-" + key).replace(' ' + key, ''));
+    });    
+  }
+}
 
 
 function initZoom() {
@@ -3699,19 +3742,47 @@ function closeAnnouncement() {  /* not working */
   $(".announcement-bar").removeClass("announcement-bar--show");
 }
 
-// Accordion items event listener
-$(".accordion-item__title").each(function(){
-  var content = $(this).next(".accordion-item__content");
-  var contentHeight = content.find(".height-wrapper").outerHeight();
-  var accordionItemHeight = contentHeight + $(this).outerHeight(true);
-  var fontSize = $(this).css("font-size");
-  $(this).on("click",function(){
-    $(this).closest(".accordion").find(".accordion__item").not($(this).parent()).removeClass("open");
-    $(this).parent().toggleClass("open");
-  });
-});
+function initProductPageAccordionListeners() {
+  // Adding accordion items event listeners
+  $(".accordion-item__title").each(function(){
+    // var $content = $(this).next(".accordion-item__content");
+    // var contentHeight = $content.find(".height-wrapper").outerHeight();
+    // var accordionItemHeight = contentHeight + $(this).outerHeight(true);
+    // var fontSize = $(this).css("font-size");
 
-function makeLinksSelectable () {
+    $(this).on("click",function(){
+      // Close all other items
+      $(this).closest(".accordion").find(".accordion__item").not($(this).parent()).removeClass("open");
+      $(this).closest(".accordion").find(".accordion__item").not($(this).parent()).find(".accordion-item__content").css("height",0);
+
+      // Open or close this item
+      $(this).parent().toggleClass("open");
+      console.log($(this).parent().attr('class'));
+      if ($(this).parent().hasClass("open")) {
+        console.log("opening " + this.innerHTML);
+        $(this).next(".accordion-item__content").css("height", ($(this).next(".accordion-item__content").find(".height-wrapper").outerHeight() + 10) + "px");
+      } else {
+        console.log("closing " + this.innerHTML);
+        $(this).next(".accordion-item__content").css("height", 0);
+      }
+
+      // Avoid crashing with bottom menu
+      setTimeout(function() {
+        // $(window).resize();
+        $(window).trigger('resize'); 
+      }, 600);
+    });
+
+  });
+
+  // Open details
+  setTimeout(function() {
+    $("#details").children(".accordion-item__title").click();
+  }, 600);
+
+}
+
+function makeLinksSelectable() {
   var posX = -1, posY = -1;
 
   $('a.').each(function() {
@@ -3795,10 +3866,12 @@ function updateBite() {
   hideAnnouncementBarWhenScrolled();
   raiseMenufromFooter();
 
+  {% comment %}
   if ($('body').hasClass("template-index")) {
-    // hideMenuLogoFromSlideLogos();
-    hideMenuLogoFromFixedLogo();
-  }
+    // hideMenuLogoFromSlideLogos(); // broken function
+    // hideMenuLogoFromFixedLogo();
+  }  {% endcomment %}
+  
   if ($('.hero').length) {
     contrastHeaderLinksWhenNotOverHero();
     contrastLeftNavItems();
@@ -3812,6 +3885,13 @@ function updateBite() {
 
   if ($('.textbox').length) {
       fadeTextBoxIfUnderMenu();
+  }
+
+  if (($('.mobile-nav').outerHeight() + 10 ) > $(window).height()) {
+    $('.drawer-left__inner').css('bottom', 'unset');
+  }
+  else  {
+    $('.drawer-left__inner').removeAttr( 'style' );
   }
 }
 
@@ -3844,12 +3924,16 @@ function raiseMenufromFooter() {
   var spaceBelowMenu = (viewportHeight - leftMenuHeight) / 2;   //console.log("spaceBelowMenu: " + spaceBelowMenu);
 
   if (spaceBelowMenu < footerInView && theme.variables.bpLarge ) {
-    $(".drawer--left").css("position", "absolute");
-    $(".drawer--left").css("height", documentHeight - footerHeight + "px");
-    $(".flex-helper__below-menu").css("flex", "0");
+    $(".drawer--left").css({
+      "position": "absolute",
+      "height": documentHeight - footerHeight + "px",
+      "top": "0"
+    });
+    // $(".drawer--left").css("height", documentHeight - footerHeight + "px");
+    $(".flex-helper--below-menu").css("flex-grow", "0");
   } else {
     $(".drawer--left").removeAttr("style");
-    $(".flex-helper__below-menu").removeAttr("style");
+    $(".flex-helper--below-menu").removeAttr("style");
   }
 }
 
